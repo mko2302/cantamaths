@@ -23,13 +23,13 @@
     $hash_password = $user_aa['password'];
     if (password_verify($password, $hash_password)) {
       // if matches its starts a session
-      if ($level == 0) {
+      if ($level == 2) {
         $_SESSION['admin'] = $username;
         header("Location: index.php?page=adminpanel");
       } elseif ($level == 1) {
         $_SESSION['active'] = $username;
 
-      } elseif ($level == 2) {
+      } elseif ($level == 0) {
         $_SESSION['inactive'] = $username;
 
       } else {
