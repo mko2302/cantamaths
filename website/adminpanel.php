@@ -6,11 +6,27 @@ session_start();
 if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
 }
-
-echo "<h2>Admin panel</h2>";
-
-echo "<a href='index.php?page=addquestion'>Add Question</a>";
-
-echo "<a class='nav-link' href='logout.php'>Log Out</a>"
-
  ?>
+
+<h2>Admin Panel</h2>
+
+<div class="container">
+    <nav class="col-3">
+      <p class="display-4">Dashboard</p>
+      <a class="nav-link" href="">Home</a>
+      <a class="nav-link" href="">Add Questions</a>
+      <a class="nav-link" href="">Question Database</a>
+      <a class="nav-link" href="users.php"=>Users</a>
+      <a class="nav-link" href="logout.php">Log Out</a>
+    </nav>
+
+    <div class="col-9">
+      <p>Home Page</p>
+
+      <?php
+        
+      ?>
+
+    </div>
+
+</div>
