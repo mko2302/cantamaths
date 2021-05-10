@@ -18,25 +18,24 @@
 
     // sends query
     $user_aa = mysqli_fetch_assoc($user_qry);
-    $level = $user_aa['level']
+    $access = $user_aa['access'];
 
     $hash_password = $user_aa['password'];
     if (password_verify($password, $hash_password)) {
       // if matches its starts a session
-      if ($level == 2) {
+      if ($access == 2) {
         $_SESSION['admin'] = $username;
         header("Location: index.php?page=adminpanel");
-      } elseif ($level == 1) {
-        $_SESSION['active'] = $username;
-
-      } elseif ($level == 0) {
-        $_SESSION['inactive'] = $username;
+      } elseif ($access == 1 Or 0) {
+        $_SESSION['user'] = $username;
+        header("Location: index.php?page=profile");
 
       } else {
-        header("Location:index.php?page=login&error=fail");
+        header("Location:index.php?page=profile");
       };
 
     $username = $user_aa['username'];
     $userID = $user_aa['userID'];
   }
+}
  ?>
