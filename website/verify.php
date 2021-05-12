@@ -10,17 +10,17 @@
   $user_sql = "SELECT * FROM user WHERE username = '$username'";
   $user_qry = mysqli_query($dbconnect, $user_sql);
 
-
   // error catching
   if(mysqli_num_rows($user_qry)==0) {
-    header("Location:index.php?page=login&error=fail");
+    header("Location:index.php?page=login&error=error");
   } else {
-
     // sends query
     $user_aa = mysqli_fetch_assoc($user_qry);
     $access = $user_aa['access'];
 
+    $access = $user_aa['access'];
     $hash_password = $user_aa['password'];
+
     if (password_verify($password, $hash_password)) {
       // if matches its starts a session
       if ($access == 2) {
@@ -34,8 +34,10 @@
         header("Location:index.php?page=profile");
       };
 
-    $username = $user_aa['username'];
-    $userID = $user_aa['userID'];
-  }
-}
+      $username = $user_aa['username'];
+      $userID = $user_aa['userID'];
+    } else {
+      header("Location:index.php?page=login&error=fail");
+    }
+    };
  ?>
