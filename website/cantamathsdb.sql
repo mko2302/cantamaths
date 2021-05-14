@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 03:37 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: May 14, 2021 at 04:53 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,38 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `level`
---
-
-CREATE TABLE `level` (
-  `levelID` int(2) NOT NULL,
-  `yearlevel` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `level`
---
-
-INSERT INTO `level` (`levelID`, `yearlevel`) VALUES
-(1, 6),
-(2, 7),
-(3, 8),
-(4, 9),
-(5, 10);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `question`
 --
 
 CREATE TABLE `question` (
   `questionID` int(10) NOT NULL,
-  `text` varchar(1500) NOT NULL,
+  `filename` varchar(1500) NOT NULL,
   `answer` varchar(200) NOT NULL,
-  `levelID` int(11) NOT NULL,
-  `yearID` int(11) NOT NULL
+  `level` int(11) NOT NULL,
+  `year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `question`
+--
+
+INSERT INTO `question` (`questionID`, `filename`, `answer`, `level`, `year`) VALUES
+(1, 'q2012.10.1.jpg', 'a2012.10.1.jpg', 10, 2012),
+(2, 'q2012.10.2.jpg', 'a2012.10.2.jpg', 8, 2015),
+(3, 'q2012.10.3.jpg', 'a2012.10.3.jpg', 10, 2012),
+(4, 'q2012.10.4.jpg', 'a2012.10.4.jpg', 9, 2009),
+(5, 'q2012.10.5.jpg', 'a2012.10.5.jpg', 7, 2010);
 
 -- --------------------------------------------------------
 
@@ -106,26 +94,9 @@ INSERT INTO `user` (`userID`, `username`, `password`, `email`, `firstname`, `las
 (2, 'active', '$2y$10$qrK.Nkt/RONXFKkjoQaFBuMKyxoSPJxs8/hN3xiNv7l3JxSae6k6.', '', 'Active', 'User', 1),
 (3, 'inactive', '$2y$10$1Z3kOFY0yYYbnltusRpMxeOy6qfH6.YF4BsMBkyf/.qTQ4or2llUe', '', 'Inactive', 'User', 0);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `year`
---
-
-CREATE TABLE `year` (
-  `yearID` int(11) NOT NULL,
-  `compyear` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `level`
---
-ALTER TABLE `level`
-  ADD PRIMARY KEY (`levelID`);
 
 --
 -- Indexes for table `question`
@@ -152,26 +123,14 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`);
 
 --
--- Indexes for table `year`
---
-ALTER TABLE `year`
-  ADD PRIMARY KEY (`yearID`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `level`
---
-ALTER TABLE `level`
-  MODIFY `levelID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `questionID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `questiontag`
@@ -190,12 +149,6 @@ ALTER TABLE `tag`
 --
 ALTER TABLE `user`
   MODIFY `userID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `year`
---
-ALTER TABLE `year`
-  MODIFY `yearID` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
