@@ -24,6 +24,7 @@
     if (password_verify($password, $hash_password)) {
       // if matches its starts a session
       if ($access == 2) {
+        $_SESSION['user'] = $username;
         $_SESSION['admin'] = $username;
         header("Location: index.php?page=adminpanel");
       } elseif ($access == 1 Or 0) {
