@@ -1,1 +1,3 @@
-<h1>Home Page</h1>
+<?php
+$yay = "home";
+echo $yay,'hi'; ?>
