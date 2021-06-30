@@ -61,8 +61,6 @@ echo "<div class='row'>";
     $levelname = $question_aa['levelname'];
     $filename = $question_aa['filename'];
     $QquestionID = $question_aa['questionID'];
-    $Question = [];
-    $Question[0] = $qnumber;
 
     $_SESSION["Tags'".$QquestionID."'"] = [];
 
@@ -70,15 +68,18 @@ echo "<div class='row'>";
     $questionID_qry = mysqli_query($dbconnect, $questionID_sql);
     $questionID_aa = mysqli_fetch_assoc($questionID_qry);
 
-    do {
-      $tagname = $questionID_aa['tagname'];
-      array_push($_SESSION["Tags'".$QquestionID."'"],$tagname);
-    } while ($questionID_aa = mysqli_fetch_assoc($questionID_qry)); ?>
+    if (!$questionID_aa) {
+    } else {
+      do {
+        $tagname = $questionID_aa['tagname'];
+        array_push($_SESSION["Tags'".$QquestionID."'"],$tagname);
+      } while ($questionID_aa = mysqli_fetch_assoc($questionID_qry));
+    }?>
 
 
     <div class='border col-6'>
-      <input type="checkbox" style='display:none;' id="Qclick $QquestionID" onclick="send_selected(<?php echo "'$Question'"; ?>)">
-      <label for='Qclick $QquestionID'>
+      <input type="checkbox" style='display:none;' id="Qclick <?php echo "$QquestionID"; ?>" onclick="send_selected(<?php echo "'$QquestionID'"; ?>)">
+      <label for='Qclick <?php echo "$QquestionID"; ?>'>
       <div class='row'>
 <?php # Gets the filename of the image for the question
         echo "<div class='col-4 text-center'>";
