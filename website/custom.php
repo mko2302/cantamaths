@@ -1,24 +1,4 @@
-<?php session_start();
-
-# Checks if filters are set and if so clears the sessions they are in
-# Level filters
-if(isset($_SESSION['levelID'])) {
-  unset($_SESSION['levelID']);
-}
-
-# Year filters
-if(isset($_SESSION['yearID'])) {
-  unset($_SESSION['yearID']);
-}
-
-# Tag filters
-if(isset($_SESSION['tagID'])) {
-   unset($_SESSION['tagID']);
-}
-
-if(isset($_SESSION['Q_ID'])) {
-   unset($_SESSION['Q_ID']);
-} ?>
+<?php session_start(); ?>
 
 
 <div class="container-fluid row">

@@ -1,3 +1,7 @@
+<button type="button" class="btn" onclick="send_filters('beans', 'clear')" id="Clear_Filters">Clear All Filters</button>
+<br>
+
+
 <!-- Runs loop throught the filter and on each loop gets information about a different filter -->
 <?php $a = 0;
 do {
@@ -22,20 +26,21 @@ do {
   $filter_aa = mysqli_fetch_assoc($filter_qry);
 
 
-   echo $filter; ?>
+  echo $filter; ?>
 
 <!-- Displays checkbox for selection all filters -->
-  <div class="form-check">
-<!-- LoadDoc information is sent through to the ajax Javascript for filtering --> <!-- $nameID in id is to differentiate from other filters -->
-    <input checked class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo "'all'"; ?>)" id="all<?php echo "$nameID"; ?>">
-    <label class="form-check-label">
-      <?php echo "All"; ?>
-    </label>
+  <div class="All_Checkbox">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo "'all'"; ?>)" id="<?php echo "$nameID"; ?>_All">
+      <label class="form-check-label">
+        <?php echo "All"; ?>
+      </label>
+    </div>
   </div>
-
 
 <!-- Loops through until all information from table is selected -->
   <?php do {
+
 
 # Gets the name of the a row from the filter table e.g. 2012 or if it was the level table e.g. year 10
     $name = $filter_aa[$filtername];
@@ -43,46 +48,33 @@ do {
 
 
 <!-- the information is then put into a checkbox in same format as above -->
-    <div class="form-check" id="test">
-      <input class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo $filterID; ?>)" id="specific<?php echo "$nameID"; ?>">
-      <label class="form-check-label">
-        <?php echo "$name"; ?>
-      </label>
+    <div class="Specific_Checkbox">
+      <div class="<?php echo "$nameID"; ?>_Specific_Checkbox">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo $filterID; ?>)" id="<?php echo "$nameID"."_"."$filterID"; ?>">
+          <label class="form-check-label">
+            <?php echo "$name"; ?>
+          </label>
+        </div>
+      </div>
     </div>
 <!-- loops until no more information to be gathered from the table -->
   <?php } while ($filter_aa = mysqli_fetch_assoc($filter_qry)); ?>
 
 
-<!-- This Javascript is used to insure the checked status of all checkbox are working with the filters -->
   <script>
   $(document).ready(function(){
-/* The $nameID is used so that by selecting the all checkbox in level for example, it only unchecks the specific filters in level and not all specific filters because the it is all in the same loop */
-/* If all is checked uncheck all specific */
-    $('input[id="all<?php echo "$nameID"; ?>"]').click(function(){
-      if($(this).prop("checked") == true){
-        $('input[id="specific<?php echo "$nameID"; ?>"]').prop("checked", false);
-      }
+    $("#<?php echo "$nameID"; ?>_All").click(function(){
+      $("#<?php echo "$nameID"; ?>_All").prop("checked", true);
+      $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox").prop("checked", false);
     });
-/* If a specfic is checked uncheck all */
-    $('input[id="specific<?php echo "$nameID"; ?>"]').click(function(){
-      if($(this).prop("checked") == true){
-        $('input[id="all<?php echo "$nameID"; ?>"]').prop("checked", false);
-      }
-    });
-/* If all specfics are being unchecked check all */
-    $('input[id="specific<?php echo "$nameID"; ?>"]').click(function(){
-      if($(this).prop("checked") == false){
-/* Check for all specifics */
-        var checked = $("#test input[type=checkbox]:checked").length;
-        if (checked == 0) {
-          $('input[id="all<?php echo "$nameID"; ?>"]').prop("checked", true);
-        }
-      }
-    });
-/* Can't uncheck all if it is the only thing checked */
-    $('input[id="all<?php echo "$nameID"; ?>"]').click(function(){
-      if($(this).prop("checked") == false){
-        $('input[id="all<?php echo "$nameID"; ?>"]').prop("checked", true);
+
+    $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox").click(function(){
+      var checked = $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox:checked").length;
+      if (checked == 0) {
+        $("#<?php echo "$nameID"; ?>_All").prop("checked", true);
+      } else {
+        $("#<?php echo "$nameID"; ?>_All").prop("checked", false);
       }
     });
   });
@@ -93,3 +85,12 @@ do {
   <?php $a += 1;
 # Loop will continue until $a <= 1 or when all filters have been looped
 } while ($a <= 2); ?>
+
+<script>
+$(document).ready(function(){
+  $("#Clear_Filters").click(function() {
+    $(".All_Checkbox :checkbox").prop("checked", true);
+    $(".Specific_Checkbox :checkbox").prop("checked", false);
+  });
+});
+</script>

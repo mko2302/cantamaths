@@ -1,12 +1,21 @@
-<?php $dbconnect = mysqli_connect("localhost", "root", "", "cantamathdb");
+<?php session_start();
+$dbconnect = mysqli_connect("localhost", "root", "", "cantamathdb");
 
 $array = 'Q_ID';
 $id = $_GET['questionID'];
 
-include('session.php');
+
+if( $id == 'clear' ) {
+  if(isset($_SESSION['Q_ID'])) {
+     unset($_SESSION['Q_ID']);
+  }
+} else {
+  include('session.php');
+}
 
 
 if (isset($_SESSION['Q_ID'])) {
+  echo "<button class=btn onclick=send_selected('clear')>Unselect All</button>";
   $Q_ID = implode("','",$_SESSION['Q_ID']);
   $Q_ID_SQL = "IN ('".$Q_ID."')";
 

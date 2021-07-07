@@ -11,7 +11,7 @@
 if (isset($_SESSION['levelID'])) {
   $level = implode("','",$_SESSION['levelID']);
   $levelsql = "IN ('".$level."')";
-} else {
+} else { 
   $levelsql = "";
 }
 

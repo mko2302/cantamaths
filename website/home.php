@@ -1,3 +1,1 @@
-<?php
-$yay = "home";
-echo $yay,'hi'; ?>
+<?php echo "Hello World!"; ?>

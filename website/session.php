@@ -1,10 +1,5 @@
-<?php session_start();
-
-
+<?php 
 # If the checkbox selected was all then it unsets the session of the filter that it is assigned to
-if ($id == 'all') {
-  unset($_SESSION[$array]);
-} else {
 # If the checkbox selected was not all, then check if there the filter is set (any active filters)
   if (isset($_SESSION[$array])) {
 # If there are active filters, check if the the id of the checkbox is already in the filter array
@@ -25,5 +20,4 @@ if ($id == 'all') {
 # If a filter is empty then unset the array
   if (empty($_SESSION[$array])) {
     unset($_SESSION[$array]);
-  }
-} ?>
+  } ?>
