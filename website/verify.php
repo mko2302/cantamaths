@@ -7,7 +7,7 @@
   $username = $_POST['username'];
   $password = $_POST['password'];
 
-  $user_sql = "SELECT * FROM user WHERE username = '$username'";
+  $user_sql = "SELECT * FROM user JOIN access ON user.accessID = access.accessID WHERE username = '$username'";
   $user_qry = mysqli_query($dbconnect, $user_sql);
 
   // error catching
@@ -16,18 +16,16 @@
   } else {
     // sends query
     $user_aa = mysqli_fetch_assoc($user_qry);
-    $access = $user_aa['access'];
-
-    $access = $user_aa['access'];
+    $access = $user_aa['accessID'];
     $hash_password = $user_aa['password'];
 
     if (password_verify($password, $hash_password)) {
       // if matches its starts a session
-      if ($access == 2) {
+      if ($access == 1) {
         $_SESSION['user'] = $username;
         $_SESSION['admin'] = $username;
         header("Location: index.php?page=adminpanel");
-      } elseif ($access == 1 Or 0) {
+      } elseif ($access == 2 Or 3) {
         $_SESSION['user'] = $username;
         header("Location: index.php?page=profile");
 
