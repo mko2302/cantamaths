@@ -4,7 +4,7 @@ if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
 } else {
 
-//status
+// check status to see if there was an error
 if(!isset($_GET['status'])) {
   echo "";
 } else {
@@ -14,9 +14,14 @@ if(!isset($_GET['status'])) {
             File uploaded is not an image!
          </div>";
   }
-  if ($status == "duplicate") {
+  if ($status == "duplicateq") {
      echo "<div class='alert alert-danger' role='alert'>
-              IMAGE or  QUESTION with question number, publication year and year level already exists!
+              QUESTION with question number, publication year and year level already exists!
+          </div>";
+  }
+  if ($status == "duplicateimage") {
+     echo "<div class='alert alert-danger' role='alert'>
+              IMAGE already exists!
           </div>";
   }
   if ($status == "error") {
@@ -31,11 +36,12 @@ if(!isset($_GET['status'])) {
   }
       }
   ?>
+  <!-- form for entering question -->
   <form action="index.php?page=adminpanel&tab=enterquestion" method="post" enctype="multipart/form-data">
       <div class="row">
         <div class="form-group col-lg-6">
           <label class="form-label" for="fileToUpload">Upload Question Image</label> <br>
-          <input class="" type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)" multiple>
+          <input class="" type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)">
         </div>
       </div>
 
@@ -43,7 +49,7 @@ if(!isset($_GET['status'])) {
         <!-- enter qusetion number -->
         <div class="form-group col-2">
           <label for="qnumber">Question Number</label><br>
-          <input class="form-control" id="qnumber" name="qnumber" type="number" placeholder="Enter Number" min="1" max="20">
+          <input class="form-control" id="qnumber" name="qnumber" type="number" placeholder="Enter Number" min="1" max="20" required>
           <script>
             document.querySelector("input[type=number]")
             .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
@@ -66,13 +72,13 @@ if(!isset($_GET['status'])) {
         <!-- input for answer -->
         <div class="form-group col-lg-2">
           <label for="answer">Answer</label><br>
-          <input class="form-control" type="text" name="answer" placeholder="Enter Answer">
+          <input class="form-control" type="text" name="answer" placeholder="Enter Answer" required>
         </div>
 
         <!-- select/type year of publication -->
         <div class="form-group col-lg-1.5">
           <label for="year">Publication Year</label><br>
-          <select class="form-control" name="year">
+          <select class="form-control" name="year" required>
             <?php
               $year_sql = "SELECT * FROM year ORDER BY yearID DESC";
               $year_qry = mysqli_query($dbconnect, $year_sql);
@@ -93,7 +99,7 @@ if(!isset($_GET['status'])) {
         <!-- select/type year level -->
         <div class="form-group col-lg-1">
           <label for="level">Year Level</label><br>
-          <select name="level" class="form-control">
+          <select name="level" class="form-control" required>
             <?php
             $level_sql = "SELECT * FROM level";
             $level_qry = mysqli_query($dbconnect, $level_sql);
@@ -112,33 +118,28 @@ if(!isset($_GET['status'])) {
         </div>
       </div>
 
+      <!-- select tags -->
       <div class="form-group col-lg-2">
-
-          <script type="text/javascript">
-            $(document).ready(function() {
-              $('#tag').multiselect({
-                nonSelectedText: 'Select Tags'
-              });
-            });
-          </script>
-
-          <select class="form-control" id="tag" name="tag[]" multiple>
             <?php
-            $tag_sql = "SELECT * FROM tag";
-            $tag_qry = mysqli_query($dbconnect, $tag_sql);
-            $tag_aa = mysqli_fetch_assoc($tag_qry);
+              $tag_sql = "SELECT * FROM tag";
+              $tag_qry = mysqli_query($dbconnect, $tag_sql);
+              $tag_aa = mysqli_fetch_assoc($tag_qry);
 
-            do {
+              do {
 
-              $tagID = $tag_aa['tagID'];
-              $name = $tag_aa['name'];
+                $tagID = $tag_aa['tagID'];
+                $name = $tag_aa['name'];
 
-              echo " <option value='$tagID'>$name</option>";
+                echo "
+                <div class='form-check'>
+                  <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID'>
+                  <label class='form-check-label' for='checkbox_$tagID'>
+                  $name
+                  </label>
+                </div>";
 
-            } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
+              } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
             ?>
-          </select>
-
       </div>
 
 
