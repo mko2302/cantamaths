@@ -61,7 +61,8 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
             $questionID = $question_aa["questionID"];
             $question_yearID = $question_aa["yearID"];
             $question_year = $question_aa["year"];
-            $level = $question_aa["level"];
+            $question_levelID = $question_aa["levelID"];
+            $question_level = $question_aa["level"];
             $qnumber = $question_aa["qnumber"];
             $filename = $question_aa["filename"];
             $answer = $question_aa["answer"];
@@ -72,7 +73,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               <!-- question/year/level coloumn -->
               <td>
                 Question <?php $qnumber?><br>
-                Year <?php $level?><br>
+                Year <?php $question_level?><br>
                 <?php $question_year?>
               </td>
 
@@ -152,6 +153,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       <img style='width:100%;' <?php echo"src='questions/$filename'";?> alt=''>
                     <?php echo" <form class='' action='index.php?page=adminpanel&tab=editquestion&questionID=$questionID' method='post'>";?>
 
+                      <!-- question number -->
                       <div class='row'>
                         <div class='form-group col'>
                           <label for='qnumber'>Question Number</label><br>
@@ -169,11 +171,12 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                         </div>
                       </div>
 
-                      <div class='form-group col-lg-1.5'>
+                      <div class="row">
+                      <!-- year -->
+                      <div class='form-group col'>
                         <label for='year'>Publication Year</label><br>
 
-                        <select class='form-control' name='year' <?php echo"value='$year';"?>>
-
+                        <select class='form-control' name='year'>
                           <?php
                             $year_sql = 'SELECT * FROM year ORDER BY yearID DESC';
                             $year_qry = mysqli_query($dbconnect, $year_sql);
@@ -184,54 +187,75 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                               $name = $year_aa['name'];
 
                               if ($question_yearID == $yearID) {
-                                echo " <option value='$yearID' selected>$name - Selected</option>";
+                                echo " <option value='$yearID' selected>$name</option>";
                               } else {
                                 echo " <option value='$yearID'>$name</option>";
                               }
 
                             } while ($year_aa = mysqli_fetch_assoc($year_qry));
                           ?>
-
                         </select>
+                      </div>
+
+                        <!-- select/type year level -->
+                        <div class="form-group col">
+                          <label for="level">Year Level</label><br>
+                          <select name="level" class="form-control" required>
+                            <?php
+                            $level_sql = "SELECT * FROM level";
+                            $level_qry = mysqli_query($dbconnect, $level_sql);
+                            $level_aa = mysqli_fetch_assoc($level_qry);
+
+                            do {
+                              $levelID = $level_aa['levelID'];
+                              $name = $level_aa['name'];
+
+                              if ($question_levelID == $levelID) {
+                                echo " <option value='$levelID' selected>$name</option>";
+                              } else {
+                                echo " <option value='$levelID'>$name</option>";
+                              }
+
+                            } while ($level_aa = mysqli_fetch_assoc($level_qry));
+                            ?>
+                          </select>
+                        </div>
                       </div>
 
                       <!-- edit tags -->
                       <div class='form-group col-lg-2'>
-
                         <?php
-                          do {
-                            // code...
-                          } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
+                        $tag_sql = "SELECT * FROM tag";
+                        $tag_qry = mysqli_query($dbconnect, $tag_sql);
+                        $tag_aa = mysqli_fetch_assoc($tag_qry);
 
-                         ?>
+                        do {
+                          $tagID = $tag_aa["tagID"];
+                          $name = $tag_aa["name"];
 
-
-                        <?php
-                          do {
-                            if(count($taglist) == 0) {
-                              echo "
-                              <div class='form-check'>
-                                <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID'>
-                                <label class='form-check-label' for='checkbox_$tagID'>
-                                  $name
-                                </label>
-                              </div>";
-                            } else {
-
-                              foreach ($taglist as $tag) {
-                                $selectedtagID = $tag[0]
+                          // if the tag ID is in the tag list array in the column 0 of nested array for each tag
+                          if(array_search($tagID, array_column($taglist, 0)) !== false) {
+                            // display as checked
+                                echo "
+                                <div class='form-check'>
+                                  <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID' checked>
+                                  <label class='form-check-label' for='checkbox_$tagID'>
+                                    $name
+                                  </label>
+                                </div>";
+                              } else {
+                                // unchecked
+                                echo "
+                                <div class='form-check'>
+                                  <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID'>
+                                  <label class='form-check-label' for='checkbox_$tagID'>
+                                    $name
+                                  </label>
+                                </div>";
                               }
 
-                               echo "
-                               <div class='form-check'>
-                                 <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID'>
-                                 <label class='form-check-label' for='checkbox_$tagID'>
-                                 $name
-                                 </label>
-                               </div>";
-                             }
-                           } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
-                          ?>
+                          } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
+                         ?>
 
                       </div>
                     </div>
