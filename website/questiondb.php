@@ -72,9 +72,9 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
             <tr>
               <!-- question/year/level coloumn -->
               <td>
-                Question <?php $qnumber?><br>
-                Year <?php $question_level?><br>
-                <?php $question_year?>
+                Question <?php echo "$qnumber";?><br>
+                Year <?php echo "$question_level";?><br>
+                <?php echo "$question_year";?>
               </td>
 
               <!-- tag column -->
@@ -101,7 +101,6 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       if(count($taglist) == 0) {
                         echo "No tags for this question";
                       } else {
-
                         foreach ($taglist as $tag) {
                           echo "$tag[1]<br>";
                         }
@@ -286,14 +285,15 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                         <img style='height:100px' <?php echo"src='questions/$filename'"?> alt=''>
 
                         <div class="row">
-                          Question <?php $qnumber?><br>
-                          Year <?php $level?><br>
-                          <?php $question_year?>
+                          Question <?php echo "$qnumber";?><br>
+                          Year <?php echo "$question_level";?><br>
+                          <?php echo "$question_year";?>
 
                           <!-- tag column -->
                           <?php
-                          $string = print_r($taglist,true);
-                          echo $string;
+                          foreach ($taglist as $tag) {
+                            echo "$tag[1]<br>";
+                          }
                            ?>
                         </div>
                     </div>
