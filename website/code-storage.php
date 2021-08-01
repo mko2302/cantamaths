@@ -224,3 +224,52 @@ do {
   <?php $a += 1;
 # Loop will continue until $a <= 1 or when all filters have been looped
 } while ($a <= 2); ?>
+
+
+
+<!-- Attempt at epic checkboxes -->
+
+<script>
+$(document).ready(function(){
+  var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
+
+  $("#<?php echo "$nameID"; ?>_All").click(function(){
+    $("#<?php echo "$nameID"; ?>_All").prop("checked", true);
+    $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox").prop("checked", false);
+    $("#<?php echo "$nameID"; ?>_All").each(function(){
+    checkboxValues[this.id] = this.checked;
+    });
+
+    localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+  });
+
+  $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox").click(function(){
+    var checked = $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox:checked").length;
+    if (checked == 0) {
+      $("#<?php echo "$nameID"; ?>_All").prop("checked", true);
+    } else {
+      $("#<?php echo "$nameID"; ?>_All").prop("checked", false);
+    }
+  });
+});
+</script>
+
+
+<!-- Adds one to $a which then will change the filter that the loop gets information for -->
+<?php $a += 1;
+# Loop will continue until $a <= 1 or when all filters have been looped
+} while ($a <= 2); ?>
+
+<script>
+$(document).ready(function(){
+$("#Clear_Filters").click(function() {
+  $(".All_Checkbox :checkbox").prop("checked", true);
+  $(".Specific_Checkbox :checkbox").prop("checked", false);
+  localStorage.clear();
+});
+
+$.each(checkboxValues, function(key, value) {
+  $("#" + key).prop('checked', value);
+});
+});
+</script>

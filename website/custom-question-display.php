@@ -11,7 +11,7 @@
 if (isset($_SESSION['levelID'])) {
   $level = implode("','",$_SESSION['levelID']);
   $levelsql = "IN ('".$level."')";
-} else { 
+} else {
   $levelsql = "";
 }
 
@@ -47,9 +47,11 @@ $select = "SELECT question.questionID, question.filename, question.answer, quest
                 INNER JOIN year ON question.yearid = year.yearID
                 INNER JOIN level ON question.levelID = level.levelID";
 
+$order = "ORDER BY question.yearID DESC, question.levelID ASC, question.qnumber ASC";
+
 # Selects all from table question where each column is the same as the filters
 # If the variable set above is blank then it will select all from that column otherwise only selects those that where in the array
-$question_sql = "$select WHERE question.yearID $yearsql and question.levelID $levelsql and question.questionID $questionIDsql";
+$question_sql = "$select WHERE question.yearID $yearsql and question.levelID $levelsql and question.questionID $questionIDsql $order";
 $question_qry = mysqli_query($dbconnect, $question_sql);
 $question_aa = mysqli_fetch_assoc($question_qry);
 

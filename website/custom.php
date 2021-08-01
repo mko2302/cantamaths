@@ -1,5 +1,14 @@
-<?php session_start(); ?>
+<?php session_start();
 
+if(isset($_SESSION['levelID'])) {
+  unset($_SESSION['levelID']);
+}
+if(isset($_SESSION['yearID'])) {
+  unset($_SESSION['yearID']);
+}
+if(isset($_SESSION['tagID'])) {
+   unset($_SESSION['tagID']);
+} ?>
 
 <div class="container-fluid row">
   <div class="col-3">
@@ -39,7 +48,6 @@ function send_filters(filter, id) {
   xhttp.send();
 }
 </script>
-
 
 <script>
 function send_selected(question) {

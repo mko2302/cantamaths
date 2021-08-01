@@ -31,7 +31,7 @@ do {
 <!-- Displays checkbox for selection all filters -->
   <div class="All_Checkbox">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo "'all'"; ?>)" id="<?php echo "$nameID"; ?>_All">
+      <input checked class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo "'all'"; ?>)" id="<?php echo "$nameID"; ?>_All">
       <label class="form-check-label">
         <?php echo "All"; ?>
       </label>
