@@ -4,59 +4,94 @@
   $answer = $_POST['answer'];
   $year = $_POST['year'];
   $level = $_POST['level'];
-  // error catching if no tags are entered
-  if (isset($_POST['tag'])) {
-    $tags = $_POST['tag'];
-  }
-  // check if any questions in database are the same
-  $check_sql = "SELECT * FROM question WHERE qnumber LIKE $qnumber AND yearID LIKE '$year' AND levelID LIKE $level AND answer LIKE $answer";
 
+  //array for tags from database
+  $taglist_db = array();
+
+  //if tag array isset
+  if (isset($_POST['tag'])) {
+    //tags from edit page
+    $taglist_form = $_POST['tag'];
+
+    //gets all tags for the questionID
+    $tag_check_sql = "SELECT * FROM questiontag WHERE questionID = $questionID";
+    $tag_check_qry = mysqli_query($dbconnect, $tag_check_sql);
+    $tag_check_aa = mysqli_fetch_assoc($tag_check_qry);
+
+    do {
+      $tagname = $tag_check_aa["tagID"];
+      array_push($taglist_db, $tagname);
+    } while ($tag_check_aa = mysqli_fetch_assoc($tag_check_qry));
+  }
+
+  // check if any questions in database are the same
+  $check_sql = "SELECT * FROM `question` WHERE qnumber = $qnumber AND levelID = $level and yearID = $year";
+  //send to database
   $check_qry = mysqli_query($dbconnect, $check_sql);
 
-  // CHECK if user changed any tags
-  // foreach ($tags as $tag) {
-  //   $tag_check_sql = "SELECT * FROM questiontag WHERE questionID = $questionID AND $tagID LIKE $tag";
-  //   $tag_check_qry = mysqli_query($dbconnect, $check_sql);
-  //   $tag_check_aa = mysqli_fetch_assoc($tag_check_qry);
-  //
-  //   do {
-  //     $tagID_check = $tag_check_aa['tagID'];
-  //     if ($tagID_check = $tag) {
-  //
-  //     }
-  //   } while $tag_check_aa = mysqli_fetch_assoc($tag_check_qry
-  //
-  // }
+  //list of items to delete from database
+  $delete_list = array_diff($taglist_db, $taglist_form);
+  //array of items
+  $insert_list = array_diff($taglist_form, $taglist_db);
 
-  clearstatcache();
+  //if user has made any edits, update the question info
+  if (mysqli_num_rows($check_qry) == 0 OR $delete_list > 0 OR $insert_list > 0){
+    //info about old question from db
+    //get year from db
+    $originalq_sql = "SELECT *, year.name AS year, level.name AS level FROM question INNER JOIN year ON question.yearid = year.yearID INNER JOIN level ON question.levelID = level.levelID WHERE questionID = $questionID";
+    $originalq_qry = mysqli_query($dbconnect, $originalq_sql);
+    $originalq_aa = mysqli_fetch_assoc($originalq_qry);
+    $original_filename = $originalq_aa['filename'];
 
-  if ((mysqli_num_rows($check_qry) > 0)){
-    header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
-  } else {
-    //deletes previous tags
-    $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID";
-    // sends sql query to data base
-    $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
+    //get year from db
+    $year_sql = "SELECT name FROM year WHERE yearID = $year";
+    $year_qry = mysqli_query($dbconnect, $year_sql);
+    $year_aa = mysqli_fetch_assoc($year_qry);
+    $file_year = $year_aa['name'];
 
-    //adds new array of tags
-    if (isset($_POST['tag'])) {
-      foreach ($tags as $tagID){
-        $addtag_sql = "INSERT INTO questiontag (questionID, tagID) VALUES ($questionID, $tagID)";
+    //get level from db
+    $level_sql = "SELECT name FROM level WHERE levelID = $level";
+    $level_qry = mysqli_query($dbconnect, $level_sql);
+    $level_aa = mysqli_fetch_assoc($level_qry);
+    $file_level = $level_aa['name'];
 
-        $addtag_qry = mysqli_query($dbconnect, $addtag_sql);
-      }
-    }
+    // gets file extenetion
+    $path_parts = pathinfo($original_filename);
+    $extension = $path_parts['extension'];
 
+    //creates new file name
+    $new_filename = $file_year . "-" . $file_level . "-" . $qnumber . "." . $extension;
+    $new_filename_ext = "questions/" . $new_filename;
+    //renames file in folder
+    rename("questions/$original_filename", "$new_filename_ext");
+
+    //update questiondb sql
     $update_sql = "UPDATE question
-                   SET qnumber = $qnumber, answer = $answer, levelID = $level, yearID = $year
+                   SET qnumber = '$qnumber', answer = '$answer', levelID = '$level', yearID = '$year', filename = '$new_filename'
                    WHERE questionID = $questionID";
 
+    //send to database
     $update_qry = mysqli_query($dbconnect, $update_sql);
 
-    $questiontag_sql = "SELECT * FROM questiontag WHERE questionID = $questionID";
-    $questiontag_qry = mysqli_query($dbconnect, $questiontag_sql);
-    $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
+    //update tags
+    // for each item in delete tag list delete tag
+    foreach($delete_list as $delete_tagID) {
+      //deletes previous tags
+      $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID and tagID = $delete_tagID";
+      // sends sql query to data base
+      $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
+    }
+    // for each item in insert tag list add the tag
+    foreach($insert_list as $insert_tagID) {
+      //adds new tags
+      $add_tag_sql = "INSERT INTO questiontag (questionID, tagID) VALUES ($questionID, $insert_tagID)";
 
+      $add_tag_qry = mysqli_query($dbconnect, $add_tag_sql);
+    }
+    //
+    // header("Location:index.php?page=adminpanel&tab=questiondb");
+  } else {
+    // header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
   }
 
  ?>
