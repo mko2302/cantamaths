@@ -87,7 +87,7 @@
 
           echo "success $filename";
 
-          // header("Location:index.php?page=adminpanel&tab=addquestion&status=success");
+          header("Location:index.php?page=adminpanel&tab=addquestion&status=success");
         } else {
             header("Location:index.php?page=adminpanel&tab=addquestion&status=error");
         }
