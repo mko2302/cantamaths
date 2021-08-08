@@ -25,7 +25,7 @@
       include("$page.php");
       // else goes to home page
     } else {
-      include("custom.php");
+      include("home.php");
     } ?>
 
 
