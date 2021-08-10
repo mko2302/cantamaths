@@ -5,17 +5,14 @@ if(isset($_SESSION['levelID'])) {
 }
 if(isset($_SESSION['yearID'])) {
   unset($_SESSION['yearID']);
-}
-if(isset($_SESSION['tagID'])) {
-   unset($_SESSION['tagID']);
 } ?>
 
 <div class="container-fluid row">
   <div class="col-3">
-    <?php include("filter-checkboxes.php") ?>
+    <?php include("past-papers-filter-checkboxes.php") ?>
   </div>
 
-  <div class="col-6" id="Custom_Question">
+  <div class="col-6" id="Past_Papers_Display">
     <?php include("past-papers-display.php") ?>
   </div>
 
@@ -39,11 +36,11 @@ function send_filters(filter, id) {
     if (this.readyState == 4 && this.status == 200) {
 /* States where the information that ajax recieves should be displayed
 (div id="select") */
-      document.getElementById("Custom_Question").innerHTML = this.responseText;
+      document.getElementById("Past_Papers_Display").innerHTML = this.responseText;
     }
   };
 /* Uses GET array to send through the filter and id through to php page which will display the selected filters on a page */
-  xhttp.open("GET", "past-papers-session.php?filter=" + filter + "&id=" + id, true);
+  xhttp.open("GET", "past-papers-filtered-display.php?filter=" + filter + "&id=" + id, true);
   xhttp.send();
 }
 </script>
