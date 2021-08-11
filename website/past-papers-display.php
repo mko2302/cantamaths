@@ -3,7 +3,10 @@
 # If the variable set above is blank then it will select all from that column otherwise only selects those that where in the array
 $year_sql = "SELECT DISTINCT question.yearID, year.yearname FROM question INNER JOIN year ON question.yearID = year.yearID WHERE question.yearID $yearsql";
 $year_qry = mysqli_query($dbconnect, $year_sql);
-$year_aa = mysqli_fetch_assoc($year_qry);
+if (mysqli_num_rows($year_qry)==0) {
+} else {
+  $year_aa = mysqli_fetch_assoc($year_qry);
+
 
 echo "<div class='row'>";
 # Runs through and displays all questions that condcide with the selected filters
@@ -43,4 +46,5 @@ echo "<div class='row'>";
   # Repeats until all questions have been displayed
     } while ($questionID_aa = mysqli_fetch_assoc($questionID_qry));
 } while ($year_aa = mysqli_fetch_assoc($year_qry));
-echo "</div>"; ?>
+echo "</div>";
+} ?>

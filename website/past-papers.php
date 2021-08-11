@@ -1,6 +1,4 @@
-<?php session_start();
-
-if(isset($_SESSION['levelID'])) {
+<?php if(isset($_SESSION['levelID'])) {
   unset($_SESSION['levelID']);
 }
 if(isset($_SESSION['yearID'])) {
