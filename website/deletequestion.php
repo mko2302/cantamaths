@@ -25,9 +25,9 @@
     // sends sql query to data base
     $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
 
-    header("Location: index.php?page=adminpanel&tab=questiondb&status=sucessdelete");
+    header("Location: index.php?page=adminpanel&tab=questiondb&status=deletesuccess");
   } else {
-    header("Location: index.php?page=adminpanel&tab=questiondb&status=errordelete");
+    header("Location: index.php?page=adminpanel&tab=questiondb&status=error");
   }
 
  ?>
