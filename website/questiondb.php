@@ -26,10 +26,10 @@ if (!isset($_GET['qpage'])) {
 $page_first_result = ($qpage - 1) * $results_per_page;
 
 //sql query to get number of questions depending on what page user is on
-$question_sql = "SELECT *, year.name AS year, level.name AS level FROM question
+$question_sql = "SELECT * FROM question
                 INNER JOIN year ON question.yearid = year.yearID
                 INNER JOIN level ON question.levelID = level.levelID
-                ORDER BY year DESC, level ASC, qnumber ASC
+                ORDER BY yearname DESC, levelname ASC, qnumber ASC
                 LIMIT $page_first_result , $results_per_page ";
 
 $question_qry = mysqli_query($dbconnect, $question_sql);
@@ -67,13 +67,13 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
         do {
             $questionID = $question_aa["questionID"];
             $question_yearID = $question_aa["yearID"];
-            $question_year = $question_aa["year"];
+            $question_year = $question_aa["yearname"];
             $question_levelID = $question_aa["levelID"];
-            $question_level = $question_aa["level"];
+            $question_level = $question_aa["levelname"];
             $qnumber = $question_aa["qnumber"];
             $filename = $question_aa["filename"];
             $answer = $question_aa["answer"];
-            $year = $question_aa["year"];
+            $year = $question_aa["yearname"];
 
             ?>
             <tr>
@@ -100,7 +100,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                     $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
                       do {
                         $tagID = $questiontag_aa['tagID'];
-                        $name = $questiontag_aa['name'];
+                        $name = $questiontag_aa['tagname'];
                         $single_tag = array("$tagID", "$name");
                         array_push($taglist, $single_tag);
                       } while ($questiontag_aa = mysqli_fetch_assoc($questiontag_qry));
