@@ -4,37 +4,7 @@ if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
 } else {
 
-// check status to see if there was an error
-if(!isset($_GET['status'])) {
-  echo "";
-} else {
-  $status = $_GET['status'];
-  if ($status == "nonimage") {
-    echo "<div class='alert alert-warning' role='alert'>
-            File uploaded is not an image!
-         </div>";
-  }
-  if ($status == "duplicateq") {
-     echo "<div class='alert alert-danger' role='alert'>
-              QUESTION with question number, publication year and year level already exists!
-          </div>";
-  }
-  if ($status == "duplicateimage") {
-     echo "<div class='alert alert-danger' role='alert'>
-              IMAGE already exists!
-          </div>";
-  }
-  if ($status == "error") {
-    echo "<div class='alert alert-danger' role='alert'>
-             Error has occured
-         </div>";
-  }
-  if ($status == "success") {
-    echo "<div class='alert alert-success' role='alert'>
-             New question added!
-         </div>";
-  }
-      }
+  include("status.php")
   ?>
   <!-- form for entering question -->
   <form action="index.php?page=adminpanel&tab=enterquestion" method="post" enctype="multipart/form-data">
