@@ -62,7 +62,7 @@
       $file_path = pathinfo($_FILES["fileToUpload"]["name"]);
       $extension = $file_path['extension'];
 
-      $filename = $file_level . "-" . $file_year . "-" . $qnumber . "." . $extension;
+      $filename = $file_year . "-" . $file_level . "-" . $qnumber . "." . $extension;
       $new_target_file = $target_dir . $filename;
 
       // Check if $uploadOk is set to 0 by an error
