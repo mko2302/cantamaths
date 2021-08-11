@@ -1,4 +1,8 @@
 <?php
+
+// check status to see if there was an error
+include("status.php");
+
 //select all qs from database
 $number_sql = "SELECT * FROM question";
 $number_qry = mysqli_query($dbconnect, $number_sql);
@@ -25,6 +29,7 @@ $page_first_result = ($qpage - 1) * $results_per_page;
 $question_sql = "SELECT *, year.name AS year, level.name AS level FROM question
                 INNER JOIN year ON question.yearid = year.yearID
                 INNER JOIN level ON question.levelID = level.levelID
+                ORDER BY year DESC, level ASC, qnumber ASC
                 LIMIT $page_first_result , $results_per_page ";
 
 $question_qry = mysqli_query($dbconnect, $question_sql);
@@ -32,6 +37,8 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
  ?>
 
 <!-- bootstrap table -->
+<h1>Question Database</h1>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -156,7 +163,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       <div class='row'>
                         <div class='form-group col'>
                           <label for='qnumber'>Question Number</label><br>
-                          <input class='form-control' id='qnumber' name='qnumber' id='qnumber' type='number' <?php echo"value='$qnumber'";?> min='1' max='20'>
+                          <input class='form-control' id='qnumber' name='qnumber' id='qnumber' type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
                           <script>
                             document.querySelector('input[type=number]')
                             .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
@@ -166,7 +173,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                         <!-- input for answer -->
                         <div class='form-group col'>
                           <label for='answer'>Answer</label><br>
-                          <input class='form-control' type='text' name='answer' <?php echo"value='$answer'"?>>
+                          <input class='form-control' type='text' name='answer' <?php echo"value='$answer'"?> required>
                         </div>
                       </div>
 
@@ -175,7 +182,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       <div class='form-group col'>
                         <label for='year'>Publication Year</label><br>
 
-                        <select class='form-control' name='year'>
+                        <select class='form-control' name='year' required>
                           <?php
                             $year_sql = 'SELECT * FROM year ORDER BY yearID DESC';
                             $year_qry = mysqli_query($dbconnect, $year_sql);
@@ -318,7 +325,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 </table>
 
 <!-- pagination boostrap adapted from https://www.positronx.io/create-pagination-in-php-with-mysql-and-bootstrap/ -->
-<nav aria-label="Page navigation example mt-5">
+<nav aria-label="Page navigation mt-5">
     <ul class="pagination justify-content-center">
         <!-- previous button -->
         <li class="page-item <?php if($qpage <= 1){ echo 'disabled'; } ?>">
@@ -342,7 +349,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
         <?php endfor; ?>
 
         <!-- next button -->
-        <li class="page-item <?php if($page >= $number_of_pages) { echo 'disabled'; } ?>">
+        <li class="page-item <?php if($qpage >= $number_of_pages) { echo 'disabled'; } ?>">
             <a class="page-link"
               <?php $next = ($qpage + 1) ?>
                 href="
