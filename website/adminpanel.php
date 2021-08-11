@@ -2,31 +2,52 @@
 
 <?php
 // check to see if logged in.
-session_start();
 if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
 }
  ?>
 
-<h2>Admin Panel</h2>
+<!-- navbar -->
+ <div class="my-2 row justify-content-center">
+   <div class="col-xl-2 m-2">
+     <nav class="nav nav-pills flex-column nav-stacked">
+       <p class="display-4">Dashboard</p>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=adminhome">Home</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=addquestion">Add Questions</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=questiondb">Question Database</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=dbsettings">Database Options</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=users"=>Users</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=questiondb2">Question Database 2</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link admin-tab" href="logout.php">Log Out</a>
+       </li>
+     </nav>
+   </div>
 
-<div class="container">
-    <nav class="col-3">
-      <p class="display-4">Dashboard</p>
-      <a class="nav-link" href="">Home</a>
-      <a class="nav-link" href="">Add Questions</a>
-      <a class="nav-link" href="">Question Database</a>
-      <a class="nav-link" href="users.php"=>Users</a>
-      <a class="nav-link" href="logout.php">Log Out</a>
-    </nav>
 
-    <div class="col-9">
-      <p>Home Page</p>
-
-      <?php
-        
-      ?>
-
-    </div>
-
-</div>
+<!-- loads tab user clicks on -->
+   <div class="col-xl-8">
+       <?php
+       if (isset($_GET['tab'])) {
+       //  opens page user clicked on
+        $tab = $_GET['tab'];
+         include("$tab.php");
+       //  else goes to home page
+       } else {
+         include("adminhome.php");
+       }
+       ?>
+   </div>
+ </div>
