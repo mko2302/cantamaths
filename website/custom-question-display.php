@@ -10,8 +10,10 @@ if (isset($_SESSION['tagID'])) {
 
   $tag_sql = "SELECT * FROM questiontag WHERE tagID $tagsql";
   $tag_qry = mysqli_query($dbconnect, $tag_sql);
-  $tag_aa = mysqli_fetch_assoc($tag_qry);
-
+  if (mysqli_num_rows($tag_qry)==0) {
+  } else {
+      $tag_aa = mysqli_fetch_assoc($tag_qry);
+    }
   do {
     $SquestionID = $tag_aa['questionID'];
     if (in_array($SquestionID,$_SESSION['questionID'])) {
@@ -37,7 +39,9 @@ $order = "ORDER BY question.yearID DESC, question.levelID ASC, question.qnumber 
 # If the variable set above is blank then it will select all from that column otherwise only selects those that where in the array
 $question_sql = "$select WHERE question.yearID $yearsql and question.levelID $levelsql and question.questionID $questionIDsql $order";
 $question_qry = mysqli_query($dbconnect, $question_sql);
-$question_aa = mysqli_fetch_assoc($question_qry);
+if (mysqli_num_rows($question_qry)==0) {
+} else {
+  $question_aa = mysqli_fetch_assoc($question_qry);
 
 echo "<div class='row'>";
 # Runs through and displays all questions that condcide with the selected filters
@@ -83,4 +87,6 @@ echo "<div class='row'>";
     echo "</div>";
 # Repeats until all questions have been displayed
   } while ($question_aa = mysqli_fetch_assoc($question_qry));
-echo "</div>"; ?>
+echo "</div>";
+}
+?>
