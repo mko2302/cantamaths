@@ -1,5 +1,5 @@
 <?php session_start();
-$dbconnect = mysqli_connect("localhost", "root", "", "cantamathdb");
+$dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
 
 # Recieves information sent through by ajax in the GET array
 $id = $_GET['id'];
