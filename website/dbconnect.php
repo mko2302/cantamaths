@@ -1,4 +1,4 @@
-<!-- connects to database cantamathdb -->
+<!-- connects to database cantamathsdb -->
 <?php
-$dbconnect = mysqli_connect("localhost", "root", "", "cantamathdb");
+$dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
 ?>
