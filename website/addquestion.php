@@ -66,7 +66,7 @@ if (!isset($_SESSION['admin'])) {
                 do {
 
                   $yearID = $year_aa['yearID'];
-                  $name = $year_aa['name'];
+                  $name = $year_aa['yearname'];
 
                   echo " <option value='$yearID'>$name</option>";
 
@@ -89,7 +89,7 @@ if (!isset($_SESSION['admin'])) {
               do {
 
                 $levelID = $level_aa['levelID'];
-                $name = $level_aa['name'];
+                $name = $level_aa['levelname'];
 
                 echo " <option value='$levelID'>Year $name</option>";
 
@@ -111,7 +111,7 @@ if (!isset($_SESSION['admin'])) {
                 do {
 
                   $tagID = $tag_aa['tagID'];
-                  $name = $tag_aa['name'];
+                  $name = $tag_aa['tagname'];
 
                   echo "
                   <div class='form-check'>
