@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(isset($_SESSION['levelID'])) {
   unset($_SESSION['levelID']);
 }
@@ -11,7 +11,7 @@ if(isset($_SESSION['tagID'])) {
 
 <div class="container-fluid row">
   <div class="col-3">
-    <?php include("filter-checkboxes.php") ?>
+    <?php include("custom-filter-checkboxes.php") ?>
   </div>
 
 
