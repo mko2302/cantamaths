@@ -76,7 +76,7 @@ echo "<div class='row'>";
 
         echo "<div class='col-8'>";
 # displays the image with the filename
-          echo "<img src='question/$filename' class='img-fluid'>";
+          echo "<img src='questions/$filename' class='img-fluid'>";
         echo "</div>";
         echo "</div>";
       echo "</label>";
