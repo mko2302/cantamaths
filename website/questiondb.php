@@ -77,7 +77,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
             ?>
             <tr>
-              <!-- question/year/level coloumn -->
+              <!-- questions/year/level coloumn -->
               <td>
                 Question <?php echo "$qnumber";?><br>
                 Year <?php echo "$question_level";?><br>
