@@ -64,5 +64,6 @@ if (isset($_SESSION['Q_ID'])) {
   # Repeats until all questions have been displayed
   } while ($selected_aa = mysqli_fetch_assoc($selected_qry));
   echo "</div>";
+    echo "<a href='index.php?page=print' class='btn' role='button'>Print</a>";
 } else {
 } ?>
