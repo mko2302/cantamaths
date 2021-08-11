@@ -190,7 +190,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                             do {
                               $yearID = $year_aa['yearID'];
-                              $name = $year_aa['name'];
+                              $name = $year_aa['yearname'];
 
                               if ($question_yearID == $yearID) {
                                 echo " <option value='$yearID' selected>$name</option>";
@@ -214,7 +214,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                             do {
                               $levelID = $level_aa['levelID'];
-                              $name = $level_aa['name'];
+                              $name = $level_aa['levelname'];
 
                               if ($question_levelID == $levelID) {
                                 echo " <option value='$levelID' selected>$name</option>";
@@ -237,7 +237,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                         do {
                           $tagID = $tag_aa["tagID"];
-                          $name = $tag_aa["name"];
+                          $name = $tag_aa["tagname"];
 
                           // if the tag ID is in the tag list array in the column 0 of nested array for each tag
                           if(array_search($tagID, array_column($taglist, 0)) !== false) {

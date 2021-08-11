@@ -49,7 +49,7 @@
       $tag_aa = mysqli_fetch_assoc($tag_qry);
         do {
             $tagID = $tag_aa['tagID'];
-            $name = $tag_aa['name'];
+            $name = $tag_aa['tagname'];
 
             $output .= "
                        <tr>
