@@ -51,12 +51,12 @@
       $year_sql = "SELECT * FROM year WHERE yearID = $year";
       $year_qry = mysqli_query($dbconnect, $year_sql);
       $year_aa = mysqli_fetch_assoc($year_qry);
-      $file_year = $year_aa['name'];
+      $file_year = $year_aa['yearname'];
 
       $level_sql = "SELECT * FROM level WHERE levelID = $level";
       $level_qry = mysqli_query($dbconnect, $level_sql);
       $level_aa = mysqli_fetch_assoc($level_qry);
-      $file_level = $level_aa['name'];
+      $file_level = $level_aa['levelname'];
 
       // gets file extenetion
       $file_path = pathinfo($_FILES["fileToUpload"]["name"]);
