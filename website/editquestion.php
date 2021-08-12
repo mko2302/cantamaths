@@ -7,26 +7,22 @@
 
   //array for tags from database
   $taglist_db = array();
+  //gets all tags for the questionID
+  $tag_check_sql = "SELECT * FROM questiontag WHERE questionID = $questionID";
+  $tag_check_qry = mysqli_query($dbconnect, $tag_check_sql);
+  $tag_check_aa = mysqli_fetch_assoc($tag_check_qry);
+  do { //put all tags in the database into an array
+    $tagname = $tag_check_aa["tagID"];
+    array_push($taglist_db, $tagname);
+  } while ($tag_check_aa = mysqli_fetch_assoc($tag_check_qry));
 
   //if tag array isset
   if (isset($_POST['tag'])) {
     //tags from edit page
     $taglist_form = $_POST['tag'];
 
-    //gets all tags for the questionID
-    $tag_check_sql = "SELECT * FROM questiontag WHERE questionID = $questionID";
-    $tag_check_qry = mysqli_query($dbconnect, $tag_check_sql);
-    $tag_check_aa = mysqli_fetch_assoc($tag_check_qry);
-
-    do {
-      $tagname = $tag_check_aa["tagID"];
-      array_push($taglist_db, $tagname);
-    } while ($tag_check_aa = mysqli_fetch_assoc($tag_check_qry));
-
-    //list of items to delete from database
-    $delete_list = array_diff($taglist_db, $taglist_form);
-    //array of items
-    $insert_list = array_diff($taglist_form, $taglist_db);
+    $form_sort = sort($taglist_form);
+    $db_sort = sort($taglist_db);
   }
 
   // check if any questions in database are the same
@@ -34,14 +30,23 @@
   //send to database
   $check_qry = mysqli_query($dbconnect, $check_sql);
 
-  //if question is in database and there are no tags to changes
-  if (mysqli_num_rows($check_qry) > 0 && $delete_list == 0 && $insert_list == 0) {
-    //send back to db page and duplicate question error
+  if (mysqli_num_rows($check_qry) > 0 && $form_sort == $dbsort){
     header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
   } else {
-    //if user has made any edits, update the question info
-    if (($delete_list > 0 OR $insert_list > 0) OR mysqli_num_rows($check_qry) == 0){
-      //info about old question from db
+    if(isset($_POST['tag'])){
+      //list of items to delete from database
+      $delete_list = array_diff($taglist_db, $taglist_form);
+      //array of items
+      $insert_list = array_diff($taglist_form, $taglist_db);
+    } else {
+      //delete all tags from database
+      $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID";
+      // sends sql query to data base
+      $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
+    }
+
+    //if question is in database and there are no tags to changes
+    if ((mysqli_num_rows($check_qry) == 0)) {
       //get year from db
       $originalq_sql = "SELECT * FROM question INNER JOIN year ON question.yearid = year.yearID INNER JOIN level ON question.levelID = level.levelID WHERE questionID = $questionID";
       $originalq_qry = mysqli_query($dbconnect, $originalq_sql);
@@ -77,39 +82,32 @@
 
       //send to database
       $update_qry = mysqli_query($dbconnect, $update_sql);
+    }
 
-      //update tags
-      if (isset($_POST['tag'])) {
-        // for each item in delete tag list delete tag
-        foreach($delete_list as $delete_tagID) {
-          //deletes previous tags
-          $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID and tagID = $delete_tagID";
-          // sends sql query to data base
-          $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
-        }
-        // for each item in insert tag list add the tag
-        foreach($insert_list as $insert_tagID) {
-          //adds new tags
-          $add_tag_sql = "INSERT INTO questiontag (questionID, tagID) VALUES ($questionID, $insert_tagID)";
-
-          $add_tag_qry = mysqli_query($dbconnect, $add_tag_sql);
-        }
-      } else {
-        //delete all tags from database
+    //update taglist_form isset
+    if (isset($taglist_form)) {
+      // for each item in delete tag list delete tag
+      foreach($delete_list as $delete_tagID) {
+        //deletes previous tags
         $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID and tagID = $delete_tagID";
         // sends sql query to data base
         $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
       }
+      // for each item in insert tag list add the tag
+      foreach($insert_list as $insert_tagID) {
+        //adds new tags
+        $add_tag_sql = "INSERT INTO questiontag (questionID, tagID) VALUES ($questionID, $insert_tagID)";
 
-      //
-      header("Location:index.php?page=adminpanel&tab=questiondb&status=editsuccess");
+        $add_tag_qry = mysqli_query($dbconnect, $add_tag_sql);
+      }
     } else {
-      header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
+      //delete all tags from database
+      $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID";
+      // sends sql query to data base
+      $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
     }
+    header("Location:index.php?page=adminpanel&tab=questiondb&status=editsuccess");
   }
-
-
-
 
 
 
