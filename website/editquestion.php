@@ -30,7 +30,7 @@
   //send to database
   $check_qry = mysqli_query($dbconnect, $check_sql);
 
-  if (mysqli_num_rows($check_qry) > 0 && $form_sort == $dbsort){
+  if (mysqli_num_rows($check_qry) > 0 && $form_sort == $db_sort){
     header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
   } else {
     if(isset($_POST['tag'])){
@@ -54,16 +54,16 @@
       $original_filename = $originalq_aa['filename'];
 
       //get year from db
-      $year_sql = "SELECT name FROM year WHERE yearID = $year";
+      $year_sql = "SELECT yearname FROM year WHERE yearID = $year";
       $year_qry = mysqli_query($dbconnect, $year_sql);
       $year_aa = mysqli_fetch_assoc($year_qry);
-      $file_year = $year_aa['name'];
+      $file_year = $year_aa['yearname'];
 
       //get level from db
-      $level_sql = "SELECT name FROM level WHERE levelID = $level";
+      $level_sql = "SELECT levelname FROM level WHERE levelID = $level";
       $level_qry = mysqli_query($dbconnect, $level_sql);
       $level_aa = mysqli_fetch_assoc($level_qry);
-      $file_level = $level_aa['name'];
+      $file_level = $level_aa['levelname'];
 
       // gets file extenetion
       $path_parts = pathinfo($original_filename);
@@ -71,9 +71,9 @@
 
       //creates new file name
       $new_filename = $file_year . "-" . $file_level . "-" . $qnumber . "." . $extension;
-      $new_filename_ext = "questions/" . $new_filename;
+      $new_filename_path = "questions/" . $new_filename;
       //renames file in folder
-      rename("questions/$original_filename", "$new_filename_ext");
+      rename("questions/$original_filename", "$new_filename_path");
 
       //update questiondb sql
       $update_sql = "UPDATE question
@@ -108,11 +108,5 @@
     }
     header("Location:index.php?page=adminpanel&tab=questiondb&status=editsuccess");
   }
-
-
-
-
-
-
 
  ?>
