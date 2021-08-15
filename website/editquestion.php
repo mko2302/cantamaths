@@ -12,17 +12,14 @@
   $tag_check_qry = mysqli_query($dbconnect, $tag_check_sql);
   $tag_check_aa = mysqli_fetch_assoc($tag_check_qry);
   do { //put all tags in the database into an array
-    $tagname = $tag_check_aa["tagID"];
-    array_push($taglist_db, $tagname);
+    $tagID = $tag_check_aa["tagID"];
+    array_push($taglist_db, $tagID);
   } while ($tag_check_aa = mysqli_fetch_assoc($tag_check_qry));
 
   //if tag array isset
   if (isset($_POST['tag'])) {
     //tags from edit page
     $taglist_form = $_POST['tag'];
-
-    $form_sort = sort($taglist_form);
-    $db_sort = sort($taglist_db);
   }
 
   // check if any questions in database are the same
@@ -30,7 +27,7 @@
   //send to database
   $check_qry = mysqli_query($dbconnect, $check_sql);
 
-  if (mysqli_num_rows($check_qry) > 0 && $form_sort == $db_sort){
+  if ((mysqli_num_rows($check_qry) > 0) && (sort($taglist_db) === sort($taglist_form)) && (array_count_values($taglist_db) == array_count_values($taglist_form))){
     header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
   } else {
     if(isset($_POST['tag'])){
