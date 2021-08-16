@@ -1,5 +1,5 @@
 <?php
-
+include("dbconnect.php");
 // check status to see if there was an error
 include("status.php");
 
@@ -17,13 +17,15 @@ $results_per_page = 6;
 $number_of_pages = ceil($number_of_q/$results_per_page);
 
 //find number page user is on
-if (!isset($_GET['qpage'])) {
-  $qpage = 1;
+if (!isset($_POST['page'])) {
+  $page = 1;
+  $_SESSION['dbpage'] = $page;
 } else {
-  $qpage = $_GET['qpage'];
+  $page = $_POST['page'];
+  $_SESSION['dbpage'] = $page;
 }
 
-$page_first_result = ($qpage - 1) * $results_per_page;
+$page_first_result = ($page - 1) * $results_per_page;
 
 //sql query to get number of questions depending on what page user is on
 $question_sql = "SELECT * FROM question
@@ -132,7 +134,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
               <!-- delete button column -->
               <td>
-                <button type='button' class='btn btn-primary' data-toggle='modal' <?php echo"data-target='#deletequestion_$qnumber'";?>>
+                <button type='button' class='btn btn-danger' data-toggle='modal' <?php echo"data-target='#deletequestion_$qnumber'";?>>
                   Delete
                 </button>
               </td>
@@ -148,6 +150,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               <div class='modal fade' <?php echo"id='editquestion_$qnumber'";?> tabindex='-1' role='dialog'>
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
                   <div class='modal-content'>
+                    <?php echo" <form class='' action='index.php?page=adminpanel&tab=editquestion&questionID=$questionID' method='post'>";?>
                     <div class='modal-header'>
                       <h5 class='modal-title' <?php echo "id='editquestion_$qnumber"?> >Edit Question</h5>
                       <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
@@ -157,7 +160,6 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                     <div class='modal-body'>
                       <img style='width:100%;' <?php echo"src='questions/$filename'";?> alt=''>
-                    <?php echo" <form class='' action='index.php?page=adminpanel&tab=editquestion&questionID=$questionID' method='post'>";?>
 
                       <!-- question number -->
                       <div class='row'>
@@ -268,7 +270,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                     <div class='modal-footer'>
                       <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                      <button type='button submit' class='btn btn-primary'>Save changes</button>
+                      <button type='submit' class='btn btn-primary'>Save changes</button>
                     </div>
                     </form>
                   </div>
@@ -327,39 +329,43 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 <!-- pagination boostrap adapted from https://www.positronx.io/create-pagination-in-php-with-mysql-and-bootstrap/ -->
 <nav aria-label="Page navigation mt-5">
     <ul class="pagination justify-content-center">
-        <!-- previous button -->
-        <li class="page-item <?php if($qpage <= 1){ echo 'disabled'; } ?>">
-          <?php $prev = ($qpage - 1) ?>
-            <a class="page-link"
-                href="
-            <?php
-              if($qpage <= 1){
-                echo '#';
-              } else {
-                echo "index.php?page=adminpanel&tab=questiondb&qpage=$prev";
-              } ?>
-              ">Previous</a>
-        </li>
+      <?php
+      if($page > 1){
+        // make make previous button so to previous page
+        $previous = $page - 1;
+        echo "<li class='page-item' id='$previous'><span class='page-link'>Previous</span></li>";
+      } else {
+        // is page is not > 1, disable the button
+        echo "<li class='page-item disabled'><span class='page-link'>Previous</span></li>";
+      }
 
-        <!-- page number button -->
-        <?php for($i = 1; $i <= $number_of_pages; $i++ ): ?>
-        <li class="page-item <?php if($qpage == $i) {echo 'active'; } ?>">
-            <a class="page-link" href="index.php?page=adminpanel&tab=questiondb&qpage=<?= $i; ?>"> <?= $i; ?> </a>
-        </li>
-        <?php endfor; ?>
+      // number pagination
+        // for the number of pages
+      for($i = 1; $i <= $number_of_pages; $i++ ):
+        if ($page == $i) {
+          // if the page button is the current page, make it display as active
+          echo "<li class='page-item active' id='$i'>
+                  <a class='page-link'>$i</a>
+                </li>";
+        } else {
+          // else just display as normal
+          echo "<li class='page-item' id='$i'>
+                  <a class='page-link' >$i</a>
+                </li>";
+        }
+       endfor;
 
-        <!-- next button -->
-        <li class="page-item <?php if($qpage >= $number_of_pages) { echo 'disabled'; } ?>">
-            <a class="page-link"
-              <?php $next = ($qpage + 1) ?>
-                href="
-              <?php
-                if($page >= $number_of_pages){
-                  echo '#';
-                } else {
-                  echo "index.php?page=adminpanel&tab=questiondb&qpage=$next";
-                } ?>
-                ">Next</a>
-        </li>
+       // next button
+        // if current page is >= to the total number of pages
+       if ($page >= $number_of_pages) {
+         // disable the next button
+         echo "<li class='page-item disabled'><span class='page-link'>Next</span></li>";
+       } else {
+         // otherwise make button go to next page
+         $next = $page + 1;
+         echo "<li class='page-item' id='$next'><span class='page-link'>Next</span></li>";
+       }
+       ?>
+
     </ul>
 </nav>

@@ -28,7 +28,9 @@
   $check_qry = mysqli_query($dbconnect, $check_sql);
 
   if ((mysqli_num_rows($check_qry) > 0) && (sort($taglist_db) === sort($taglist_form)) && (array_count_values($taglist_db) == array_count_values($taglist_form))){
-    header("Location:index.php?page=adminpanel&tab=questiondb&status=duplicateq");
+    //as the question and tags connected to it sent by the user matched exactly to the database
+    //send user back to the database page with the error
+    header("Location:index.php?page=adminpanel&tab=dbindex&status=duplicateq");
   } else {
     if(isset($_POST['tag'])){
       //list of items to delete from database
@@ -103,7 +105,8 @@
       // sends sql query to data base
       $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);
     }
-    header("Location:index.php?page=adminpanel&tab=questiondb&status=editsuccess");
+    //sends user back to page as edit was successful
+    header("Location:index.php?page=adminpanel&tab=dbindex&status=editsuccess");
   }
 
  ?>
