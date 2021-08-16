@@ -9,10 +9,24 @@ if(isset($_SESSION['tagID'])) {
    unset($_SESSION['tagID']);
 } ?>
 
-<div class="row my-4 justify-content-center">
+<div class="row my-2 gy-1">
+  <div class="col-5">
+    <h1>Question Database</h1>
+  </div>
+  <div class="col-3">
+
+  </div>
+  <div class="col-4">
+    <!-- check status to see if there was an error -->
+    <?php include("status.php"); ?>
+
+  </div>
+</div>
+
+<div class="row justify-content-center">
   <!-- div with filters -->
   <div class="col-2">
-    <?php include("custom-filter-checkboxes.php") ?>
+    <?php include("custom-filter-database.php") ?>
   </div>
   <!-- question table -->
   <div class="col-10" id="Custom_Database">
