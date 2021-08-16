@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin'])) {
 
 <!-- navbar -->
  <div class="my-2 row justify-content-center">
-   <div class="col-xl-2 m-2">
+   <div class="col-xl-2 m-1">
      <nav class="nav nav-pills flex-column nav-stacked">
        <p class="display-4">Dashboard</p>
        <li class="nav-item">
@@ -19,7 +19,7 @@ if (!isset($_SESSION['admin'])) {
          <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=addquestion">Add Questions</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=questiondb">Question Database</a>
+         <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=dbindex">Question Database</a>
        </li>
        <li class="nav-item">
          <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=dbsettings">Database Options</a>
