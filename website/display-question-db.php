@@ -1,7 +1,5 @@
 <?php
 include("dbconnect.php");
-// check status to see if there was an error
-include("status.php");
 
 include("filter-to-in.php");
 
@@ -69,9 +67,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
  ?>
 
-<!-- bootstrap table -->
-<h1>Question Database</h1>
-
+<!-- bootstrap table to display questions -->
 <table class="table table-striped">
   <thead>
     <tr>
@@ -158,14 +154,14 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
               <!-- edit button column -->
               <td>
-                <button type='button' class='btn btn-primary' data-toggle='modal' <?php echo"data-target='#editquestion_$qnumber'";?>>
+                <button type='button' class='btn btn-primary' data-toggle='modal' <?php echo"data-target='#editquestion_$questionID'";?>>
                   Edit
                 </button>
               </td>
 
               <!-- delete button column -->
               <td>
-                <button type='button' class='btn btn-danger' data-toggle='modal' <?php echo"data-target='#deletequestion_$qnumber'";?>>
+                <button type='button' class='btn btn-danger' data-toggle='modal' <?php echo"data-target='#deletequestion_$questionID'";?>>
                   Delete
                 </button>
               </td>
@@ -178,15 +174,12 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               </script>
 
               <!-- edit modal -->
-              <div class='modal fade' <?php echo"id='editquestion_$qnumber'";?> tabindex='-1' role='dialog'>
+              <div class='modal fade' <?php echo"id='editquestion_$questionID'";?> tabindex='-1' role='dialog'>
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
                   <div class='modal-content'>
                     <?php echo" <form class='' action='index.php?page=adminpanel&tab=editquestion&questionID=$questionID' method='post'>";?>
                     <div class='modal-header'>
-                      <h5 class='modal-title' <?php echo "id='editquestion_$qnumber"?> >Edit Question</h5>
-                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                      </button>
+                      <h5 class='modal-title'>Edit Question</h5>
                     </div>
 
                     <div class='modal-body'>
@@ -195,8 +188,8 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       <!-- question number -->
                       <div class='row'>
                         <div class='form-group col'>
-                          <label for='qnumber'>Question Number</label><br>
-                          <input class='form-control' id='qnumber' name='qnumber' id='qnumber' type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
+                          <label <?php echo"for='edit_qnumber_$questionID'";?>>Question Number</label><br>
+                          <input class='form-control' <?php echo"name='edit_qnumber_$questionID' id='edit_qnumber_$questionID'";?> type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
                           <script>
                             document.querySelector('input[type=number]')
                             .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
@@ -273,25 +266,20 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                           $name = $tag_aa["tagname"];
 
                           // if the tag ID is in the tag list array in the column 0 of nested array for each tag
-                          if(array_search($tagID, array_column($taglist, 0)) !== false) {
+                          if(array_search($tagID, array_column($taglist,0)) !== false) {
                             // display as checked
-                                echo "
-                                <div class='form-check'>
-                                  <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID' checked>
-                                  <label class='form-check-label' for='checkbox_$tagID'>
-                                    $name
-                                  </label>
-                                </div>";
+                                $checked = "checked";
                               } else {
-                                // unchecked
-                                echo "
-                                <div class='form-check'>
-                                  <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='checkbox_$tagID'>
-                                  <label class='form-check-label' for='checkbox_$tagID'>
-                                    $name
-                                  </label>
-                                </div>";
+                                $checked = "";
                               }
+
+                          echo "
+                          <div class='form-check'>
+                            <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='edit-$tagID-$questionID' $checked>
+                            <label class='form-check-label' for='edit-$tagID-$questionID'>
+                              $name
+                            </label>
+                          </div>";
 
                           } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
                          ?>
@@ -310,7 +298,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
 
               <!-- delete modal -->
-              <div class='modal fade' <?php echo"id='deletequestion_$qnumber'";?> tabindex='-1' role='dialog'>
+              <div class='modal fade' <?php echo"id='deletequestion_$questionID'";?> tabindex='-1' role='dialog'>
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
                   <div class='modal-content'>
                     <div class='modal-header'>
