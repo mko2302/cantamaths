@@ -5,47 +5,47 @@
 
     //generic error messages
     if ($status == "duplicateq") {
-       echo "<div class='alert alert-danger' role='alert'>
-               Question already exists in database!
-            </div>";
+       $message = "Question already exists in database!";
+       $colour = "danger";
     }
     if ($status == "error") {
-      echo "<div class='alert alert-danger' role='alert'>
-               Error has occured
-           </div>";
+      $message = "Error has occured";
+      $colour = "danger";
     }
 
     //add question status messages
     // check status to see if there was an error
     if ($status == "nonimage") {
-      echo "<div class='alert alert-warning' role='alert'>
-              File uploaded is not an image!
-           </div>";
+      $message = "File uploaded is not an image!";
+      $colour = "danger";
     }
     if ($status == "duplicateimage") {
-       echo "<div class='alert alert-danger' role='alert'>
-                Image already exists!
-            </div>";
+      $message = "Image already exists!";
+      $colour = "danger";
     }
     if ($status == "addsuccess") {
-      echo "<div class='alert alert-success' role='alert'>
-               New question added!
-           </div>";
+      $message = "Question added to database!";
+      $colour = "success";
     }
 
     // delete question success messages
     if ($status == "deletesuccess") {
-      echo "<div class='alert alert-success' role='alert'>
-               Question deleted
-           </div>";
+      $message = "Question deleted from database!";
+      $colour = "success";
     }
 
     // edit question success messages
     if ($status == "editsuccess") {
-      echo "<div class='alert alert-success' role='alert'>
-               Edit complete
-           </div>";
+      $message = "Edit complete!";
+      $colour = "success";
     }
+
+    echo"
+    <div class='alert alert-$colour my-1 alert-dismissible fade show' role='alert'>
+      <button type='button' class='close' aria='aria-hidden-true' aria-label='Close'></button>
+      $message
+    </div>
+    ";
   }
 
  ?>
