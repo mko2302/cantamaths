@@ -9,6 +9,7 @@ if(isset($_SESSION['tagID'])) {
    unset($_SESSION['tagID']);
 } ?>
 
+<div id="pagination_id">
 <div class="container-fluid row">
   <div class="col-3">
     <?php include("custom-filter-checkboxes.php") ?>
@@ -21,8 +22,9 @@ if(isset($_SESSION['tagID'])) {
 
 
   <div class="col-3" id="Custom_Selected">
-
+    <?php include("custom-selected.php")?>
   </div>
+</div>
 </div>
 
 
@@ -58,6 +60,21 @@ function send_selected(question) {
     }
   };
   xhttp.open("GET", "custom-selected.php?questionID=" + question, true);
+  xhttp.send();
+}
+</script>
+
+<script>
+function pagination(page) {
+  alert(page)
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("Custom_Selected").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "page-number.php?", true);
   xhttp.send();
 }
 </script>

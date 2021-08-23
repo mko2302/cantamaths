@@ -1,4 +1,6 @@
-<?php if(isset($_SESSION['levelID'])) {
+<?php
+
+if(isset($_SESSION['levelID'])) {
   unset($_SESSION['levelID']);
 }
 if(isset($_SESSION['yearID'])) {
@@ -16,7 +18,6 @@ if(isset($_SESSION['yearID'])) {
 
 
   <div class="col-3" id="Custom_Selected">
-
   </div>
 </div>
 

@@ -55,4 +55,4 @@ echo "</div>";
 # Repeats until all questions have been displayed
 } while ($selected_aa = mysqli_fetch_assoc($selected_qry));
 echo "</div>";
-echo "<a href='index.php?page=print&yearID=$yearID&levelID=$levelID' class='btn' role='button'>Print</a>"; ?>
+echo "<a href='past-paper-print.php?yearID=$yearID&levelID=$levelID' class='btn' role='button'>Print</a>"; ?>

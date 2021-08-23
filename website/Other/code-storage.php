@@ -273,3 +273,85 @@ $.each(checkboxValues, function(key, value) {
 });
 });
 </script>
+
+
+
+
+
+
+
+
+
+<?php
+function fetch_data() {
+  $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+
+  $yearID = $_GET['yearID'];
+  $levelID = $_GET['levelID'];
+
+  $output = '';
+  $selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
+  $selected_qry = mysqli_query($dbconnect, $selected_sql);
+  $selected_aa = mysqli_fetch_assoc($selected_qry);
+
+  do {
+    $filename = $selected_aa["filename"];
+    $image = "<img src='questions/$filename' class='img-fluid' style='height: 95px;'>";
+
+    $output .= '
+      <tr>
+        <td> </td>
+        <td>'.$image.'</td>
+      </tr>';
+  } while ($selected_aa = mysqli_fetch_assoc($selected_qry));
+  return $output;
+}
+
+if (isset($_POST["create_pdf"])) {
+  require_once("TCPDF-main/tcpdf.php");
+  $obj_pdf = new TCPDF('p', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+  $obj_pdf->SetAutoPageBreak(TRUE, 10);
+
+  $content = '';
+
+  $content .= '<table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th></th>
+    </tr';
+  $content .= fetch_data();
+
+  $content .= '</table>';
+
+  $obj_pdf->writeHTMl($content);
+
+  $obj_pdf->Output("", "I");
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <br /><br />
+    <div class="container" style="width:700px;">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <?php
+          echo fetch_data();
+           ?>
+        </table>
+        <br />
+        <form method="post">
+          <input type="submit" name="create_pdf" class="btn btn-danger" value"Create Pdf" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<td><img src="questions/'.$filename.'" class="img-fluid" style="height: 135px;"></td>
