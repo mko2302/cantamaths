@@ -17,10 +17,19 @@ if( $id == 'clear' ) {
 }
 }
 
+
 if (isset($_SESSION['Q_ID'])) {
+  $alex = count($_SESSION['Q_ID']); ?>
+   <div class="py-2">
+     <div class="p-1 border border-dark">
+       <h6>Selected: <?php echo $alex; ?></h6>
+     </div>
+   </div>
+   <div class="pt-1"> <?php
   echo "<button class=btn onclick=send_selected('clear')>Unselect All</button>";
   $Q_ID = implode("','",$_SESSION['Q_ID']);
   $Q_ID_SQL = "IN ('".$Q_ID."')";
+  echo "<div>";
 
 
   $selected_sql = "SELECT * FROM question INNER JOIN year ON question.yearid = year.yearID INNER JOIN level ON question.levelID = level.levelID WHERE questionID $Q_ID_SQL ORDER BY question.yearID DESC, question.levelID ASC, question.qnumber ASC";
@@ -29,10 +38,12 @@ if (isset($_SESSION['Q_ID'])) {
   } else {
   $selected_aa = mysqli_fetch_assoc($selected_qry); ?>
 
+
+
   <?php
   # Runs through and displays all questions that condcide with the selected filters
     do {
-      echo "<div class='row'>";
+      echo "<div class='container-fluid row border' style='margin: 0px; border: 0px;'>";
       $qnumber = $selected_aa['qnumber'];
       $yearname = $selected_aa['yearname'];
       $levelname = $selected_aa['levelname'];
@@ -73,5 +84,12 @@ if (isset($_SESSION['Q_ID'])) {
   echo "</div>";
   echo "</div>";
 }
+} else {
+?>
+   <div class="py-2">
+     <div class="p-1 border border-dark">
+       <h6>Selected: 0</h6>
+     </div>
+   </div> <?php
 }
 ?>

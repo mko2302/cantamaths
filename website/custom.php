@@ -10,20 +10,29 @@ if(isset($_SESSION['tagID'])) {
 } ?>
 
 <div id="pagination_id">
-<div class="container-fluid row">
-  <div class="col-3">
+  <div class="bg-select py-3 container-fluid row" style="margin: 0px;">
+    <div class="col-2">
+      <div class="col-12 bg-white">
     <?php include("custom-filter-checkboxes.php") ?>
   </div>
+</div>
 
-
-  <div class="col-6" id="Custom_Question">
+<div class="col-10 row" style="margin: 0px; padding: 0px;">
+  <div class="col-8">
+    <div class="col-12 bg-white" style="height: 100%;">
+      <div id="Custom_Question">
     <?php include("custom-question-display.php") ?>
   </div>
+</div>
+</div>
 
-
-  <div class="col-3" id="Custom_Selected">
+<div class="col-4">
+  <div class="col-12 bg-white" style="height: 100%;">
+  <div id="Custom_Selected">
     <?php include("custom-selected.php")?>
   </div>
+</div>
+</div>
 </div>
 </div>
 
@@ -60,21 +69,6 @@ function send_selected(question) {
     }
   };
   xhttp.open("GET", "custom-selected.php?questionID=" + question, true);
-  xhttp.send();
-}
-</script>
-
-<script>
-function pagination(page) {
-  alert(page)
-  var xhttp;
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("Custom_Selected").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("GET", "page-number.php?", true);
   xhttp.send();
 }
 </script>

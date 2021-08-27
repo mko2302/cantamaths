@@ -1,5 +1,12 @@
+<div class="py-2">
+  <div class="p-1 text-center border border-dark">
+<h6>Filters</h6>
+</div>
+</div>
+<div class="pt-1">
 <button type="button" class="btn" onclick="send_filters('beans', 'clear')" id="Clear_Filters">Clear All Filters</button>
 <br>
+</div>
 
 
 <!-- Runs loop throught the filter and on each loop gets information about a different filter -->
@@ -9,14 +16,17 @@ do {
     $filter = "tag";
     $nameID = "tagID";
     $filtername = "tagname";
+    ?><div class="pt-2"><?php
   } if ($a == 1) {
     $filter = "level";
     $nameID = "levelID";
     $filtername = "levelname";
+    ?><div class="pt-2"><?php
   } if ($a == 2) {
     $filter = "year";
     $nameID = "yearID";
     $filtername = "yearname";
+    ?><div class="py-2"><?php
   }
 
 
@@ -25,8 +35,8 @@ do {
   $filter_qry = mysqli_query($dbconnect, $filter_sql);
   $filter_aa = mysqli_fetch_assoc($filter_qry);
 
-
-  echo $filter; ?>
+    ?>  <div class="p-1 border border-dark">
+  <?php echo $filter; ?>
 
 <!-- Displays checkbox for selection all filters -->
   <div class="All_Checkbox">
@@ -60,6 +70,8 @@ do {
     </div>
 <!-- loops until no more information to be gathered from the table -->
   <?php } while ($filter_aa = mysqli_fetch_assoc($filter_qry)); ?>
+</div>
+</div>
 
 
   <script>

@@ -1,7 +1,71 @@
+.breadcrumb-item+.breadcrumb-item::before{
+	content: ">";
+  color: #EB0A00;
+}
+
+.breadcrumb-highlight+.breadcrumb-disabled::before{
+	content: ">";
+  color: #CECECE;
+}
+
+.breadcrumb-disabled+.breadcrumb-disabled::before{
+	content: ">";
+  color: #CECECE;
+}
+
 .questionimg {
   max-height: 100%;
   width: auto;
 }
 
 .special{
+}
+
+.bg-breadcrumbs {
+  background-color: #E8E8EB;
+}
+
+.breadcrumb-highlight {
+  color: #EB0A00;
+}
+
+.breadcrumb-disabled {
+  color: #CECECE;
+}
+
+.bg-select {
+  background-color: #FAFAFC;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.breadcrumb {
+  margin: 0;
+  border: 0;
+}
+
+.bg-navbar-main {
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+.border-sub {
+  border:10px #CECECE;
+}
+
+.alex-class {
+  border:10px #707070;
+}
+
+/*Remove the scrollbar from Chrome, Safari, Edge and IE*/
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+* {
+  -ms-overflow-style: none !important;
+}
+.bg-test {
+  background-color: #707070;
 }

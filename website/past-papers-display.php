@@ -7,8 +7,17 @@ if (mysqli_num_rows($year_qry)==0) {
 } else {
   $year_aa = mysqli_fetch_assoc($year_qry);
 
+  ?>
+  <div class="py-2">
+    <div class="p-1 border border-dark">
+  <h6>Results to of</h6>
+  </div>
+    </div>
 
-echo "<div class='row'>";
+   <?php
+
+
+echo "<div class='container-fluid row pt-1 pb-2' style='margin: 0px; padding: 0px;'>";
 # Runs through and displays all questions that condcide with the selected filters
   do {
     $yearname = $year_aa['yearname'];
@@ -25,6 +34,7 @@ echo "<div class='row'>";
     do {
       $levelname = $questionID_aa['levelname'];
       $levelID = $questionID_aa['levelID']; ?>
+
 
       <div class='border col-6'>
         <input type="checkbox" style='display:none;' id="Qclick <?php echo "$yearname $levelname"; ?>" onclick="send_selected(<?php echo "'$yearID'"; ?>, <?php echo "'$levelID'"; ?>)">
@@ -43,6 +53,8 @@ echo "<div class='row'>";
           echo "</div>";
         echo "</label>";
       echo "</div>";
+
+
   # Repeats until all questions have been displayed
     } while ($questionID_aa = mysqli_fetch_assoc($questionID_qry));
 } while ($year_aa = mysqli_fetch_assoc($year_qry));

@@ -27,23 +27,13 @@ if (isset($_SESSION['tagID'])) {
 } else {
   $questionIDsql = "";
 }
-
-
-$results_per_page = 10;
-
-//find number of pages needed to display all questions
-$number_of_pages = ceil("60"/$results_per_page);
-
-//find number page user is on
 ?>
-<div id="pagination_id">
-<?php $qpage = 1 ?>
+<div class="py-2">
+  <div class="p-1 border border-dark">
+<h6>Results to of</h6>
 </div>
+  </div>
 <?php
-echo $qpage;
-
-
-$page_first_result = ($qpage - 1) * $results_per_page;
 
 
 $select = "SELECT question.questionID, question.filename, question.answer, question.yearID, year.yearname, question.levelID, level.levelname, question.qnumber FROM question
@@ -54,13 +44,15 @@ $order = "ORDER BY question.yearID DESC, question.levelID ASC, question.qnumber 
 
 # Selects all from table question where each column is the same as the filters
 # If the variable set above is blank then it will select all from that column otherwise only selects those that where in the array
-$question_sql = "$select WHERE question.yearID $yearsql and question.levelID $levelsql and question.questionID $questionIDsql $order LIMIT $page_first_result , $results_per_page";
+$question_sql = "$select WHERE question.yearID $yearsql and question.levelID $levelsql and question.questionID $questionIDsql $order";
 $question_qry = mysqli_query($dbconnect, $question_sql);
 if (mysqli_num_rows($question_qry)==0) {
 } else {
   $question_aa = mysqli_fetch_assoc($question_qry);
 
-echo "<div class='row'>";
+
+
+  echo "<div class='container-fluid row pt-1 pb-2' style='margin: 0px; padding: 0px;'>";
 # Runs through and displays all questions that condcide with the selected filters
   do {
     $qnumber = $question_aa['qnumber'];
@@ -107,43 +99,3 @@ echo "<div class='row'>";
 echo "</div>";
 }
 ?>
-
-<!-- pagination boostrap adapted from https://www.positronx.io/create-pagination-in-php-with-mysql-and-bootstrap/ -->
-<nav aria-label="Page navigation mt-5">
-    <ul class="pagination justify-content-center">
-        <!-- previous button -->
-        <li class="page-item <?php if($qpage <= 1){ echo 'disabled'; } ?>">
-          <?php $prev = ($qpage - 1) ?>
-            <a class="page-link"
-                href="
-            <?php
-              if($qpage <= 1){
-                echo '#';
-              } else {
-                echo "index.php?page=custom&tab=questiondb&qpage=$prev";
-              } ?>
-              ">Previous</a>
-        </li>
-
-        <!-- page number button -->
-        <?php for($i = 1; $i <= $number_of_pages; $i++ ): ?>
-        <li class="page-item <?php if($qpage == $i) {echo 'active'; } ?>">
-            <a class="page-link" onclick="pagination(<?php echo "'$i'"; ?>)"> <?= $i; ?> </a>
-        </li>
-        <?php endfor; ?>
-
-        <!-- next button -->
-        <li class="page-item <?php if($qpage >= $number_of_pages) { echo 'disabled'; } ?>">
-            <a class="page-link"
-              <?php $next = ($qpage + 1) ?>
-                href="
-              <?php
-                if($page >= $number_of_pages){
-                  echo '#';
-                } else {
-                  echo "index.php?page=custom&tab=questiondb&qpage=$next";
-                } ?>
-                ">Next</a>
-        </li>
-    </ul>
-</nav>

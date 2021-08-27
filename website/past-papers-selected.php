@@ -13,15 +13,25 @@ $select = "SELECT question.questionID, question.filename, question.answer, quest
 # If the variable set above is blank then it will select all from that column otherwise only selects those that where in the array
 $selected_sql = "$select WHERE question.yearID = $yearID and question.levelID = $levelID";
 $selected_qry = mysqli_query($dbconnect, $selected_sql);
-$selected_aa = mysqli_fetch_assoc($selected_qry);?>
+$selected_aa = mysqli_fetch_assoc($selected_qry);
+
+$yearname = $selected_aa['yearname'];
+$levelname = $selected_aa['levelname'];
+?>
+
+<div class="py-2">
+  <div class="p-1 border border-dark">
+    <?php ?>
+    <h6>Selected: <?php echo $yearname, " year ", $levelname, " exam"; ?></h6>
+  </div>
+</div>
 
 <?php
 # Runs through and displays all questions that condcide with the selected filters
   do {
-    echo "<div class='row'>";
+    echo "<div class='container-fluid row border' style='margin: 0px; border: 0px;'>";
     $qnumber = $selected_aa['qnumber'];
-    $yearname = $selected_aa['yearname'];
-    $levelname = $selected_aa['levelname'];
+
     $filename = $selected_aa['filename'];
     $QquestionID = $selected_aa['questionID'];
 
