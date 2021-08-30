@@ -1,4 +1,5 @@
 <?php
+
 include("dbconnect.php");
 
 include("filter-to-in.php");
@@ -152,10 +153,51 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
               <!-- edit button column -->
               <td>
-                <button type='button' class='btn btn-primary' data-toggle='modal' <?php echo"data-target='#editquestion_$questionID'";?>>
+                <button type='button' class='btn btn-primary editButton' <?php echo"data-id='$questionID'";?>>
                   Edit
                 </button>
               </td>
+
+              <!-- edit modal -->
+              <div class='modal fade' id='editModal' tabindex='-1' role='dialog'>
+                <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
+                  <div class='modal-content'>
+                    <!-- modal content gets delivered through another page -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- submit form -->
+              <script type='text/javascript'>
+                function editFormSubmit() {
+                  <?php echo"document.getElementById('editForm$questionID').submit();"; ?>
+                 }
+              </script>
+
+              <!-- OpenModal script -->
+              <script type='text/javascript'>
+              $(document).ready(function(){
+
+                  $('.editButton').click(function(){
+
+                      var questionID = $(this).data('id');
+
+                      // AJAX request
+                      $.ajax({
+                          url: 'editmodal.php',
+                          type: 'POST',
+                          data: {questionID: questionID},
+                          success: function(response){
+                              // Add response in Modal body
+                              $('.modal-content').html(response);
+
+                              // Display Modal
+                              $('#editModal').modal('show');
+                          }
+                      });
+                  });
+              });
+              </script>
 
               <!-- delete button column -->
               <td>
@@ -163,146 +205,6 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                   Delete
                 </button>
               </td>
-
-              <!-- Modal script -->
-              <script>
-              $('#myModal').on('shown.bs.modal', function () {
-                $('#myInput').trigger('focus')
-              })
-              </script>
-
-              <!-- edit modal -->
-              <div class='modal fade' <?php echo"id='editquestion_$questionID'";?> tabindex='-1' role='dialog'>
-                <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
-                  <div class='modal-content'>
-                    <?php echo" <form class='' id='editForm$questionID' name='editForm$questionID' action='index.php?page=editquestion&questionID=$questionID' method='post'>";?>
-                    <div class='modal-header'>
-                      <h5 class='modal-title'>Edit Question</h5>
-                    </div>
-
-                    <div class='modal-body'>
-                      <img style='width:100%;' <?php echo"src='questions/$filename'";?> alt=''>
-
-                      <!-- question number -->
-                      <div class='row'>
-                        <div class='form-group col'>
-                          <label <?php echo"for='edit_qnumber_$questionID'";?>>Question Number</label><br>
-                          <input class='form-control' <?php echo"name='edit_qnumber_$questionID' id='editForm$questionID'";?> type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
-                          <script>
-                            document.querySelector('input[type=number]')
-                            .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
-                          </script>
-                        </div>
-
-                        <!-- input for answer -->
-                        <div class='form-group col'>
-                          <label for='answer'>Answer</label><br>
-                          <input class='form-control' type='text' name='answer' <?php echo "id='editForm$questionID' value='$answer'";?> required>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                      <!-- year -->
-                      <div class='form-group col'>
-                        <label for='year'>Publication Year</label><br>
-
-                        <select class='form-control' name='year' required <?php echo"id='editForm$questionID'"; ?>>
-                          <?php
-                            $year_sql = 'SELECT * FROM year ORDER BY yearID DESC';
-                            $year_qry = mysqli_query($dbconnect, $year_sql);
-                            $year_aa = mysqli_fetch_assoc($year_qry);
-
-                            do {
-                              $yearID = $year_aa['yearID'];
-                              $name = $year_aa['yearname'];
-
-                              if ($question_yearID == $yearID) {
-                                echo " <option value='$yearID' selected>$name</option>";
-                              } else {
-                                echo " <option value='$yearID'>$name</option>";
-                              }
-
-                            } while ($year_aa = mysqli_fetch_assoc($year_qry));
-                          ?>
-                        </select>
-                      </div>
-
-                        <!-- select/type year level -->
-                        <div class="form-group col">
-                          <label for="level">Year Level</label><br>
-                          <select name="level" class="form-control" <?php echo"id='editForm$questionID'"; ?> required>
-                            <?php
-                            $level_sql = "SELECT * FROM level";
-                            $level_qry = mysqli_query($dbconnect, $level_sql);
-                            $level_aa = mysqli_fetch_assoc($level_qry);
-
-                            do {
-                              $levelID = $level_aa['levelID'];
-                              $name = $level_aa['levelname'];
-
-                              if ($question_levelID == $levelID) {
-                                echo " <option value='$levelID' selected>$name</option>";
-                              } else {
-                                echo " <option value='$levelID'>$name</option>";
-                              }
-
-                            } while ($level_aa = mysqli_fetch_assoc($level_qry));
-                            ?>
-                          </select>
-                        </div>
-                      </div>
-
-                      <!-- edit tags -->
-                      <div class='form-group col-lg-2'>
-                        <?php
-                        $tag_sql = "SELECT * FROM tag";
-                        $tag_qry = mysqli_query($dbconnect, $tag_sql);
-                        $tag_aa = mysqli_fetch_assoc($tag_qry);
-
-                        do {
-                          $tagID = $tag_aa["tagID"];
-                          $name = $tag_aa["tagname"];
-
-                          // if the tag ID is in the tag list array in the column 0 of nested array for each tag
-                          if(array_search($tagID, array_column($taglist,0)) !== false) {
-                            // display as checked
-                                $checked = "checked";
-                              } else {
-                                $checked = "";
-                              }
-
-                          echo "
-                          <div class='form-check'>
-                            <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='editForm$questionID' $checked>
-                            <label class='form-check-label' for='edit-$tagID-$questionID'>
-                              $name
-                            </label>
-                          </div>";
-
-                          } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
-                         ?>
-
-                      </div>
-                    </div>
-
-                    <div class='modal-footer'>
-                      <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                      <button type='submit' value="submit" class='btn btn-primary' onclick="editFormSubmit">Save changes</button>
-
-                    </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <?php
-                echo"
-                <script type='text/javascript'>
-                  function editFormSubmit() {
-                    document.getElementById('editForm$questionID').submit();
-                   }
-                </script>
-                ";
-               ?>
 
 
               <!-- delete modal -->
@@ -352,6 +254,10 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
         ?>
   </tbody>
 </table>
+
+
+
+
 
 <!-- pagination boostrap adapted from https://www.positronx.io/create-pagination-in-php-with-mysql-and-bootstrap/ -->
 <nav aria-label="Page navigation mt-5">
