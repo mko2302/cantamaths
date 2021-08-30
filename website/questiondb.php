@@ -35,10 +35,10 @@ if(isset($_SESSION['tagID'])) {
 </div>
 
 <script type="text/javascript">
-// jquery paeinaition function to display right question page
+//jquery paeinaition function to display right question page
 function fetch_data(page){
    $.ajax({
-      url: "display-question-db.php",
+      url: "custom-database.php",
       method: "POST",
       data: {
          page: page
@@ -51,14 +51,14 @@ function fetch_data(page){
 
 //if user clicks on paginaiton, change page
 $(document).on("click", ".page-item", function(){
-         var page = $(this).attr("id");
+         var page = $(this).attr("value");
          fetch_data(page);
       })
 
 /* filter and id are the information sent through in laodDoc()*/
 /* filter = what the filter is e.g. year */
 /* id = the id of the specific filter e.g. 2012 */
-function send_filters(filter, id) {
+function send_filters(filter, id,page) {
 /* Sets up a http request which allow ajax to send information without reloading the page */
   var xhttp;
   xhttp = new XMLHttpRequest();
@@ -74,4 +74,6 @@ function send_filters(filter, id) {
   xhttp.open("GET", "custom-database.php?filter=" + filter + "&id=" + id, true);
   xhttp.send();
 }
+
+
 </script>

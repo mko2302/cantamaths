@@ -47,10 +47,8 @@ $number_of_pages = ceil($number_of_q/$results_per_page);
 //find number page user is on
 if (!isset($_POST['page'])) {
   $page = 1;
-  $_SESSION['dbpage'] = $page;
 } else {
   $page = $_POST['page'];
-  $_SESSION['dbpage'] = $page;
 }
 
 $page_first_result = ($page - 1) * $results_per_page;
@@ -177,7 +175,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               <div class='modal fade' <?php echo"id='editquestion_$questionID'";?> tabindex='-1' role='dialog'>
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
                   <div class='modal-content'>
-                    <?php echo" <form class='' action='index.php?page=adminpanel&tab=editquestion&questionID=$questionID' method='post'>";?>
+                    <?php echo" <form class='' id='editForm$questionID' name='editForm$questionID' action='index.php?page=editquestion&questionID=$questionID' method='post'>";?>
                     <div class='modal-header'>
                       <h5 class='modal-title'>Edit Question</h5>
                     </div>
@@ -189,7 +187,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       <div class='row'>
                         <div class='form-group col'>
                           <label <?php echo"for='edit_qnumber_$questionID'";?>>Question Number</label><br>
-                          <input class='form-control' <?php echo"name='edit_qnumber_$questionID' id='edit_qnumber_$questionID'";?> type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
+                          <input class='form-control' <?php echo"name='edit_qnumber_$questionID' id='editForm$questionID'";?> type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
                           <script>
                             document.querySelector('input[type=number]')
                             .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
@@ -199,7 +197,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                         <!-- input for answer -->
                         <div class='form-group col'>
                           <label for='answer'>Answer</label><br>
-                          <input class='form-control' type='text' name='answer' <?php echo"value='$answer'"?> required>
+                          <input class='form-control' type='text' name='answer' <?php echo "id='editForm$questionID' value='$answer'";?> required>
                         </div>
                       </div>
 
@@ -208,7 +206,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       <div class='form-group col'>
                         <label for='year'>Publication Year</label><br>
 
-                        <select class='form-control' name='year' required>
+                        <select class='form-control' name='year' required <?php echo"id='editForm$questionID'"; ?>>
                           <?php
                             $year_sql = 'SELECT * FROM year ORDER BY yearID DESC';
                             $year_qry = mysqli_query($dbconnect, $year_sql);
@@ -232,7 +230,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                         <!-- select/type year level -->
                         <div class="form-group col">
                           <label for="level">Year Level</label><br>
-                          <select name="level" class="form-control" required>
+                          <select name="level" class="form-control" <?php echo"id='editForm$questionID'"; ?> required>
                             <?php
                             $level_sql = "SELECT * FROM level";
                             $level_qry = mysqli_query($dbconnect, $level_sql);
@@ -275,7 +273,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                           echo "
                           <div class='form-check'>
-                            <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='edit-$tagID-$questionID' $checked>
+                            <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='editForm$questionID' $checked>
                             <label class='form-check-label' for='edit-$tagID-$questionID'>
                               $name
                             </label>
@@ -289,12 +287,22 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                     <div class='modal-footer'>
                       <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                      <button type='submit' class='btn btn-primary'>Save changes</button>
+                      <button type='submit' value="submit" class='btn btn-primary' onclick="editFormSubmit">Save changes</button>
+
                     </div>
                     </form>
                   </div>
                 </div>
               </div>
+              <?php
+                echo"
+                <script type='text/javascript'>
+                  function editFormSubmit() {
+                    document.getElementById('editForm$questionID').submit();
+                   }
+                </script>
+                ";
+               ?>
 
 
               <!-- delete modal -->
@@ -352,7 +360,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
       if($page > 1){
         // make make previous button so to previous page
         $previous = $page - 1;
-        echo "<li class='page-item' id='$previous'><span class='page-link'>Previous</span></li>";
+        echo "<li class='page-item' value='$previous'><span class='page-link'>Previous</span></li>";
       } else {
         // is page is not > 1, disable the button
         echo "<li class='page-item disabled'><span class='page-link'>Previous</span></li>";
@@ -363,13 +371,13 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
       for($i = 1; $i <= $number_of_pages; $i++ ):
         if ($page == $i) {
           // if the page button is the current page, make it display as active
-          echo "<li class='page-item active' id='$i'>
+          echo "<li class='page-item active' value='$i'>
                   <a class='page-link'>$i</a>
                 </li>";
         } else {
           // else just display as normal
-          echo "<li class='page-item' id='$i'>
-                  <a class='page-link' >$i</a>
+          echo "<li class='page-item' value='$i'>
+                  <a class='page-link'>$i</a>
                 </li>";
         }
        endfor;
@@ -378,11 +386,11 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
         // if current page is >= to the total number of pages
        if ($page >= $number_of_pages) {
          // disable the next button
-         echo "<li class='page-item disabled'><span class='page-link'>Next</span></li>";
+         echo "<li class='disabled'><span class='page-link'>Next</span></li>";
        } else {
          // otherwise make button go to next page
          $next = $page + 1;
-         echo "<li class='page-item' id='$next'><span class='page-link'>Next</span></li>";
+         echo "<li class='page-item' value='$next'><span class='page-link'>Next</span></li>";
        }
        ?>
 

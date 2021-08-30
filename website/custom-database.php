@@ -5,7 +5,6 @@ $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
 $id = $_GET['id'];
 $array = $_GET['filter'];
 
-
 if ($id == 'clear') {
   if(isset($_SESSION['levelID'])) {
     unset($_SESSION['levelID']);
