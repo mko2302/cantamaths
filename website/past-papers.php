@@ -8,7 +8,7 @@ if(isset($_SESSION['yearID'])) {
 } ?>
 
 
-<div class="bg-select py-3 container-fluid row" style="margin: 0px;">
+<div class="bg-select py-3 container-fluid row" style="margin: 0px; font-size: 15px;">
   <div class="col-2">
     <div class="col-12 bg-white">
       <?php include("past-papers-filter-checkboxes.php") ?>
@@ -28,10 +28,12 @@ if(isset($_SESSION['yearID'])) {
       <div class="col-12 bg-white" style="height: 100%;">
         <div id="Past_Papers_Selected">
           <div class="py-2">
-            <div class="p-1 border border-dark">
-              <?php ?>
-              <h6>Selected:</h6>
+            <div class="py-1 px-2 border-header">
+              <p style="margin: 0px; font-weight: 500;">Selected:</p>
             </div>
+          </div>
+          <div class="pt-1 pb-2">
+            <?php echo "<a style='font-size: 15px; font-weight: 500; margin: 0px; padding: 0px;' class='btn btn-block btn-danger p-1 disabled' href='past-paper-print.php?yearID=$yearID&levelID=$levelID' role='button'>Next</a>"; ?>
           </div>
         </div>
       </div>

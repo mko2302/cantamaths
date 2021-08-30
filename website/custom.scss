@@ -1,1 +1,18 @@
- $border-width: 10px !default;
+/*! `Custom` Bootstrap 5 theme */
+
+$enable-grid-classes:false;
+$primary:#0d6efd;
+$secondary:#6c757d;
+$success:#198754;
+$danger:#eb0a00;
+$info:#0dcaf0;
+$warning:#ffc107;
+$light:#f8f9fa;
+$dark:#212529;
+@import "bootstrap";
+
+// Add SASS theme customizations here..
+html {font-size: .8rem;}
+@include media-breakpoint-up(sm) {html {font-size: .9rem;}}
+@include media-breakpoint-up(md) {html {font-size: .9rem;}}
+@include media-breakpoint-up(lg) {html {font-size: 1rem;}}

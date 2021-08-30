@@ -18,7 +18,6 @@
 
         $output .= '
           <tr>
-
             <td><img src="questions/'.$filename.'" class="img-fluid" style="height: 135px;"></td>
           </tr>';
       }

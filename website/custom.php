@@ -10,7 +10,7 @@ if(isset($_SESSION['tagID'])) {
 } ?>
 
 <div id="pagination_id">
-  <div class="bg-select py-3 container-fluid row" style="margin: 0px;">
+  <div class="bg-select py-3 container-fluid row" style="margin: 0px; font-size: 15px;">
     <div class="col-2">
       <div class="col-12 bg-white">
     <?php include("custom-filter-checkboxes.php") ?>
@@ -57,9 +57,8 @@ function send_filters(filter, id) {
   xhttp.open("GET", "custom-question.php?filter=" + filter + "&id=" + id, true);
   xhttp.send();
 }
-</script>
 
-<script>
+
 function send_selected(question) {
   var xhttp;
   xhttp = new XMLHttpRequest();
@@ -70,5 +69,10 @@ function send_selected(question) {
   };
   xhttp.open("GET", "custom-selected.php?questionID=" + question, true);
   xhttp.send();
+}
+
+function highlight_selected(question) {
+  var element = document.getElementById("div_Qclick " + question);
+  element.classList.add("border-selected");
 }
 </script>

@@ -1,11 +1,11 @@
 <div class="py-2">
-  <div class="p-1 text-center border border-dark">
-<h6>Filters</h6>
+  <div class="py-1 text-center border-header">
+    <p style="margin: 0px; font-weight: 500;">Filters</p>
+  </div>
 </div>
-</div>
+
 <div class="pt-1">
-<button type="button" class="btn" onclick="send_filters('beans', 'clear')" id="Clear_Filters">Clear All Filters</button>
-<br>
+  <button type="button" style="font-size: 15px; font-weight: 500; margin: 0px; padding: 0px;" class="btn btn-danger btn-block p-1" onclick="send_filters('beans', 'clear')" id="Clear_Filters">Clear All Filters</button>
 </div>
 
 
@@ -16,58 +16,62 @@ do {
     $filter = "level";
     $nameID = "levelID";
     $filtername = "levelname";
-    ?><div class="pt-2"><?php
+    $header = "Level";
+    echo "<div class='pt-2'>";
   } if ($a == 1) {
     $filter = "year";
     $nameID = "yearID";
     $filtername = "yearname";
-    ?><div class="py-2"><?php
+    $header = "Year";
+    echo "<div class='py-2'>";
   }
 
 
 # Selects from all information from the table of the current filter being looped
-  $filter_sql = "SELECT * FROM $filter ORDER BY $filtername desc";
-  $filter_qry = mysqli_query($dbconnect, $filter_sql);
-  $filter_aa = mysqli_fetch_assoc($filter_qry);
+    $filter_sql = "SELECT * FROM $filter ORDER BY $filtername desc";
+    $filter_qry = mysqli_query($dbconnect, $filter_sql);
+    $filter_aa = mysqli_fetch_assoc($filter_qry);
 
-  ?>
-      <div class="p-1 border border-dark">
-  <?php echo $filter; ?>
+    echo "<div class='p-1 border-sub' style='line-height: 1.2;'>";
+      echo "<div class='py-1'>";
+        echo "<p style='margin: 0px; font-weight: 500;'>$header</p>"; ?>
+      </div>
 
-<!-- Displays checkbox for selection all filters -->
-  <div class="All_Checkbox">
-    <div class="form-check">
-      <input checked class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo "'all'"; ?>)" id="<?php echo "$nameID"; ?>_All">
-      <label class="form-check-label">
-        <?php echo "All"; ?>
-      </label>
-    </div>
-  </div>
-
-<!-- Loops through until all information from table is selected -->
-  <?php do {
-
-
-# Gets the name of the a row from the filter table e.g. 2012 or if it was the level table e.g. year 10
-    $name = $filter_aa[$filtername];
-    $filterID = $filter_aa[$nameID]; ?>
-
-
-<!-- the information is then put into a checkbox in same format as above -->
-    <div class="Specific_Checkbox">
-      <div class="<?php echo "$nameID"; ?>_Specific_Checkbox">
+  <!-- Displays checkbox for selection all filters -->
+      <div class="All_Checkbox">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo $filterID; ?>)" id="<?php echo "$nameID"."_"."$filterID"; ?>">
+          <input checked class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo "'all'"; ?>)" id="<?php echo "$nameID"; ?>_All">
           <label class="form-check-label">
-            <?php echo "$name"; ?>
+            <?php echo "All"; ?>
           </label>
         </div>
       </div>
+
+  <!-- Loops through until all information from table is selected -->
+      <?php do {
+
+
+  # Gets the name of the a row from the filter table e.g. 2012 or if it was the level table e.g. year 10
+        $name = $filter_aa[$filtername];
+        $filterID = $filter_aa[$nameID]; ?>
+
+
+  <!-- the information is then put into a checkbox in same format as above -->
+        <div class="Specific_Checkbox">
+          <div class="<?php echo "$nameID"; ?>_Specific_Checkbox">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" onclick="send_filters(<?php echo "'$nameID'"; ?>, <?php echo $filterID; ?>)" id="<?php echo "$nameID"."_"."$filterID"; ?>">
+              <label class="form-check-label">
+                <?php echo "$name"; ?>
+              </label>
+            </div>
+          </div>
+        </div>
+  <!-- loops until no more information to be gathered from the table -->
+      <?php } while ($filter_aa = mysqli_fetch_assoc($filter_qry)); ?>
+
     </div>
-<!-- loops until no more information to be gathered from the table -->
-  <?php } while ($filter_aa = mysqli_fetch_assoc($filter_qry)); ?>
-</div>
-</div>
+  </div>
 
 
   <script>
@@ -93,6 +97,7 @@ do {
   <?php $a += 1;
 # Loop will continue until $a <= 1 or when all filters have been looped
 } while ($a <= 1); ?>
+
 
 <script>
 $(document).ready(function(){

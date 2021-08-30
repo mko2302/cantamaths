@@ -1,5 +1,4 @@
-<?php
-$dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+<?php $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
 
 $yearID = $_GET['yearID'];
 $levelID = $_GET['levelID'];
@@ -16,53 +15,52 @@ $selected_qry = mysqli_query($dbconnect, $selected_sql);
 $selected_aa = mysqli_fetch_assoc($selected_qry);
 
 $yearname = $selected_aa['yearname'];
-$levelname = $selected_aa['levelname'];
-?>
+$levelname = $selected_aa['levelname']; ?>
 
 <div class="py-2">
-  <div class="p-1 border border-dark">
-    <?php ?>
-    <h6>Selected: <?php echo $yearname, " year ", $levelname, " exam"; ?></h6>
+  <div class="py-1 px-2 border-header">
+    <p style="margin: 0px; font-weight: 500;">Selected: <?php echo $yearname, " year ", $levelname, " exam"; ?></p>
   </div>
 </div>
 
-<?php
-# Runs through and displays all questions that condcide with the selected filters
-  do {
-    echo "<div class='container-fluid row border' style='margin: 0px; border: 0px;'>";
-    $qnumber = $selected_aa['qnumber'];
+<div class='pt-1'>
+  <?php do {
+    echo "<div class='mb-2 container-fluid row border-sub' style='margin: 0px; border: 0px;'>";
 
-    $filename = $selected_aa['filename'];
-    $QquestionID = $selected_aa['questionID'];
+      $qnumber = $selected_aa['qnumber'];
+      $filename = $selected_aa['filename'];
+      $QquestionID = $selected_aa['questionID'];
 
-    $_SESSION["Tags'".$QquestionID."'"] = [];
+      $_SESSION["Tags'".$QquestionID."'"] = [];
 
-    $questionID_sql = "SELECT DISTINCT tagname FROM questiontag INNER JOIN tag ON questiontag.tagID = tag.tagID WHERE questionID = $QquestionID";
-    $questionID_qry = mysqli_query($dbconnect, $questionID_sql);
-    $questionID_aa = mysqli_fetch_assoc($questionID_qry);
+      $questionID_sql = "SELECT DISTINCT tagname FROM questiontag INNER JOIN tag ON questiontag.tagID = tag.tagID WHERE questionID = $QquestionID";
+      $questionID_qry = mysqli_query($dbconnect, $questionID_sql);
+      $questionID_aa = mysqli_fetch_assoc($questionID_qry);
 
-    if (!$questionID_aa) {
-    } else {
-      do {
-        $tagname = $questionID_aa['tagname'];
-        array_push($_SESSION["Tags'".$QquestionID."'"],$tagname);
-      } while ($questionID_aa = mysqli_fetch_assoc($questionID_qry));
-    }
+      if (!$questionID_aa) {
+      } else {
+        do {
+          $tagname = $questionID_aa['tagname'];
+          array_push($_SESSION["Tags'".$QquestionID."'"],$tagname);
+        } while ($questionID_aa = mysqli_fetch_assoc($questionID_qry));
+      }
 
-    echo "<div class='col-4 text-center'>";
-      echo nl2br("Question $qnumber \n");
-      echo nl2br("$yearname \n");
-      echo nl2br("$levelname \n");
+      echo "<div class='col-4 text-center'>";
+        echo nl2br("Question $qnumber \n");
+        echo nl2br("$yearname \n");
+        echo nl2br("$levelname \n");
+      echo "</div>";
+
+      echo "<div class='col-8'>";
+        echo "<img src='questions/$filename' class='img-fluid'>";
+      echo "</div>";
     echo "</div>";
 
-    echo "<div class='col-8'>";
-# displays the image with the filename
-      echo "<img src='questions/$filename' class='img-fluid'>";
-    echo "</div>";
-    echo "</div>";
-  echo "</label>";
-echo "</div>";
 # Repeats until all questions have been displayed
-} while ($selected_aa = mysqli_fetch_assoc($selected_qry));
-echo "</div>";
-echo "<a href='past-paper-print.php?yearID=$yearID&levelID=$levelID' class='btn' role='button'>Print</a>"; ?>
+  } while ($selected_aa = mysqli_fetch_assoc($selected_qry));
+echo "</div>"; ?>
+
+
+<div class="pt-1 pb-2">
+  <?php echo "<a style='font-size: 15px; font-weight: 500; margin: 0px; padding: 0px;' class='btn btn-block btn-danger p-1' href='index.php?page=past-paper-print&yearID=$yearID&levelID=$levelID' role='button'>Next</a>"; ?>
+</div>
