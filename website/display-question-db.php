@@ -67,7 +67,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
  ?>
 
 <!-- bootstrap table to display questions -->
-<table class="table table-striped">
+<table class="table table-striped" id="dbTable">
   <thead>
     <tr>
       <th scope="col">
@@ -172,31 +172,38 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                 function editFormSubmit() {
                   <?php echo"document.getElementById('editForm$questionID').submit();"; ?>
                  }
+
+                 function clickButton() {
+                   alert("yo");
+                 }
               </script>
 
               <!-- OpenModal script -->
               <script type='text/javascript'>
               $(document).ready(function(){
 
-                  $('.editButton').click(function(){
+                //delegate the event using "on" to make ajax function properly
+                $('#Custom_Database').on('click','.editButton',function(e){
+                  e.preventDefault();
 
-                      var questionID = $(this).data('id');
+                    //question id is the one user clicked on
+                    var questionID = $(this).data('id');
 
-                      // AJAX request
-                      $.ajax({
-                          url: 'editmodal.php',
-                          type: 'POST',
-                          data: {questionID: questionID},
-                          success: function(response){
-                              // Add response in Modal body
-                              $('.modal-content').html(response);
+                    // AJAX request
+                    $.ajax({
+                        url: 'editmodal.php',
+                        type: 'POST',
+                        data: {questionID: questionID},
+                        success: function(response){
+                            // Add response in Modal body
+                            $('.modal-content').html(response);
 
-                              // Display Modal
-                              $('#editModal').modal('show');
+                            // Display Modal
+                            $('#editModal').modal('show');
                           }
                       });
                   });
-              });
+                });
               </script>
 
               <!-- delete button column -->
@@ -254,8 +261,6 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
         ?>
   </tbody>
 </table>
-
-
 
 
 

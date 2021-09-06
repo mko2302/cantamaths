@@ -85,6 +85,7 @@ do {
 # Loop will continue until $a <= 1 or when all filters have been looped
 } while ($a <= 2); ?>
 
+<!-- clear all filters function -->
 <script>
 $(document).ready(function(){
   $("#Clear_Filters").click(function() {
