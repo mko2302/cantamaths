@@ -554,3 +554,44 @@ if ($a == 2) {
             </div>
        </body>
   </html>
+
+
+
+
+
+
+
+  <div class="jumbotron">
+    <h1 class="display-4">Hello User</h1>
+    <p class="lead">This is an early protoype of our cantamaths website that will allow you to use almost all of our planned technical features. However as you can probably tell there is still some visual work to go into it. Thanks :).</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="index.php?page=fifty-fifty" role="button">Get Started</a>
+  </div>
+
+
+
+
+  <ol class="breadcrumb bg-breadcrumbs" style="margin: 0px;">
+    <li class="breadcrumb-item"><a class="breadcrumb-highlight" href="index.php">Home</a></li>
+    <li class="breadcrumb-item breadcrumb-highlight">Custom/Past Paper</li>
+    <li class="breadcrumb-item breadcrumb-disabled" >Select</li>
+    <li class="breadcrumb-item breadcrumb-disabled">Print</li>
+  </ol>
+
+  <ol class="breadcrumb bg-breadcrumbs" style="margin: 0px;">
+    <li class="breadcrumb-item"><a class="breadcrumb-highlight" href="index.php">Home</a></li>
+    <li class="breadcrumb-item"><a class="breadcrumb-highlight" href="index.php?page=fifty-fifty">Custom/Past Paper</a></li>
+    <li class="breadcrumb-item breadcrumb-highlight" >Select</li>
+    <li class="breadcrumb-item breadcrumb-disabled">Print</li>
+  </ol>
+
+
+
+  <div class="row text-center h-100">
+    <div class="border col-6">
+      <a class="col-6" href="index.php?page=custom">Custom</a>
+    </div>
+    <div class="border col-6">
+      <a class="col-6" href="index.php?page=past-papers">Past Papers</a>
+    </div>
+  </div>

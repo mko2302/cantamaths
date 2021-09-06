@@ -62,5 +62,5 @@ echo "</div>"; ?>
 
 
 <div class="pt-1 pb-2">
-  <?php echo "<a style='font-size: 15px; font-weight: 500; margin: 0px; padding: 0px;' class='btn btn-block btn-danger p-1' href='index.php?page=past-paper-print&yearID=$yearID&levelID=$levelID' role='button'>Next</a>"; ?>
+  <?php echo "<a style='font-size: 15px; font-weight: 500; margin: 0px; padding: 0px;' class='btn btn-block btn-danger p-1' href='past-paper-print.php?yearID=$yearID&levelID=$levelID' role='button'>Next</a>"; ?>
 </div>
