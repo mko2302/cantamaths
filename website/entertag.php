@@ -1,5 +1,9 @@
 <?php
-  $tag_name = $_POST['tag_name'];
+  if (isset($_POST['tagnames'])) {
+    $tag_name = $_POST['tag_name'];
+  } else {
+    header("index.php?page=adminpanel&tab=dbsettings&status=tagerror");
+  }
 
   $check_qry = "SELECT * FROM tag WHERE tagname LIKE '$tag_name'";
 
@@ -13,7 +17,4 @@
   } else {
     header("index.php?page=adminpanel&tab=dbsettings&status=duplicatetag");
   }
-
-
-
- ?>
+?>
