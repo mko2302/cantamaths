@@ -1,31 +1,29 @@
 <!-- This page is to add tags, years and levels if needed -->
 <!-- users should be able to also add new tags on the add question page-->
-<div class="row">
+<div class="row" id="tagRow">
   <div id="displaytags_data" class="col-3">
 
   </div>
 
   <script type="text/JavaScript">
-     function fetch_data(page){
+     function fetch_data(tagpage){
         $.ajax({
            url: "displaytags.php",
            method: "POST",
            data: {
-              page: page
+              tagpage: tagpage
            },
-           success: function(data){
-              $("#displaytags_data").html(data);
+           success: function(tagdata){
+              $("#displaytags_data").html(tagdata);
            }
         });
      }
 
      fetch_data();
 
-     $(document).on("click", "")
-
-     $(document).on("click", ".page-item", function(){
-              var page = $(this).attr("id");
-              fetch_data(page);
+     $("#tagRow").on("click", ".page-item", function(){
+              var tagpage = $(this).attr("id");
+              fetch_data(tagpage);
            })
   </script>
 
@@ -33,11 +31,13 @@
    <form action="index.php?page=adminpanel&tab=entertag" method="post">
      <div class="form-group">
        <label>Enter New Tag</label>
-       <input type="text" class="form-control"  name="tag_name" aria-describedby="Enter Tag" placeholder="Enter new tag">
+       <input type="text" class="form-control"  name="tagname" aria-describedby="Enter Tag" placeholder="Enter new tag" required>
      </div>
 
      <button type="submit" class="btn btn-primary">Add Tag</button>
    </form>
-
+   <?php include("status.php") ?>
   </div>
+
+
 </div>
