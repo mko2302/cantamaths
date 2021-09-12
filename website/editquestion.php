@@ -23,7 +23,7 @@
   }
 
   // check if any questions in database are the same
-  $check_sql = "SELECT * FROM question WHERE qnumber = $qnumber AND levelID = $level and yearID = $year";
+  $check_sql = "SELECT * FROM question WHERE qnumber = $qnumber AND levelID = $level and yearID = $year AND answer = $answer";
   //send to database
   $check_qry = mysqli_query($dbconnect, $check_sql);
 

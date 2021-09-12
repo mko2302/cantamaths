@@ -172,13 +172,9 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                 function editFormSubmit() {
                   <?php echo"document.getElementById('editForm$questionID').submit();"; ?>
                  }
-
-                 function clickButton() {
-                   alert("yo");
-                 }
               </script>
 
-              <!-- OpenModal script -->
+              <!-- Open Modal script -->
               <script type='text/javascript'>
               $(document).ready(function(){
 
@@ -219,7 +215,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
                   <div class='modal-content'>
                     <div class='modal-header'>
-                      <h5 class='modal-title' <?php echo "id='deletequestion_$qnumber"?> >Delete Question</h5>
+                      <h5 class='modal-title' <?php echo "id='deletequestion_$questionID"?> >Delete Question</h5>
                       <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                       </button>
