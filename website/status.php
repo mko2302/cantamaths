@@ -40,6 +40,25 @@
       $colour = "success";
     }
 
+    //dbsettings db messages
+    // add tag success
+    if ($status == "tagsuccess") {
+      $message = "New tag added!";
+      $colour = "success";
+    }
+
+    //delete tag success
+    if ($status == "tagsuccess") {
+      $message = "Tag deleted!";
+      $colour = "success";
+    }
+
+    //tag error
+    if ($status == "tagerror") {
+      $message = "Error has occured";
+      $colour = "danger";
+    }
+
     echo"
     <div class='alert alert-$colour my-1 alert-dismissible fade show' role='alert'>
       <button type='button' class='close' aria='aria-hidden-true' aria-label='Close'></button>
