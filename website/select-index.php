@@ -1,4 +1,6 @@
 <?php $select_page = $_GET['select'];
+$_SESSION['alex!'] = [$select_page];
+
 if(isset($_SESSION['levelID'])) {
   unset($_SESSION['levelID']);
 }

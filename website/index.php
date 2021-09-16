@@ -1,8 +1,6 @@
 <?php session_start();
-
-// Includes database connection code
-include("dbconnect.php"); ?>
-
+$dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>

@@ -23,8 +23,7 @@
       }
       return $output;
  }
- if(isset($_POST["create_pdf"]))
- {
+
       require_once('TCPDF-main/tcpdf.php');
       $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
       $obj_pdf->SetCreator(PDF_CREATOR);
@@ -54,49 +53,5 @@
       $content .= '</table>';
       $obj_pdf->writeHTML($content);
       $obj_pdf->Output('sample.pdf', 'I');
- }
+ 
  ?>
- <!DOCTYPE html>
- <html>
-      <head>
-           <title>TESTING</title>
-           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-      </head>
-      <body>
-           <br /><br />
-           <div class="container" style="width:700px;">
-                <h3 align="center"></h3><br />
-                <div class="table-responsive">
-                     <table class="table table-bordered">
-                          <tr>
-                               <th></th>
-                               <th></th>
-                          </tr>
-                     <?php
-                     echo fetch_data();
-                     ?>
-                     </table>
-                     <br />
-                     <form method="post">
-                          <input type="submit" name="create_pdf" class="btn btn-danger" value="Create PDF" />
-                     </form>
-                </div>
-           </div>
-      </body>
- </html>
-
-
-
-<script>
-function preview(id, amount, yearID, levelID) {
-  var xhttp;
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("Preview").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("GET", "print-ajax.php?yearID=" + yearID + "&levelID=" + levelID, true);
-  xhttp.send();
-}
-</script>
