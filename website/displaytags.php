@@ -57,7 +57,6 @@
                </td>
                <!-- delete column -->
                <td>
-               <td>
                  <button type="button" class="btn btn-danger deleteButton" <?php echo"data-id='$tagID'"; ?>>
                    Delete
                  </button>
@@ -98,7 +97,6 @@
                    });
                  </script>
 
-               </td>
                </td>
               </tr>
             <?php

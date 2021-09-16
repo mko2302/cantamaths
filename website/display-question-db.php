@@ -67,7 +67,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
  ?>
 
 <!-- bootstrap table to display questions -->
-<table class="table table-striped" id="dbTable">
+<table class="table table-striped admin-table" id="dbTable">
   <thead>
     <tr>
       <th scope="col">
@@ -104,7 +104,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
             $year = $question_aa["yearname"];
 
             ?>
-            <tr>
+            <tr class="admin-table-row">
               <!-- questions/year/level coloumn -->
               <td>
                 Question <?php echo "$qnumber";?><br>
