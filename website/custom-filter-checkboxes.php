@@ -2,7 +2,7 @@
   <div class="py-1 text-center border-header">
     <p style="margin: 0px; font-weight: 500;">Filters</p>
   </div>
-</div>
+  
 
 <div class="pt-1">
   <button type="button" style="font-weight: 500; font-size: 15px; margin: 0px; padding: 0px;" class="btn btn-danger btn-block p-1" onclick="send_filters('beans', 'clear')" id="Clear_Filters">Clear All Filters</button>

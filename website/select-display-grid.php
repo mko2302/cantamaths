@@ -1,0 +1,18 @@
+<div class="col-6 px-clear p-1">
+  <input type="checkbox" style="display:none;">
+  <label class="area-fill" style="margin: 0px;">
+    <div class="card border-sub">
+      <div class="flex-row area-fill">
+        <div class="col-4 px-clear border-sub-r center text-center">
+          <?php echo nl2br("$yearname \n");
+          echo nl2br("Year $levelname \n"); ?>
+        </div>
+        <div class="col-8 px-clear">
+          <?php if ($select_page == "custom") {
+            echo "<img src='questions/$filename' class='img-fluid'>";
+          } ?>
+        </div>
+      </div>
+    </div>
+  </label>
+</div>

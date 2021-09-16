@@ -5,19 +5,19 @@
     <a class="btn btn-danger px-5 btn-get-started" href="index.php?page=option-select" role="button">Get Started</a>
   </div>
 </div>
-<div class="how-to-use-center">
+<div class="center">
   <div class="my-5 mx-3 how-to-use">
     <h1 class="text-center">How to Use:</h1>
     <div class="row row-eq-height">
-      <div class="col-12 col-md-6 pr-col-clear-card pr-md-1 pb-1">
-        <div class="card">
+      <div class="col-12 col-md-6 pr-clear-card pr-md-1 pb-1">
+        <div class="card ">
           <div class="card-body">
             <h4 class="card-title">1: Getting Started</h4>
             <p class="card-text">It's as easy as that just hit the button to get started.</p>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6 pl-col-clear-card pl-md-1 py-1 py-md-0 pb-md-1">
+      <div class="col-12 col-md-6 pl-clear-card pl-md-1 py-1 py-md-0 pb-md-1">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">2: Option Select</h4>
@@ -29,6 +29,14 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">3: Past Papers</h4>
+            <p class="card-text"></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 py-1">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">3.5: Custom</h4>
             <p class="card-text"></p>
           </div>
         </div>

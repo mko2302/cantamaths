@@ -8,7 +8,7 @@ if (isset($_SESSION['tagID'])) {
   $tag = implode("','",$_SESSION['tagID']);
   $tagsql = "IN ('".$tag."')";
 
-  $tag_sql = "SELECT * FROM questiontag WHERE tagID $tagsql";
+  $tag_sql = "SELECT DISTINCT questionID FROM questiontag WHERE tagID $tagsql";
   $tag_qry = mysqli_query($dbconnect, $tag_sql);
   if (mysqli_num_rows($tag_qry)==0) {
   } else {
@@ -27,13 +27,6 @@ if (isset($_SESSION['tagID'])) {
 } else {
   $questionIDsql = "";
 } ?>
-
-
-<div class="py-2">
-  <div class="py-1 px-2 border-header">
-    <p style="margin: 0px; font-weight: 500;">Results to of</p>
-  </div>
-</div>
 
 
 <?php $select = "SELECT question.questionID, question.filename, question.answer, question.yearID, year.yearname, question.levelID, level.levelname, question.qnumber FROM question

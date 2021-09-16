@@ -16,6 +16,7 @@ if(isset($_SESSION['tagID'])) {
     <?php include("custom-filter-checkboxes.php") ?>
   </div>
 </div>
+</div>
 
 <div class="col-10 row" style="margin: 0px; padding: 0px;">
   <div class="col-8">

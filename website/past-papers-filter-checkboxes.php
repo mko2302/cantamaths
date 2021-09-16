@@ -1,6 +1,6 @@
 <div class="py-2">
   <div class="py-1 text-center border-header">
-    <p style="margin: 0px; font-weight: 500;">Filters</p>
+    <p style="font-size: 15px; margin: 0px; font-weight: 500;">Filters</p>
   </div>
 </div>
 

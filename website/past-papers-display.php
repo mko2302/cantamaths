@@ -38,7 +38,7 @@ if (mysqli_num_rows($year_qry)==0) {
           <input type="checkbox" style='display:none;' id="Qclick <?php echo "$yearname $levelname"; ?>" onclick="send_selected(<?php echo "'$yearID'"; ?>, <?php echo "'$levelID'"; ?>)">
           <label class="container-fluid" style="margin: 0px; height: 88px;"for='Qclick <?php echo "$yearname $levelname"; ?>'>
             <div class='row'>
-              <?php echo "<div style='padding: 0px; line-height: 1.4; top: 50%;' class='col-4 text-center'>";
+              <?php echo "<div style='padding: 0px; line-height: 1.4; top: 50%;' class='col-4 text-center border'>";
                 echo nl2br("$yearname \n");
                 echo nl2br("year $levelname \n");
               echo "</div>";
