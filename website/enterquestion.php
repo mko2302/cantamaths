@@ -1,6 +1,6 @@
 <?php
   $qnumber = $_POST['qnumber'];
-  $answer = mysqli_real_escape_string($_POST['answer']);
+  $answer = $_POST['answer'];
   $year = $_POST['year'];
   $level = $_POST['level'];
   // error catching if no tags are entered
