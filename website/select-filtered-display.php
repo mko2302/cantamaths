@@ -5,7 +5,8 @@ $id = $_GET['id'];
 $array = $_GET['filter'];
 $select_page = $_GET['select_page'];
 
-if ($id == 'clear') {
+if ($id == 'refresh') {
+} elseif ($id == 'clear') {
   if(isset($_SESSION['levelID'])) {
     unset($_SESSION['levelID']);
   }

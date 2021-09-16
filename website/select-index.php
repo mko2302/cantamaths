@@ -1,4 +1,13 @@
-<?php $select_page = $_GET['select']; ?>
+<?php $select_page = $_GET['select'];
+if(isset($_SESSION['levelID'])) {
+  unset($_SESSION['levelID']);
+}
+if(isset($_SESSION['yearID'])) {
+  unset($_SESSION['yearID']);
+}
+if(isset($_SESSION['tagID'])) {
+   unset($_SESSION['tagID']);
+} ?>
 
 <div class="page-fill center-x">
   <div class="flex-row area-fill page-resize px-4 px-xl-5 py-4">
@@ -14,7 +23,7 @@
         </div>
       </div>
       <div class="col-4 px-clear pl-2 area-fill">
-        <div class="card border-clear" id="selected">
+        <div class="card border-clear px-3 py-2" id="selected">
           <?php include("select-selected.php"); ?>
         </div>
       </div>
@@ -40,5 +49,33 @@ function send_filters(filter, id) {
 /* Uses GET array to send through the filter and id through to php page which will display the selected filters on a page */
   xhttp.open("GET", "select-filtered-display.php?filter=" + filter + "&id=" + id + "&select_page=" + select_page, true);
   xhttp.send();
+}
+
+
+function send_selected(question, year, level) {
+  var select_page = '<?=$select_page?>';
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("selected").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "select-selected.php?questionID=" + question + "&yearID=" + year + "&levelID=" + level + "&select_page=" + select_page, true);
+  xhttp.send();
+}
+
+function highlight_selected(question, year, level) {
+  var select_page = '<?=$select_page?>';
+  if (select_page == 'custom') {
+    var element = document.getElementById("div_Qclick" + "-" + question + "-" + year + "-" + level);
+    element.classList.toggle("border-selected");
+  }
+  if (select_page == 'pastpapers') {
+    $("div[name*='icon']").removeClass("border-selected");
+
+    var element = document.getElementById("div_Qclick" + "-" + question + "-" + year + "-" + level);
+    element.classList.add("border-selected");
+  }
 }
 </script>

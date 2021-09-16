@@ -207,7 +207,7 @@ html, body {
 	border: 1px solid #707070;
 }
 
-.row-2 {
+.row-1 {
 	display: flex;
 	flex-wrap: wrap;
 	margin: -0.25rem;
@@ -220,6 +220,22 @@ html, body {
 .border-sub-r {
 	border-right: 1.5px solid #CECECE !important;
 }
+
+.border-selected {
+	border-left: 6px solid #EB0A00 !important;
+}
+
+
+/* Print related CSS */
+.display-region {
+	height: 100%;
+	width: 55%;
+}
+
+.border-black {
+	border: 1px solid #000000 !important;
+}
+
 
 
 
@@ -235,27 +251,6 @@ html, body {
 
 
 
-.bg-select {
-  background-color: #FAFAFC;
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
-.bg-navbar-main {
-  color: #FFFFFF;
-  background-color: #000000;
-}
-
-
-
-
-
-
-
-
-.border-selected {
-	border-left: 6px solid #EB0A00 !important;
-}
 
 .border-black {
 	border: 1px solid #000000 !important;

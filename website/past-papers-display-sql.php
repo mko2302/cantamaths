@@ -9,6 +9,8 @@ if (mysqli_num_rows($past_papers_qry)==0) {
   $past_papers_aa = mysqli_fetch_assoc($past_papers_qry);
 
 
+$QquestionID = "filler";
+
   do {
     $yearname = $past_papers_aa['yearname'];
     $yearID = $past_papers_aa['yearID'];

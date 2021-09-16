@@ -10,7 +10,7 @@
     <h1 class="text-center">How to Use:</h1>
     <div class="row row-eq-height">
       <div class="col-12 col-md-6 pr-clear-card pr-md-1 pb-1">
-        <div class="card ">
+        <div class="card">
           <div class="card-body">
             <h4 class="card-title">1: Getting Started</h4>
             <p class="card-text">It's as easy as that just hit the button to get started.</p>
