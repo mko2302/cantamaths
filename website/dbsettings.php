@@ -1,10 +1,10 @@
 <!-- This page is to add tags, years and levels if needed -->
 <!-- users should be able to also add new tags on the add question page-->
-<div class="admin-option">
+<div class="admin-option" id="adminOption">
   <h2>Database Options</h2><br>
 
   <div class="row" id="tagRow">
-    
+
     <div class="col-3">
      <form action="index.php?page=adminpanel&tab=entertag" method="post">
        <div class="form-group">
@@ -37,8 +37,8 @@
 
        fetch_data();
 
-       $("#tagRow").on("click", ".page-item", function(){
-                var tagpage = $(this).attr("id");
+       $(document).on("click", ".page-item", function(){
+                var tagpage = $(this).attr("value");
                 fetch_data(tagpage);
              })
     </script>

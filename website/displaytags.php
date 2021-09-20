@@ -9,18 +9,16 @@
   //pagination code adapted from https://github.com/simonjsuh/pagination-in-php/blob/master/index.php
 
   //set number of results displyed per page
-  $results_per_page = 10;
+  $results_per_page = 7;
 
   //find number of pages needed to display all questions
   $number_of_pages = ceil($number_of_q/$results_per_page);
 
   //find number page user is on
-  if (!isset($_POST['page'])) {
+  if (!isset($_POST['tagpage'])) {
     $page = 1;
-    $_SESSION['tagpage'] = $page;
   } else {
-    $page = $_POST['page'];
-    $_SESSION['tagpage'] = $page;
+    $page = $_POST['tagpage'];
   }
 
   $page_first_result = ($page - 1) * $results_per_page;
