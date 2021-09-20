@@ -48,8 +48,8 @@
     }
 
     //delete tag success
-    if ($status == "tagsuccess") {
-      $message = "Tag deleted!";
+    if ($status == "tagdeleted") {
+      $message = "Tag Deleted!";
       $colour = "success";
     }
 
