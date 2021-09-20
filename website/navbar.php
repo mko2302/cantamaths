@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg">
   <!-- link to home -->
   <a class="navbar-brand" href="index.php"><h1>Cantamaths</h1></a>
 
@@ -13,15 +13,15 @@
 
         // if user is an admin add admin panel button
         if (isset($_SESSION['admin'])) {
-          echo"<li class='nav-item'> <a class='nav-link' href='index.php?page=adminpanel'>Admin Panel</a> </li>";
+          echo"<li class='nav-item'> <a class='home-nav nav-link' href='index.php?page=adminpanel'>Admin Panel</a> </li>";
         }
 
         // if user logs in add items to navbar
         if (isset($_SESSION['user'])) {
-          echo"<li class='nav-item'> <a class='nav-link' href='index.php?page=profile'>Profile</a> </li>";
-          echo"<li class='nav-item'> <a class='nav-link' href='index.php?page=logout'>Logout</a> </li>";
+          echo"<li class='nav-item'> <a class='home-nav nav-link' href='index.php?page=profile'>Profile</a> </li>";
+          echo"<li class='nav-item'> <a class='home-nav nav-link' href='index.php?page=logout'>Logout</a> </li>";
         } else {
-          echo"<li class='nav-item'> <a class='nav-link' href='index.php?page=login'>Login</a> </li>";
+          echo"<li class='nav-item'> <a class='home-nav nav-link' href='index.php?page=login'>Login</a> </li>";
         }
        ?>
       </ul>
