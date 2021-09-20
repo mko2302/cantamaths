@@ -92,7 +92,7 @@ html, body {
 }
 
 .navbar-brand:hover {
-  color: #FFFFFF;
+  color: inherit;
 	font-weight: 500;
 }
 
@@ -138,21 +138,26 @@ html, body {
  color: #000000;
 }
 
+.admin-nav-item:hover a {
+  color: #000000;
+}
+
 .admin-nav-item:hover {
+  color: #FFFFFF;
   background-color: #FAFAFC;
 }
 
-.active {
+.admin-nav.active {
   background-color: #DA210D;
 }
 
 .admin-nav-item.active a {
   color: #FFFFFF;
+  background-color: #DA210D;
 }
 
 .admin-nav-item.active:hover {
   background-color: #DA210D;
-  color: #FFFFFF;
 }
 
 .admin-content {
