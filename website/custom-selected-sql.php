@@ -1,24 +1,11 @@
 <?php $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
 
 
-$array = 'Q_ID';
-if (isset($_GET['questionID'])) {
-  $id = $_GET['questionID'];
-
-  if( $id == 'clear' ) {
-    if(isset($_SESSION['Q_ID'])) {
-      unset($_SESSION['Q_ID']);
-    }
-  } else {
-    include('session.php');
-  }
-}
 
 
 if (isset($_SESSION['Q_ID'])) {
   $Next_disabled = "false";
   $alex = count($_SESSION['Q_ID']); ?>
-  <button type="button" class="btn btn-danger btn-block p-1 m-1 font-boldish" onclick="send_selected('clear', 'filler', 'filler'), send_filters('filler', 'refresh')">Unselect All</button>
 
 
   <?php $Q_ID = implode("','",$_SESSION['Q_ID']);
