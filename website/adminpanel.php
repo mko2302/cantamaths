@@ -1,7 +1,6 @@
 <!-- admin panel goes here -->
 
 <?php
-error_reporting(0);
 // check to see if logged in.
 if (!isset($_SESSION['admin'])) {
   header("Location: index.php");

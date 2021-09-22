@@ -1,11 +1,39 @@
-<?php session_start();
+<?php $select_page = $_GET['select'];
+$_SESSION['alex!'] = [$select_page];
+$print_type = "worksheet"; ?>
 
-$yearID = $_GET['yearID'];
-$levelID = $_GET['levelID'];
-
-
-# Selects all from table question where each column is the same as the filters
-# If the variable set above is blank then it will select all from that column otherwise only selects those that where in the array
-$selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
-$selected_qry = mysqli_query($dbconnect, $selected_sql);
-$selected_aa = mysqli_fetch_assoc($selected_qry); ?>
+<div class="page-fill center-x">
+  <div class="flex-row display-region py-4">
+    <div class="col-8 px-clear pr-1 area-fill">
+      <div class="card border-clear px-3 py-2">
+        <h2>Preview</h2>
+        <div class="page-fill-scroll border-general">
+          <table class="table table-bordered">
+            <?php include("print-display.php"); ?>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 px-clear pl-1 area-fill">
+      <div class="col-12 px-clear flex-row">
+        <div class="col-12 pb-1 px-clear">
+          <div class="card border-clear">
+          </div>
+        </div>
+        <div class="col-12 py-1 px-clear">
+          <div class="card border-clear">
+          </div>
+        </div>
+        <div class="col-12 py-1 px-clear">
+          <div class="card border-clear">
+          </div>
+        </div>
+        <?php if($select_page == "custom") { ?>
+          <a class="btn btn-danger btn-block p-1 mt-1 font-boldish" href="custom-print-pdf.php" role="button">Print</a>
+        <?php } elseif ($select_page == "pastpapers") { ?>
+          <a class="btn btn-danger btn-block p-1 mt-1 font-boldish" href="past-paper-print-pdf.php" role="button">Print</a>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
+</div>
