@@ -111,10 +111,6 @@ html, body {
 
 
 
-.questionimg {
-  max-height: 100%;
-  width: auto;
-}
 
 .admin-nav {
   background-color: #E8E8EB;
@@ -181,7 +177,7 @@ html, body {
 
 .admin-scroll {
   overflow-y: scroll;
-  height: 50%
+  height: 55%;
 }
 
 .admin-table {
