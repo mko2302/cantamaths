@@ -20,6 +20,12 @@
   </button>
 </div>
 
+<div class="modal-content">
+  <div class="col-11 m-2">
+    <p>Deleting this tag will remove the tag from questions tagged with "<?php echo"$name"; ?>".</p>
+  </div>
+</div>
+
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
   <?php echo"<a href='index.php?page=deletetag&tagID=$tagID'>"; ?>
