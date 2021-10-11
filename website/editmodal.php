@@ -35,7 +35,7 @@
    <div class='row'>
      <div class='form-group col'>
        <label <?php echo"for='edit_qnumber_$questionID'";?>>Question Number</label><br>
-       <input class='form-control' <?php echo"name='edit_qnumber_$questionID' id='editForm'";?> type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
+       <input class='form-control' name='qnumber' id='qnumber' type='number' <?php echo"value='$qnumber'";?> min='1' max='20' required>
        <script>
          document.querySelector('input[type=number]')
          .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
@@ -45,7 +45,7 @@
      <!-- input for answer -->
      <div class='form-group col'>
        <label for='answer'>Answer</label><br>
-       <input class='form-control' type='text' name='answer' <?php echo "id='editForm' value='$answer'";?> required>
+       <input class='form-control' type='text' name='answer' <?php echo "id='answer' value='$answer'";?> required>
      </div>
    </div>
 
@@ -54,7 +54,7 @@
    <div class='form-group col'>
      <label for='year'>Publication Year</label><br>
 
-     <select class='form-control' name='year' required <?php echo"id='editForm'"; ?>>
+     <select class='form-control' name='year' required <?php echo"id='year'"; ?>>
        <?php
          $year_sql = 'SELECT * FROM year ORDER BY yearID DESC';
          $year_qry = mysqli_query($dbconnect, $year_sql);
@@ -78,7 +78,7 @@
      <!-- select/type year level -->
      <div class="form-group col">
        <label for="level">Year Level</label><br>
-       <select name="level" class="form-control" <?php echo"id='editForm'"; ?> required>
+       <select name="level" class="form-control" id='level' required>
          <?php
          $level_sql = "SELECT * FROM level";
          $level_qry = mysqli_query($dbconnect, $level_sql);
@@ -101,6 +101,15 @@
    </div>
 
    <!-- edit tags -->
+   <?php
+     $tag_sql = "SELECT * FROM tag";
+     $tag_qry = mysqli_query($dbconnect, $tag_sql);
+     $number_of_tags = mysqli_num_rows($tag_qry);
+
+     $number_of_columns = 3;
+     $tags_per_column = $number_of_tags / $number_of_columns;
+    ?>
+
    <div class='form-group col-lg-2'>
      <?php
      $tag_sql = "SELECT * FROM tag";
@@ -139,7 +148,7 @@
 
        echo "
        <div class='form-check'>
-         <input class='form-check-input' name='tag[]' type='checkbox' value='$tagID' id='editForm' $checked>
+         <input class='form-check-input' id='tag' name='tag[]' type='checkbox' value='$tagID' id='editForm' $checked>
          <label class='form-check-label' for='edit-$tagID-$questionID'>
            $name
          </label>
@@ -153,7 +162,6 @@
 
  <div class='modal-footer'>
    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-   <button type='submit' value="submit" class='btn btn-primary' onclick="editFormSubmit">Save changes</button>
-
+   <button type='submit' class='btn btn-primary'>Save changes</button>
  </div>
  </form>

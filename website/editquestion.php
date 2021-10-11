@@ -1,6 +1,6 @@
 <?php
   $questionID = $_GET['questionID'];
-  $qnumber = $_POST['edit_qnumber_' . $questionID];
+  $qnumber = $_POST['qnumber'];
   $answer = $_POST['answer'];
   $year = $_POST['year'];
   $level = $_POST['level'];

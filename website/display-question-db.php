@@ -168,11 +168,25 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               </div>
 
               <!-- submit form -->
-              <script type='text/javascript'>
-                function editFormSubmit() {
-                  <?php echo"document.getElementById('editForm$questionID').submit();"; ?>
-                 }
+              <script type="text/javascript">
+                $(document).ready(function () {
+
+                 $("editForm").submit(function (event) {
+                   $.ajax({
+                     type: "POST",
+                     url: form.attr( 'action' ),
+                     data: form.serialize(),
+                     dataType: "json",
+                     encode: true,
+                   }).done(function (data) {
+                     console.log(data);
+                   });
+
+                   event.preventDefault();
+                 });
+               });
               </script>
+
 
               <!-- Open Modal script -->
               <script type='text/javascript'>
@@ -221,22 +235,39 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                       </button>
                     </div>
 
-                    <div class='modal-body'>
+                    <div class='modal-body justify-center'>
+                      <div class="col-12 p-2">
                         <!-- question image column -->
-                        <img style='height:100px' <?php echo"src='questions/$filename'"?> alt=''>
-
                         <div class="row">
-                          Question <?php echo "$qnumber";?><br>
-                          Year <?php echo "$question_level";?><br>
-                          <?php echo "$question_year";?>
+                          <img style='width:100%;' <?php echo"src='questions/$filename'"?> alt=''>
 
-                          <!-- tag column -->
-                          <?php
-                          foreach ($taglist as $tag) {
-                            echo "$tag[1]<br>";
-                          }
-                           ?>
                         </div>
+
+                        <div class="row my-2">
+                          <div class="col-2">
+                            <h3>Details</h3>
+                          </div>
+                          <div class="col-8">
+                            Question: <?php echo "$qnumber";?><br>
+                            Level: <?php echo "$question_level";?><br>
+                            Year: <?php echo "$question_year";?>
+                          </div>
+                        </div>
+
+                        <div class="row my-2">
+                          <div class="col-2">
+                            <h3>Tags</h3>
+                          </div>
+                          <div class="col-8">
+                            <!-- tag column -->
+                            <?php
+                            foreach ($taglist as $tag) {
+                              echo "$tag[1]<br>";
+                            }
+                            ?>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div class='modal-footer'>
@@ -248,6 +279,12 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                   </div>
                 </div>
               </div>
+
+              <script type="text/javascript">
+              $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').trigger('focus')
+                })
+              </script>
 
             </tr>
 
@@ -291,7 +328,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
        // next button
         // if current page is >= to the total number of pages
-       if ($page >= $number_of_pages) {
+       if ($page == $number_of_pages) {
          // disable the next button
          echo "<li class='disabled'><span class='page-link'>Next</span></li>";
        } else {
