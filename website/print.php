@@ -3,7 +3,7 @@ $_SESSION['alex!'] = [$select_page];
 $print_type = "worksheet"; ?>
 
 <div class="page-fill center-x">
-  <div class="flex-row display-region py-4">
+  <div class="flex-row display-region page-resize py-4">
     <div class="col-9 px-clear pr-1 area-fill">
       <div class="card border-clear px-3 py-2">
         <h2>Preview</h2>
