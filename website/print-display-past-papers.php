@@ -6,7 +6,6 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 $question_aa = mysqli_fetch_assoc($question_qry);
 
 
-
   do {
      $filename = $question_aa['filename']; ?>
 
