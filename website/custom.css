@@ -114,7 +114,7 @@ html, body {
 
 .admin-nav {
   background-color: #E8E8EB;
-  height: 100%;
+  max-height: 100%;
   padding:0;
   flex-flow:column;
 }
@@ -152,7 +152,7 @@ html, body {
 
 .admin-content {
   background-color: #FFFFFF;
-  height: 100%;
+	height: 100vh;
 }
 
 .admin-container {
@@ -167,7 +167,7 @@ html, body {
 
 .admin-database {
   position: absolute;
-  max-height: auto;
+  min-height: auto;
 }
 
 .admin-filter {
@@ -177,7 +177,7 @@ html, body {
 
 .admin-scroll {
   overflow-y: scroll;
-  height: 55%;
+  height: 80vh;
 }
 
 .admin-table {

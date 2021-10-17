@@ -67,7 +67,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
  ?>
 
 <!-- bootstrap table to display questions -->
-<table class="table table-striped admin-table" id="dbTable">
+<table class="table table-striped admin-table " id="dbTable">
   <thead>
     <tr>
       <th scope="col">

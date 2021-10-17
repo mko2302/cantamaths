@@ -26,8 +26,10 @@ if(isset($_SESSION['tagID'])) {
     <?php include("custom-filter-database.php") ?>
   </div>
   <!-- question table -->
-  <div class="col-10 admin-scroll" id="Custom_Database">
-    <?php include("display-question-db.php") ?>
+  <div class="col-10" id="Custom_Database">
+    <div class="admin-scroll">
+      <?php include("display-question-db.php") ?>
+    </div>
   </div>
 </div>
 
