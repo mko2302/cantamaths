@@ -49,11 +49,9 @@ if (!isset($_SESSION['admin'])) {
                   .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
                 </script>
               </div>
-            </div>
 
-            <div class="row">
               <!-- input for answer -->
-              <div class="form-group col-lg">
+              <div class="form-group col">
                 <label for="answer">Answer</label><br>
                 <input class="form-control" type="text" name="answer" placeholder="Enter Answer" required>
               </div>
@@ -84,8 +82,8 @@ if (!isset($_SESSION['admin'])) {
                     ?>
                 </select>
               </div>
-          </div>
 
+<<<<<<< Updated upstream
           <div class="row">
             <!-- select/type year level -->
             <div class="form-group col">
@@ -101,33 +99,55 @@ if (!isset($_SESSION['admin'])) {
 
                 // loop though array with each year as an option in a select
                 do {
+=======
+              <!-- select/type year level -->
+              <div class="form-group col">
+                <label for="level">Year Level</label><br>
+                <select name="level" class="form-control" required>
+                  <?php
+                  $level_sql = "SELECT * FROM level";
+                  $level_qry = mysqli_query($dbconnect, $level_sql);
+                  $level_aa = mysqli_fetch_assoc($level_qry);
 
-                  $levelID = $level_aa['levelID'];
-                  $name = $level_aa['levelname'];
+                  do {
+>>>>>>> Stashed changes
 
-                  echo " <option value='$levelID'>Year $name</option>";
+                    $levelID = $level_aa['levelID'];
+                    $name = $level_aa['levelname'];
 
-                } while ($level_aa = mysqli_fetch_assoc($level_qry));
-                ?>
-              </select>
+                    echo " <option value='$levelID'>Year $name</option>";
+
+                  } while ($level_aa = mysqli_fetch_assoc($level_qry));
+                  ?>
+                </select>
+              </div>
             </div>
           </div>
-          </div>
 
-          <div class="col">
-            <div class="col-6">
+          <div class="row">
+            <div class="col-2">
               <!-- select tags -->
               <div class="form-group col">
                 <label for="">Select Tags</label>
                     <?php
+<<<<<<< Updated upstream
                     // select all tags from database
+=======
+                      $tag_count_sql = "SELECT * FROM tag";
+                      $tag_count = mysqli_num_rows($dbconnect, $tag_sql);
+
+>>>>>>> Stashed changes
                       $tag_sql = "SELECT * FROM tag";
                       // send query to database
                       $tag_qry = mysqli_query($dbconnect, $tag_sql);
                       // returnts results as assocative array
                       $tag_aa = mysqli_fetch_assoc($tag_qry);
 
+<<<<<<< Updated upstream
                       // loopthough each result in the array
+=======
+
+>>>>>>> Stashed changes
                       do {
 
                         $tagID = $tag_aa['tagID'];
