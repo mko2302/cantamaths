@@ -4,14 +4,13 @@ if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
 } else {
 
-  include("status.php")
+  include("status.php");
   ?>
 <div class="admin-add-container">
   <h2>Add Question</h2><br>
   <!-- form for entering question -->
   <form action="index.php?page=adminpanel&tab=enterquestion" method="post" enctype="multipart/form-data">
-    <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <div class="row">
           <div class="form-group col-lg-8">
             <label class="form-label" for="fileToUpload">Upload Question Image</label> <br>
@@ -39,7 +38,7 @@ if (!isset($_SESSION['admin'])) {
           <div class="col">
             <div class="row">
               <!-- enter qusetion number -->
-              <div class="form-group col">
+              <div class="form-group col-lg-4">
                 <label for="qnumber">Question Number</label><br>
                 <!-- select question number 1 to 20 -->
                 <input class="form-control" id="qnumber" name="qnumber" type="number" placeholder="Enter Number" min="1" max="20" required>
@@ -51,7 +50,7 @@ if (!isset($_SESSION['admin'])) {
               </div>
 
               <!-- input for answer -->
-              <div class="form-group col">
+              <div class="form-group col-lg-4">
                 <label for="answer">Answer</label><br>
                 <input class="form-control" type="text" name="answer" placeholder="Enter Answer" required>
               </div>
@@ -59,7 +58,7 @@ if (!isset($_SESSION['admin'])) {
 
             <div class="row">
               <!-- select year of competition -->
-              <div class="form-group col">
+              <div class="form-group col-lg-4">
                 <label for="year">Competition Year</label><br>
                 <select class="form-control" name="year" required>
                   <?php
@@ -83,25 +82,8 @@ if (!isset($_SESSION['admin'])) {
                 </select>
               </div>
 
-<<<<<<< Updated upstream
-          <div class="row">
-            <!-- select/type year level -->
-            <div class="form-group col">
-              <label for="level">Year Level</label><br>
-              <select name="level" class="form-control" required>
-                <?php
-                // select all year levels from database
-                $level_sql = "SELECT * FROM level";
-                // send query to database
-                $level_qry = mysqli_query($dbconnect, $level_sql);
-                // get results as assocative array
-                $level_aa = mysqli_fetch_assoc($level_qry);
-
-                // loop though array with each year as an option in a select
-                do {
-=======
               <!-- select/type year level -->
-              <div class="form-group col">
+              <div class="form-group col-lg-4">
                 <label for="level">Year Level</label><br>
                 <select name="level" class="form-control" required>
                   <?php
@@ -110,7 +92,6 @@ if (!isset($_SESSION['admin'])) {
                   $level_aa = mysqli_fetch_assoc($level_qry);
 
                   do {
->>>>>>> Stashed changes
 
                     $levelID = $level_aa['levelID'];
                     $name = $level_aa['levelname'];
@@ -123,36 +104,37 @@ if (!isset($_SESSION['admin'])) {
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col-2">
-              <!-- select tags -->
-              <div class="form-group col">
-                <label for="">Select Tags</label>
-                    <?php
-<<<<<<< Updated upstream
-                    // select all tags from database
-=======
-                      $tag_count_sql = "SELECT * FROM tag";
-                      $tag_count = mysqli_num_rows($dbconnect, $tag_sql);
+        <div class="row">
+          <div class="form-group">
+            <!-- select tags -->
+              <label for=""><h4>Select Tags</h4></label>
+              <div class="row">
+                <?php
+                // select all tags from database
+                  $num_tag_sql = "SELECT * FROM tag";
+                  // send query to database
+                  $num_tag_qry = mysqli_query($dbconnect, $num_tag_sql);
+                  //count number of tabs
+                  $tag_count = mysqli_num_rows($num_tag_qry);
 
->>>>>>> Stashed changes
-                      $tag_sql = "SELECT * FROM tag";
-                      // send query to database
+                  if ($tag_count == 0) {
+                    echo"<h2>No tags in database!</h2>";
+                  } else {
+                    $number_of_columns = 6;
+                    $tag_per_col = ceil($tag_count / $number_of_columns);
+
+                    for ($i=0; $i < $number_of_columns; $i++) {
+                      $first_result = ($i) * $tag_per_col;
+                      $tag_sql = "SELECT * FROM tag LIMIT $first_result, $tag_per_col ";
                       $tag_qry = mysqli_query($dbconnect, $tag_sql);
-                      // returnts results as assocative array
                       $tag_aa = mysqli_fetch_assoc($tag_qry);
 
-<<<<<<< Updated upstream
-                      // loopthough each result in the array
-=======
-
->>>>>>> Stashed changes
+                      echo "<div class='col'>";
                       do {
-
                         $tagID = $tag_aa['tagID'];
                         $name = $tag_aa['tagname'];
-
                         // display each tag as a checkbox
                         echo "
                         <div class='form-check'>
@@ -161,19 +143,16 @@ if (!isset($_SESSION['admin'])) {
                           $name
                           </label>
                         </div>";
+                        } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
+                      echo "</div>";
+                    }
+                  }
 
-                      } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
-                    ?>
+                ?>
               </div>
             </div>
           </div>
-
         </div>
-
-
-      </div>
-    </div>
-
     <div class="row">
       <!-- submit button -->
       <div class="col-3">
@@ -183,6 +162,6 @@ if (!isset($_SESSION['admin'])) {
   </form>
 </div>
 
-  <?php
-}
-?>
+<?php
+  }
+ ?>
