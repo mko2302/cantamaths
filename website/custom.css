@@ -94,6 +94,7 @@ html, body {
 .nav-link {
 	color: #FFFFFF;
 	font-size: 20px;
+	border-radius: 0;
 }
 
 .nav-link:hover {
@@ -159,10 +160,11 @@ html, body {
   position: absolute;
   margin: 0.5% 5% 0.5% 5%;
   width: 90%;
+	max-height: 87vh;
   background-color: #FAFAFC;
   box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   height: 90vh;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .admin-database {
@@ -203,6 +205,9 @@ html, body {
 /* add question styles */
 .admin-add-container {
   margin: 2.5% 10% 2.5% 10%;
+	max-height: 70vh;
+	overflow: scroll;
+	overflow-x: hidden;
 }
 
 /* admin db options page styles */
@@ -238,7 +243,7 @@ html, body {
 
 .active {
   border: 2px solid #EB0A00;
-  color: #EB0A00;
+  background-color: #EB0A00;
 }
 
 .inactive {
