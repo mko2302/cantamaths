@@ -101,62 +101,75 @@
    </div>
 
    <!-- edit tags -->
-   <?php
-     $tag_sql = "SELECT * FROM tag";
-     $tag_qry = mysqli_query($dbconnect, $tag_sql);
-     $number_of_tags = mysqli_num_rows($tag_qry);
+   <div class='form-group'>
+     <div class="row">
+       <?php
+       $tag_sql = "SELECT * FROM tag";
+       $tag_qry = mysqli_query($dbconnect, $tag_sql);
+       $tag_aa = mysqli_fetch_assoc($tag_qry);
 
-     $number_of_columns = 3;
-     $tags_per_column = $number_of_tags / $number_of_columns;
-    ?>
+       $taglist = array();
 
-   <div class='form-group col-lg-2'>
-     <?php
-     $tag_sql = "SELECT * FROM tag";
-     $tag_qry = mysqli_query($dbconnect, $tag_sql);
-     $tag_aa = mysqli_fetch_assoc($tag_qry);
+       $questiontag_sql = "SELECT * FROM questiontag JOIN tag ON questiontag.tagID = tag.tagID  WHERE questionID = $questionID";
+       $questiontag_qry = mysqli_query($dbconnect, $questiontag_sql);
 
-     $taglist = array();
+       if(mysqli_num_rows($questiontag_qry) == 0) {
+         echo "No tags";
+       } else {
+         // add tags to tag list
+         $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
+           do {
+             $tagID = $questiontag_aa['tagID'];
+             $name = $questiontag_aa['tagname'];
+             $single_tag = array("$tagID", "$name");
+             array_push($taglist, $single_tag);
+           } while ($questiontag_aa = mysqli_fetch_assoc($questiontag_qry));
+         }
 
-     $questiontag_sql = "SELECT * FROM questiontag JOIN tag ON questiontag.tagID = tag.tagID  WHERE questionID = $questionID";
-     $questiontag_qry = mysqli_query($dbconnect, $questiontag_sql);
+       // select all tags from database
+       $num_tag_sql = "SELECT * FROM tag";
+       // send query to database
+       $num_tag_qry = mysqli_query($dbconnect, $num_tag_sql);
+       //count number of tabs
+       $tag_count = mysqli_num_rows($num_tag_qry);
 
-     if(mysqli_num_rows($questiontag_qry) == 0) {
-       echo "No tags";
-     } else {
-       // add tags to tag list
-       $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
-         do {
-           $tagID = $questiontag_aa['tagID'];
-           $name = $questiontag_aa['tagname'];
-           $single_tag = array("$tagID", "$name");
-           array_push($taglist, $single_tag);
-         } while ($questiontag_aa = mysqli_fetch_assoc($questiontag_qry));
+       if ($tag_count == 0) {
+         echo"<h2>No tags in database!</h2>";
+       } else {
+         $number_of_columns = 3;
+         $tag_per_col = ceil($tag_count / $number_of_columns);
+
+         for ($i=0; $i < $number_of_columns; $i++) {
+           $first_result = ($i) * $tag_per_col;
+           $tag_sql = "SELECT * FROM tag LIMIT $first_result, $tag_per_col ";
+           $tag_qry = mysqli_query($dbconnect, $tag_sql);
+           $tag_aa = mysqli_fetch_assoc($tag_qry);
+
+           echo "<div class='col'>";
+           do {
+             $tagID = $tag_aa['tagID'];
+             $name = $tag_aa['tagname'];
+             // if the tag ID is in the tag list array in the column 0 of nested array for each tag
+             if(array_search($tagID, array_column($taglist,0)) !== false) {
+               // display as checked
+                   $checked = "checked";
+                 } else {
+                   $checked = "";
+                 }
+             // display each tag as a checkbox
+             echo "
+             <div class='form-check'>
+               <input class='form-check-input' id='tag' name='tag[]' type='checkbox' value='$tagID' id='editForm' $checked>
+               <label class='form-check-label' for='edit-$tagID-$questionID'>
+                 $name
+               </label>
+             </div>";
+             } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
+           echo "</div>";
+         }
        }
-
-     do {
-       $tagID = $tag_aa["tagID"];
-       $name = $tag_aa["tagname"];
-
-       // if the tag ID is in the tag list array in the column 0 of nested array for each tag
-       if(array_search($tagID, array_column($taglist,0)) !== false) {
-         // display as checked
-             $checked = "checked";
-           } else {
-             $checked = "";
-           }
-
-       echo "
-       <div class='form-check'>
-         <input class='form-check-input' id='tag' name='tag[]' type='checkbox' value='$tagID' id='editForm' $checked>
-         <label class='form-check-label' for='edit-$tagID-$questionID'>
-           $name
-         </label>
-       </div>";
-
-       } while ($tag_aa = mysqli_fetch_assoc($tag_qry));
-      ?>
-
+        ?>
+     </div>
    </div>
  </div>
 
