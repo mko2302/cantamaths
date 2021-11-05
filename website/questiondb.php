@@ -27,7 +27,7 @@
     <?php include("custom-filter-database.php") ?>
   </div>
   <!-- question table -->
-  <div class="col-10">
+  <div class="col-10 admin-table-col">
     <div class="admin-scroll" id="Custom_Database">
       <?php include("display-question-db.php") ?>
     </div>
@@ -50,7 +50,7 @@
   }
 
   //if user clicks on paginaiton, change page
-  $(document).on("click", ".page-item", function(){
+  $(document).on("click", ".page-clickable", function(){
            var page = $(this).attr("value");
            fetch_data(page);
         })
