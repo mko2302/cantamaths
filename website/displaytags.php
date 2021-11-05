@@ -55,11 +55,11 @@
                </td>
                <!-- delete column -->
                <td>
-                 <button type="button" class="btn btn-danger deleteButton" <?php echo"data-id='$tagID'"; ?>>
+                 <button type="button" class="btn btn-danger" id="deleteTagButton" <?php echo"data-id='$tagID'"; ?>>
                    Delete
                  </button>
 
-                 <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+                 <div class="modal fade" id="deleteTagModal" tabindex="-1" role="dialog">
                    <div class="modal-dialog modal-dialog-centered" role="document">
                      <div class="modal-content">
 
@@ -72,7 +72,7 @@
                  $(document).ready(function(){
 
                    //delegate the event using "on" to make ajax function properly
-                   $('#tagRow').on('click','.deleteButton',function(e){
+                   $('#optionRow').on('click','#deleteTagButton',function(e){
                      e.preventDefault();
 
                        //question id is the one user clicked on
@@ -88,7 +88,7 @@
                                $('.modal-content').html(response);
 
                                // Display Modal
-                               $('#deleteModal').modal('show');
+                               $('#deleteTagModal').modal('show');
                              }
                          });
                      });
@@ -106,45 +106,45 @@
 
 
 <!-- pageination -->
-  <nav aria-label="Page navigation mt-5">
-      <ul class="pagination justify-content-center">
-        <?php
-        if($page > 1){
-          // make make previous button so to previous page
-          $previous = $page - 1;
-          echo "<li class='page-item' value='$previous'><span class='page-link'>Previous</span></li>";
+<nav aria-label="Page navigation mt-5">
+    <ul class="pagination justify-content-center my-1">
+      <?php
+      if($page > 1){
+        // make make previous button so to previous page
+        $previous = $page - 1;
+        echo "<li class='page-item page-tag-clickable first-child' value='$previous'><span class='page-link'>Previous</span></li>";
+      } else {
+        // is page is not > 1, disable the button
+        echo "<li class='page-item disabled first-child'><span class='page-link'>Previous</span></li>";
+      }
+
+      // number pagination
+        // for the number of pages
+      for($i = 1; $i <= $number_of_pages; $i++ ):
+        if ($page == $i) {
+          // if the page button is the current page, make it display as active
+          echo "<li class='page-tag-clickable page-item active' value='$i'>
+                  <a class='page-link page-active'>$i</a>
+                </li>";
         } else {
-          // is page is not > 1, disable the button
-          echo "<li class='page-item disabled'><span class='page-link'>Previous</span></li>";
+          // else just display as normal
+          echo "<li class='page-tag-clickable page-item' value='$i'>
+                  <a class='page-link'>$i</a>
+                </li>";
         }
+       endfor;
 
-        // number pagination
-          // for the number of pages
-        for($i = 1; $i <= $number_of_pages; $i++ ):
-          if ($page == $i) {
-            // if the page button is the current page, make it display as active
-            echo "<li class='page-item active' value='$i'>
-                    <a class='page-link'>$i</a>
-                  </li>";
-          } else {
-            // else just display as normal
-            echo "<li class='page-item' value='$i'>
-                    <a class='page-link'>$i</a>
-                  </li>";
-          }
-         endfor;
+       // next button
+        // if current page is >= to the total number of pages
+       if ($page == $number_of_pages) {
+         // disable the next button
+         echo "<li class='page-item disabled last-child'><span class='page-link'>Next</span></li>";
+       } else {
+         // otherwise make button go to next page
+         $next = $page + 1;
+         echo "<li class='page-item page-tag-clickable last-child' value='$next'><span class='page-link'>Next</span></li>";
+       }
+       ?>
 
-         // next button
-          // if current page is >= to the total number of pages
-         if ($page >= $number_of_pages) {
-           // disable the next button
-           echo "<li class='disabled'><span class='page-link'>Next</span></li>";
-         } else {
-           // otherwise make button go to next page
-           $next = $page + 1;
-           echo "<li class='page-item' value='$next'><span class='page-link'>Next</span></li>";
-         }
-         ?>
-
-      </ul>
-  </nav>
+    </ul>
+</nav>
