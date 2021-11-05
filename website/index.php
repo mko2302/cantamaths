@@ -21,7 +21,7 @@ include("dbconnect.php"); ?>
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <title>Cantamaths</title>
+    <title>Cantamath</title>
   </head>
   <body>
 <!-- Includes navbar and breadcrumbs code -->
