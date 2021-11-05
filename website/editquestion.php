@@ -46,8 +46,8 @@
 
     //if question is in database and there are no tags to changes
     if ((mysqli_num_rows($check_qry) == 0)) {
-      //get year from db
-      $originalq_sql = "SELECT * FROM question INNER JOIN year ON question.yearid = year.yearID INNER JOIN level ON question.levelID = level.levelID WHERE questionID = $questionID";
+      //get orignal question data from db
+      $originalq_sql = "SELECT * FROM question INNER JOIN year ON question.yearid = year.yearID INNER JOIN level ON question.levelID = level.levelID WHERE questionID = $questionID ";
       $originalq_qry = mysqli_query($dbconnect, $originalq_sql);
       $originalq_aa = mysqli_fetch_assoc($originalq_qry);
       $original_filename = $originalq_aa['filename'];
