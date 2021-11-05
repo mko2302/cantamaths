@@ -67,13 +67,13 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
  ?>
 
 <!-- bootstrap table to display questions -->
-<table class="table table-striped admin-table " id="dbTable">
+<table class="table table-striped admin-table" id="dbTable">
   <thead>
     <tr>
       <th scope="col">
         Question #<br>
         Year Group<br>
-        Publication Year
+        Competition Year
       </th>
       <th>Tags</th>
       <th>Question</th>
@@ -87,12 +87,13 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
     <?php
     // error catching if no results
     if(mysqli_num_rows($question_qry) == 0) {
-      echo "<p class='display-2 text-center p-5'>No Questions in Database</p>";
+      echo "<td colspan=6'><p class='display-3 text-center p-5'>No Questions in Database</p></td>";
     } else {
 
       $question_aa = mysqli_fetch_assoc($question_qry);
 
         do {
+            //take all data from assosicative array and assign variables
             $questionID = $question_aa["questionID"];
             $question_yearID = $question_aa["yearID"];
             $question_year = $question_aa["yearname"];
@@ -153,7 +154,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
               <!-- edit button column -->
               <td>
-                <button type='button' class='btn btn-primary editButton' <?php echo"data-id='$questionID'";?>>
+                <button type='button' class='btn btn-primary' id='editButton' <?php echo"data-id='$questionID'";?>>
                   Edit
                 </button>
               </td>
@@ -161,13 +162,13 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               <!-- edit modal -->
               <div class='modal fade' id='editModal' tabindex='-1' role='dialog'>
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
-                  <div class='modal-content'>
+                  <div class='modal-content edit-content'>
                     <!-- modal content gets delivered through another page -->
                   </div>
                 </div>
               </div>
 
-              <!-- submit form -->
+              <!-- submit edit form -->
               <script type="text/javascript">
                 $(document).ready(function () {
 
@@ -188,14 +189,14 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
               </script>
 
 
-              <!-- Open Modal script -->
+              <!-- Open edit Modal script -->
               <script type='text/javascript'>
               $(document).ready(function(){
 
                 //delegate the event using "on" to make ajax function properly
-                $('#Custom_Database').on('click','.editButton',function(e){
-                  e.preventDefault();
-
+                $('#Custom_Database').on('click','#editButton',function(e){
+                  // e.preventDefault();
+                     e.preventDefault();
                     //question id is the one user clicked on
                     var questionID = $(this).data('id');
 
@@ -206,7 +207,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
                         data: {questionID: questionID},
                         success: function(response){
                             // Add response in Modal body
-                            $('.modal-content').html(response);
+                            $('.edit-content').html(response);
 
                             // Display Modal
                             $('#editModal').modal('show');
@@ -218,72 +219,44 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
               <!-- delete button column -->
               <td>
-                <button type='button' class='btn btn-danger' data-toggle='modal' <?php echo"data-target='#deletequestion_$questionID'";?>>
+                <button type='button' class='btn btn-danger' id='deleteButton' <?php echo"data-id='$questionID'";?>>
                   Delete
                 </button>
               </td>
 
-
-              <!-- delete modal -->
-              <div class='modal fade' <?php echo"id='deletequestion_$questionID'";?> tabindex='-1' role='dialog'>
+              <div class='modal fade' id='deleteModal' tabindex='-1' role='dialog'>
                 <div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
-                  <div class='modal-content'>
-                    <div class='modal-header'>
-                      <h5 class='modal-title' <?php echo "id='deletequestion_$questionID"?> >Delete Question</h5>
-                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                      </button>
-                    </div>
+                  <div class='modal-content delete-content'>
 
-                    <div class='modal-body justify-center'>
-                      <div class="col-12 p-2">
-                        <!-- question image column -->
-                        <div class="row">
-                          <img style='width:100%;' <?php echo"src='questions/$filename'"?> alt=''>
-
-                        </div>
-
-                        <div class="row my-2">
-                          <div class="col-2">
-                            <h3>Details</h3>
-                          </div>
-                          <div class="col-8">
-                            Question: <?php echo "$qnumber";?><br>
-                            Level: <?php echo "$question_level";?><br>
-                            Year: <?php echo "$question_year";?>
-                          </div>
-                        </div>
-
-                        <div class="row my-2">
-                          <div class="col-2">
-                            <h3>Tags</h3>
-                          </div>
-                          <div class="col-8">
-                            <!-- tag column -->
-                            <?php
-                            foreach ($taglist as $tag) {
-                              echo "$tag[1]<br>";
-                            }
-                            ?>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class='modal-footer'>
-                        <p>Are you sure?</p>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
-                        <?php echo "<a href='index.php?page=adminpanel&tab=deletequestion&questionID=$questionID'><button type='button' class='btn btn-primary'>Delete Question</button></a>";?>
-
-                    </div>
                   </div>
                 </div>
               </div>
 
-              <script type="text/javascript">
-              $('#myModal').on('shown.bs.modal', function () {
-                $('#myInput').trigger('focus')
-                })
+              <script type='text/javascript'>
+              $(document).ready(function(){
+
+                //delegate the event using "on" to make ajax function properly
+                $('#Custom_Database').on('click','#deleteButton',function(e){
+                  // e.preventDefault();
+                     e.preventDefault();
+                    //question id is the one user clicked on
+                    var questionID = $(this).data('id');
+
+                    // AJAX request
+                    $.ajax({
+                        url: 'deletemodal.php',
+                        type: 'POST',
+                        data: {questionID: questionID},
+                        success: function(response){
+                            // Add response in Modal body
+                            $('.delete-content').html(response);
+
+                            // Display Modal
+                            $('#deleteModal').modal('show');
+                          }
+                      });
+                  });
+                });
               </script>
 
             </tr>
@@ -299,15 +272,15 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
 <!-- pagination boostrap adapted from https://www.positronx.io/create-pagination-in-php-with-mysql-and-bootstrap/ -->
 <nav aria-label="Page navigation mt-5">
-    <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center my-1">
       <?php
       if($page > 1){
         // make make previous button so to previous page
         $previous = $page - 1;
-        echo "<li class='page-item' value='$previous'><span class='page-link'>Previous</span></li>";
+        echo "<li class='page-item page-clickable first-child' value='$previous'><span class='page-link'>Previous</span></li>";
       } else {
         // is page is not > 1, disable the button
-        echo "<li class='page-item disabled'><span class='page-link'>Previous</span></li>";
+        echo "<li class='page-item disabled first-child'><span class='page-link'>Previous</span></li>";
       }
 
       // number pagination
@@ -315,12 +288,12 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
       for($i = 1; $i <= $number_of_pages; $i++ ):
         if ($page == $i) {
           // if the page button is the current page, make it display as active
-          echo "<li class='page-item active' value='$i'>
-                  <a class='page-link'>$i</a>
+          echo "<li class='page-clickable page-item active' value='$i'>
+                  <a class='page-link page-active'>$i</a>
                 </li>";
         } else {
           // else just display as normal
-          echo "<li class='page-item' value='$i'>
+          echo "<li class='page-clickable page-item' value='$i'>
                   <a class='page-link'>$i</a>
                 </li>";
         }
@@ -330,11 +303,11 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
         // if current page is >= to the total number of pages
        if ($page == $number_of_pages) {
          // disable the next button
-         echo "<li class='disabled'><span class='page-link'>Next</span></li>";
+         echo "<li class='page-item disabled last-child'><span class='page-link'>Next</span></li>";
        } else {
          // otherwise make button go to next page
          $next = $page + 1;
-         echo "<li class='page-item' value='$next'><span class='page-link'>Next</span></li>";
+         echo "<li class='page-item page-clickable last-child' value='$next'><span class='page-link'>Next</span></li>";
        }
        ?>
 

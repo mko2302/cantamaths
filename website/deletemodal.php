@@ -1,0 +1,84 @@
+<?php
+include("dbconnect.php");
+
+if (isset($_POST['questionID'])){
+  $questionID = $_POST['questionID'];
+  $question_sql = "SELECT * FROM question
+                  INNER JOIN year ON question.yearid = year.yearID
+                  INNER JOIN level ON question.levelID = level.levelID
+                  WHERE questionID = $questionID";
+
+  $question_qry = mysqli_query($dbconnect, $question_sql);
+  $question_aa = mysqli_fetch_assoc($question_qry);
+
+  //individual variables
+  $questionID = $question_aa["questionID"];
+  $question_year = $question_aa["yearname"];
+  $question_level = $question_aa["levelname"];
+  $qnumber = $question_aa["qnumber"];
+  $filename = $question_aa["filename"];
+  $answer = $question_aa["answer"];
+  $year = $question_aa["yearname"];
+}
+ ?>
+
+<!-- delete modal -->
+
+      <div class='modal-header'>
+        <h5 class='modal-title'>Delete Question</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class='modal-body justify-center'>
+        <div class="col-12 p-2">
+          <!-- question image column -->
+          <div class="row">
+            <img style='width:100%;' <?php echo"src='questions/$filename'"?> alt=''>
+
+          </div>
+
+          <div class="row my-2">
+            <div class="col-2">
+              <h3>Details</h3>
+            </div>
+            <div class="col-8">
+              Question: <?php echo "$qnumber";?><br>
+              Level: <?php echo "$question_level";?><br>
+              Year: <?php echo "$question_year";?>
+            </div>
+          </div>
+
+          <div class="row my-2">
+            <div class="col-2">
+              <h3>Tags</h3>
+            </div>
+            <div class="col-8">
+              <!-- tag column -->
+              <?php
+              $questiontag_sql = "SELECT * FROM questiontag JOIN tag ON questiontag.tagID = tag.tagID  WHERE questionID = $questionID";
+              $questiontag_qry = mysqli_query($dbconnect, $questiontag_sql);
+
+              if(mysqli_num_rows($questiontag_qry) == 0) {
+                echo "No tags";
+              } else {
+                $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
+                  do {
+                    $tagname = $questiontag_aa['tagname'];
+                    echo "$tagname<br>";
+
+                  } while ($questiontag_aa = mysqli_fetch_assoc($questiontag_qry));
+                }
+              ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='modal-footer'>
+          <p>Are you sure?</p>
+          <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+          <?php echo "<button type='button' class='btn btn-danger'>Delete Question</button>";?>
+
+      </div>

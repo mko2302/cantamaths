@@ -26,6 +26,9 @@
  <?php echo" <form class='' id='editForm$questionID' name='editForm' action='index.php?page=editquestion&questionID=$questionID' method='post'>";?>
  <div class='modal-header'>
    <h5 class='modal-title'>Edit Question</h5>
+   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+   </button>
  </div>
 
  <div class='modal-body'>
