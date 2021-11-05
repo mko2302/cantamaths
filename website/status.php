@@ -19,10 +19,12 @@
       $message = "File uploaded is not an image!";
       $colour = "danger";
     }
+    //dubplicate image in dataase
     if ($status == "duplicateimage") {
       $message = "Image already exists!";
       $colour = "danger";
     }
+    //successgully added question to database
     if ($status == "addsuccess") {
       $message = "Question added to database!";
       $colour = "success";
@@ -41,6 +43,7 @@
     }
 
     //dbsettings db messages
+    //TAGS MANAGEMENT
     // add tag success
     if ($status == "tagsuccess") {
       $message = "New tag added!";
@@ -55,6 +58,25 @@
 
     //tag error
     if ($status == "tagerror") {
+      $message = "Error has occured";
+      $colour = "danger";
+    }
+
+    // YEARS MANAGEMENT
+    // add tag success
+    if ($status == "yearsuccess") {
+      $message = "New Year added!";
+      $colour = "success";
+    }
+
+    //delete year success
+    if ($status == "yeardeleted") {
+      $message = "Year Deleted!";
+      $colour = "success";
+    }
+
+    //year error
+    if ($status == "yearerror") {
       $message = "Error has occured";
       $colour = "danger";
     }
