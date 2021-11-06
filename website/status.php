@@ -4,16 +4,24 @@
     $status = $_GET['status'];
 
     //generic error messages
-    if ($status == "duplicateq") {
-       $message = "Question already exists in database!";
-       $colour = "danger";
-    }
     if ($status == "error") {
       $message = "Error has occured";
       $colour = "danger";
     }
 
-    //add question status messages
+    if ($status == "duplicateq") {
+       $message = "Question already exists in database!";
+       $colour = "danger";
+    }
+
+    //LOG IN
+    if ($status == "loginerror") {
+       $message = "Incorrect username or password!";
+       $colour = "danger";
+    }
+
+
+    //ADD QUESTIONS
     // check status to see if there was an error
     if ($status == "nonimage") {
       $message = "File uploaded is not an image!";
@@ -24,7 +32,7 @@
       $message = "Image already exists!";
       $colour = "danger";
     }
-    //successgully added question to database
+    //successfully added question to database
     if ($status == "addsuccess") {
       $message = "Question added to database!";
       $colour = "success";
@@ -46,7 +54,7 @@
     //TAGS MANAGEMENT
     // add tag success
     if ($status == "tagsuccess") {
-      $message = "New tag added!";
+      $message = "Tag added!";
       $colour = "success";
     }
 
@@ -56,16 +64,10 @@
       $colour = "success";
     }
 
-    //tag error
-    if ($status == "tagerror") {
-      $message = "Error has occured";
-      $colour = "danger";
-    }
-
     // YEARS MANAGEMENT
     // add tag success
     if ($status == "yearsuccess") {
-      $message = "New Year added!";
+      $message = "Year added!";
       $colour = "success";
     }
 
@@ -75,11 +77,6 @@
       $colour = "success";
     }
 
-    //year error
-    if ($status == "yearerror") {
-      $message = "Error has occured";
-      $colour = "danger";
-    }
 
     echo"
     <div class='alert alert-$colour my-1 alert-dismissible fade show' role='alert'>

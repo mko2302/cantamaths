@@ -2,7 +2,7 @@
   if (isset($_POST['tagname'])) {
     $tagname = $_POST['tagname'];
   } else {
-    header("Location:index.php?page=adminpanel&tab=dbsettings&status=tagerror");
+    header("Location:index.php?page=adminpanel&tab=dbsettings&status=error");
   }
 
   $check_qry = "SELECT * FROM tag WHERE tagname LIKE '$tagname'";

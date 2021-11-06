@@ -2,7 +2,7 @@
   if (isset($_POST['yearname'])) {
     $yearname = $_POST['yearname'];
   } else {
-    header("Location:index.php?page=adminpanel&tab=dbsettings&status=yearerror");
+    header("Location:index.php?page=adminpanel&tab=dbsettings&status=error");
   }
 
   $check_qry = "SELECT * FROM year WHERE yearname LIKE '$yearname'";

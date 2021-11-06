@@ -2,7 +2,7 @@
   if (isset($_GET['tagID'])) {
     $tagID = $_GET['tagID'];
   } else {
-    header("Location:index.php?page=adminpanel&tab=dbsettings&status=tagerror");
+    header("Location:index.php?page=adminpanel&tab=dbsettings&status=error");
   }
   $delete_tag_sql = "DELETE FROM tag where tagID = $tagID";
 

@@ -12,7 +12,7 @@
 
   // error catching
   if(mysqli_num_rows($user_qry)==0) {
-    header("Location:index.php?page=login&error=error");
+    header("Location:index.php?page=login&status=loginerror");
   } else {
     // sends query
     $user_aa = mysqli_fetch_assoc($user_qry);
@@ -22,21 +22,22 @@
     if (password_verify($password, $hash_password)) {
       // if matches its starts a session
       if ($access == 1) {
-        $_SESSION['user'] = $username;
+        //start admin session
         $_SESSION['admin'] = $username;
+        // redirect to admin panel
         header("Location: index.php?page=adminpanel");
       } elseif ($access == 2 Or 3) {
+        //start user session
         $_SESSION['user'] = $username;
+        //redirect to profile
         header("Location: index.php?page=profile");
-
       } else {
+        // if else send user to profile page
         header("Location:index.php?page=profile");
       };
-
-      $username = $user_aa['username'];
-      $userID = $user_aa['userID'];
     } else {
-      header("Location:index.php?page=login&error=fail");
+      //if password verify fails, send to login page with alert
+      header("Location:index.php?page=login&status=loginerror");
     }
     };
  ?>

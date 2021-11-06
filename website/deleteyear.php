@@ -2,7 +2,7 @@
   if (isset($_GET['yearID'])) {
     $yearID = $_GET['yearID'];
   } else {
-    header("Location:index.php?page=adminpanel&tab=dbsettings&status=yearerror");
+    header("Location:index.php?page=adminpanel&tab=dbsettings&status=error");
   }
   $delete_year_sql = "DELETE FROM year where yearID = $yearID";
 
