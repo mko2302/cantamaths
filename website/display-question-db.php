@@ -8,17 +8,17 @@ if (isset($_SESSION['tagID'])) {
   unset($_SESSION['questionID']);
   $_SESSION['questionID'] = [];
 
-
   $tag = implode("','",$_SESSION['tagID']);
   $tagsql = "IN ('".$tag."')";
 
   $tag_sql = "SELECT * FROM questiontag WHERE tagID $tagsql";
   $tag_qry = mysqli_query($dbconnect, $tag_sql);
-  if (mysqli_num_rows($tag_qry)==0) {
+  if (mysqli_num_rows($tag_qry)>0) {
   } else {
       $tag_aa = mysqli_fetch_assoc($tag_qry);
     }
   do {
+    $tag_aa = mysqli_fetch_assoc($tag_qry);
     $SquestionID = $tag_aa['questionID'];
     if (in_array($SquestionID,$_SESSION['questionID'])) {
     } else {
@@ -64,6 +64,11 @@ $question_sql = "SELECT * FROM question
 
 $question_qry = mysqli_query($dbconnect, $question_sql);
 
+if (isset($_SESSION['tagID']) OR isset($_SESSION['tagID']) OR isset($_SESSION['yearID'])) {
+  echo"<h5>Number of results: $number_of_q</h5>";
+} else {
+  echo"<h5>Questions in database: $number_of_q</h5>";
+}
  ?>
 
 <!-- bootstrap table to display questions -->
@@ -71,9 +76,7 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
   <thead>
     <tr>
       <th scope="col">
-        Question #<br>
-        Year Group<br>
-        Competition Year
+        Details
       </th>
       <th>Tags</th>
       <th>Question</th>
@@ -195,7 +198,6 @@ $question_qry = mysqli_query($dbconnect, $question_sql);
 
                 //delegate the event using "on" to make ajax function properly
                 $('#Custom_Database').on('click','#editButton',function(e){
-                  // e.preventDefault();
                      e.preventDefault();
                     //question id is the one user clicked on
                     var questionID = $(this).data('id');
