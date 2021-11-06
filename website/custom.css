@@ -104,14 +104,25 @@ html, body {
 }
 
 
+/* LOG IN STYLES */
+
+.login-container {
+		align-self: center;
+	  margin: 10% 10% 0.5% 10%;
+		padding: 5% 10% 5% 10%;
+		width: 50%;
+	  background-color: #FAFAFC;
+	  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	  height: 60vh;
+	  overflow: hidden;
+}
+
+.login-field {
+	display: block;
+}
 
 
-
-
-
-
-
-
+/* ADMIN STYLES */
 
 .admin-nav {
   background-color: #E8E8EB;
@@ -160,7 +171,7 @@ html, body {
   position: absolute;
   margin: 0.5% 5% 0.5% 5%;
   width: 90%;
-	max-height: 87vh;
+	max-height: 90vh;
   background-color: #FAFAFC;
   box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   height: 90vh;
@@ -179,7 +190,11 @@ html, body {
 
 .admin-scroll {
   overflow-y: scroll;
-  height: 80vh;
+  height: 82vh;
+}
+
+.admin-table-col{
+	height: 100vh;
 }
 
 .admin-table {
@@ -192,14 +207,14 @@ html, body {
   color: #FFFFFF;
 }
 
-.page-item.active {
-  color: #FFFFFF;
-  background-color: #DA210D;
+.page-clickable:hover {
+  color: #000000;
+  background-color: #DA210D !important;
 }
 
-.page-item:hover {
-  color: #FFFFFF;
-  background-color: #DA210D;
+.page-active{
+	background-color: #DA210D !important;
+	border-color: #DA210D !important;
 }
 
 /* add question styles */
@@ -209,6 +224,19 @@ html, body {
 	overflow: scroll;
 	overflow-x: hidden;
 }
+
+
+/* remove rounded corners from pagination */
+.pagination>li:first-child>.page-link, .pagination>li:first-child>span {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.pagination>li:last-child>.page-link, .pagination>li:last-child>span {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 
 /* admin db options page styles */
 .admin-option {
@@ -242,7 +270,7 @@ html, body {
 }
 
 .active {
-  border: 2px solid #EB0A00;
+  /* border: 2px solid #EB0A00; */
   background-color: #EB0A00;
 }
 
