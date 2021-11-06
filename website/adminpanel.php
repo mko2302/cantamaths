@@ -1,8 +1,9 @@
 <!-- admin panel goes here -->
 
 <?php
-// check to see if logged in.
+// check to see if sesssion is not set.
 if (!isset($_SESSION['admin'])) {
+  // if not send user to home page
   header("Location: index.php");
 }
 
