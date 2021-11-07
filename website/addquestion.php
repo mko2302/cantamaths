@@ -122,9 +122,11 @@ if (!isset($_SESSION['admin'])) {
                   if ($tag_count == 0) {
                     echo"<h2>No tags in database!</h2>";
                   } else {
+                    // split tags into 6 columns
                     $number_of_columns = 6;
                     $tag_per_col = ceil($tag_count / $number_of_columns);
 
+                    // for the number of comumns display so many tags
                     for ($i=0; $i < $number_of_columns; $i++) {
                       $first_result = ($i) * $tag_per_col;
                       $tag_sql = "SELECT * FROM tag LIMIT $first_result, $tag_per_col ";

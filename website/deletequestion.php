@@ -12,8 +12,7 @@
 
     //deletes file from server
     if (file_exists($file_path)) {
-      if (unlink($file_path)) {
-      }
+      unlink($file_path);
     }
 
     $delete_sql = "DELETE FROM question WHERE questionID=$questionID";
@@ -21,6 +20,7 @@
     // sends sql query to data base
     $delete_qry = mysqli_query($dbconnect, $delete_sql);
 
+    // query to delete questions from junction table
     $delete_tag_sql = "DELETE FROM questiontag WHERE questionID=$questionID";
     // sends sql query to data base
     $delete_tag_qry = mysqli_query($dbconnect, $delete_tag_sql);

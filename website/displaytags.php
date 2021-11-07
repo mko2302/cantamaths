@@ -59,10 +59,11 @@
                    Delete
                  </button>
 
+                 <!-- modal shell -->
                  <div class="modal fade" id="deleteTagModal" tabindex="-1" role="dialog">
                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <!-- content will be loaded in this div tag -->
                      <div class="modal-content">
-
 
                      </div>
                    </div>

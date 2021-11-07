@@ -1,5 +1,5 @@
 <?php
-
+//connect to database
 include("dbconnect.php");
 
 include("filter-to-in.php");
@@ -64,15 +64,19 @@ $question_sql = "SELECT * FROM question
 
 $question_qry = mysqli_query($dbconnect, $question_sql);
 
+//if any of the sessions are set by checkboxes
 if (isset($_SESSION['tagID']) OR isset($_SESSION['tagID']) OR isset($_SESSION['yearID'])) {
+  //echo the number of results
   echo"<h5>Number of results: $number_of_q</h5>";
 } else {
+  //echo total number of qs in database
   echo"<h5>Questions in database: $number_of_q</h5>";
 }
  ?>
 
 <!-- bootstrap table to display questions -->
 <table class="table table-striped admin-table" id="dbTable">
+  <!-- table headings -->
   <thead>
     <tr>
       <th scope="col">
@@ -92,9 +96,10 @@ if (isset($_SESSION['tagID']) OR isset($_SESSION['tagID']) OR isset($_SESSION['y
     if(mysqli_num_rows($question_qry) == 0) {
       echo "<td colspan=6'><p class='display-3 text-center p-5'>No Questions in Database</p></td>";
     } else {
-
+      // put sql query result as associatve array
       $question_aa = mysqli_fetch_assoc($question_qry);
 
+        // for each questions returned from the sql query,
         do {
             //take all data from assosicative array and assign variables
             $questionID = $question_aa["questionID"];
@@ -125,20 +130,24 @@ if (isset($_SESSION['tagID']) OR isset($_SESSION['tagID']) OR isset($_SESSION['y
                   $questiontag_sql = "SELECT * FROM questiontag JOIN tag ON questiontag.tagID = tag.tagID  WHERE questionID = $questionID";
                   $questiontag_qry = mysqli_query($dbconnect, $questiontag_sql);
 
+                  // if no tags on juction table
                   if(mysqli_num_rows($questiontag_qry) == 0) {
+                    // echo no tags
                     echo "No tags";
                   } else {
                     // add tags to tag list
                     $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
                       do {
+                        // get variables form associative array
                         $tagID = $questiontag_aa['tagID'];
                         $name = $questiontag_aa['tagname'];
                         $single_tag = array("$tagID", "$name");
                         array_push($taglist, $single_tag);
                       } while ($questiontag_aa = mysqli_fetch_assoc($questiontag_qry));
 
+                      // extra error catching if no tags in database
                       if(count($taglist) == 0) {
-                        echo "No tags for this question";
+                        echo "No tags";
                       } else {
                         foreach ($taglist as $tag) {
                           echo "$tag[1]<br>";
@@ -175,6 +184,7 @@ if (isset($_SESSION['tagID']) OR isset($_SESSION['tagID']) OR isset($_SESSION['y
               <script type="text/javascript">
                 $(document).ready(function () {
 
+                  // AJAX fucntion to submit edit form
                  $("editForm").submit(function (event) {
                    $.ajax({
                      type: "POST",

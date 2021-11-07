@@ -7,19 +7,21 @@
     </div>
 
     <div class="col-4">
+      <!-- include for alerts -->
       <?php include("status.php") ?>
     </div>
   </div>
 
   <div class="row" id="optionRow">
     <!-- Tag options -->
-    <div class="col-5 mx-1">
-      <div class="row m-3">
+    <div class="col-5 mx-2">
+      <div class="row">
           <h3>Tags</h3>
       </div>
       <div class="row" id="tagRow">
         <!-- form to enter new tag -->
         <div class="col-4">
+          <!-- add tag form -->
             <form action="index.php?page=adminpanel&tab=entertag" method="post">
               <div class="form-group">
                 <label>Add Tag</label>
@@ -31,6 +33,7 @@
 
         </div>
 
+        <!-- div tag to display tag table -->
         <div id="displaytags_data" class="col-8">
 
         </div>
@@ -38,6 +41,7 @@
     </div>
 
     <script type="text/JavaScript">
+      // ajax function to send pagination to display tags
        function fetch_tag(tagpage){
           $.ajax({
              url: "displaytags.php",
@@ -51,8 +55,10 @@
           });
        }
 
+       // fetch fucntion for tags to display
        fetch_tag();
 
+       // if user clicks on paginaiton, send new page no and display new page
        $(document).on("click", ".page-tag-clickable", function(){
                 var tagpage = $(this).attr("value");
                 fetch_tag(tagpage);
@@ -60,16 +66,17 @@
     </script>
 
     <!-- New years of questions -->
-    <div class="col-5">
-      <div class="row m-3">
-        <h3>Compeition Year</h3>
+    <div class="col-5 mx-2">
+      <div class="row">
+        <h3>Competition Year</h3>
       </div>
       <div class="row" id="yearRow">
         <!-- form to enter new year -->
         <div class="col-4">
+          <!-- form to add years -->
             <form action="index.php?page=adminpanel&tab=enteryear" method="post">
               <div class="form-group">
-                <label>Add Compeition Year</label>
+                <label>Add Competition Year</label>
                 <input type="text" class="form-control"  name="yearname" aria-describedby="Enter year" placeholder="Enter new year" required>
               </div>
 
@@ -78,6 +85,7 @@
 
         </div>
 
+        <!-- div tag to display year table -->
         <div id="displayyear_data" class="col-8">
 
         </div>
@@ -85,6 +93,7 @@
     </div>
 
     <script type="text/JavaScript">
+    // ajax function to send pagination to display years
        function fetch_year(yearpage){
           $.ajax({
              url: "displayyear.php",
@@ -98,8 +107,10 @@
           });
        }
 
+       // fetch fucntion for years to display
        fetch_year();
 
+       // if user clicks on paginaiton, send new page no and display new page
        $(document).on("click", ".page-year-clickable", function(){
                 var yearpage = $(this).attr("value");
                 fetch_year(yearpage);

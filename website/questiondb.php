@@ -1,4 +1,5 @@
 <?php
+// 
   if(isset($_SESSION['levelID'])) {
     unset($_SESSION['levelID']);
   }
@@ -33,7 +34,7 @@
     </div>
   </div>
   <!-- question table -->
-  <div class="col-10 admin-table-col">
+  <div class="col-10 area-fill">
     <div class="admin-scroll" id="Custom_Database">
       <?php include("display-question-db.php") ?>
     </div>

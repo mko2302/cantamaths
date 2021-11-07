@@ -180,6 +180,7 @@ html, body {
 .admin-database {
   max-height: 92%;
 	overflow: hidden;
+	padding: 1%;
 }
 
 .admin-filter {
@@ -189,13 +190,13 @@ html, body {
 
 .admin-scroll {
   overflow-y: auto;
-  height: 82vh;
+  height: 80vh;
 }
 
-.admin-table-col {
-  height: auto;
-  margin: 0;
+.admin-table{
+	margin: 0;
 }
+
 
 /* pageination styles */
 .db-pagination.hover {
@@ -268,6 +269,7 @@ html, body {
   background-color: #FFFFFF !important;
 }
 
+/*  */
 .active {
   /* border: 2px solid #EB0A00; */
   background-color: #EB0A00;

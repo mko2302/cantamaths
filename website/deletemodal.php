@@ -1,14 +1,19 @@
 <?php
 include("dbconnect.php");
 
+// if question ID is set from post array
 if (isset($_POST['questionID'])){
+  // define variable
   $questionID = $_POST['questionID'];
+  // select all questions from databse where same questionID
   $question_sql = "SELECT * FROM question
                   INNER JOIN year ON question.yearid = year.yearID
                   INNER JOIN level ON question.levelID = level.levelID
                   WHERE questionID = $questionID";
 
+  // send query to database
   $question_qry = mysqli_query($dbconnect, $question_sql);
+  // put results in assosiative array
   $question_aa = mysqli_fetch_assoc($question_qry);
 
   //individual variables
@@ -57,12 +62,15 @@ if (isset($_POST['questionID'])){
             <div class="col-8">
               <!-- tag column -->
               <?php
+              // get all questions from junction table where questionID
               $questiontag_sql = "SELECT * FROM questiontag JOIN tag ON questiontag.tagID = tag.tagID  WHERE questionID = $questionID";
               $questiontag_qry = mysqli_query($dbconnect, $questiontag_sql);
 
+              // error catching for if no questions exist
               if(mysqli_num_rows($questiontag_qry) == 0) {
                 echo "No tags";
               } else {
+                // display all the tags related to question
                 $questiontag_aa = mysqli_fetch_assoc($questiontag_qry);
                   do {
                     $tagname = $questiontag_aa['tagname'];

@@ -29,6 +29,7 @@
   $year_qry = mysqli_query($dbconnect, $year_sql);
 ?>
 
+  <!-- bootstrap table -->
   <table class='table table-striped'>
       <thead>
         <tr>
@@ -43,8 +44,11 @@
     if (mysqli_num_rows($year_qry) == 0) {
       $output .= "<p class='ext-center p-5'>No years in database</p>";
     } else {
+      // put results in assosciative array
       $year_aa = mysqli_fetch_assoc($year_qry);
+      // for each row in aa
         do {
+          // define variables
             $yearID = $year_aa['yearID'];
             $name = $year_aa['yearname'];
             ?>
@@ -59,10 +63,10 @@
                    Delete
                  </button>
 
+                 <!-- modal shell -->
                  <div class="modal fade" id="deleteYearModal" tabindex="-1" role="dialog">
                    <div class="modal-dialog modal-dialog-centered" role="document">
                      <div class="modal-content">
-
 
                      </div>
                    </div>
