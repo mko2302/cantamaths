@@ -16,15 +16,15 @@
 
   //find number page user is on
   if (!isset($_POST['tagpage'])) {
-    $page = 1;
+    $tag_page = 1;
   } else {
-    $page = $_POST['tagpage'];
+    $tag_page = $_POST['tagpage'];
   }
 
-  $page_first_result = ($page - 1) * $results_per_page;
+  $tag_page_first_result = ($tag_page - 1) * $results_per_page;
 
   //sql query to get number of questions depending on what page user is on
-  $tag_sql = "SELECT * FROM tag LIMIT $page_first_result , $results_per_page";
+  $tag_sql = "SELECT * FROM tag LIMIT $tag_page_first_result , $results_per_page";
 
   $tag_qry = mysqli_query($dbconnect, $tag_sql);
 ?>
@@ -72,7 +72,7 @@
                  $(document).ready(function(){
 
                    //delegate the event using "on" to make ajax function properly
-                   $('#optionRow').on('click','#deleteTagButton',function(e){
+                   $('#tagRow').on('click','#deleteTagButton',function(e){
                      e.preventDefault();
 
                        //question id is the one user clicked on
@@ -107,11 +107,11 @@
 
 <!-- pageination -->
 <nav aria-label="Page navigation mt-5">
-    <ul class="pagination justify-content-center my-1">
+    <ul class="pagination justify-content-center my-1 custom-pagination">
       <?php
-      if($page > 1){
+      if($tag_page > 1){
         // make make previous button so to previous page
-        $previous = $page - 1;
+        $previous = $tag_page - 1;
         echo "<li class='page-item page-tag-clickable first-child' value='$previous'><span class='page-link'>Previous</span></li>";
       } else {
         // is page is not > 1, disable the button
@@ -121,7 +121,7 @@
       // number pagination
         // for the number of pages
       for($i = 1; $i <= $number_of_pages; $i++ ):
-        if ($page == $i) {
+        if ($tag_page == $i) {
           // if the page button is the current page, make it display as active
           echo "<li class='page-tag-clickable page-item active' value='$i'>
                   <a class='page-link page-active'>$i</a>
@@ -136,12 +136,12 @@
 
        // next button
         // if current page is >= to the total number of pages
-       if ($page == $number_of_pages) {
+       if ($tag_page == $number_of_pages) {
          // disable the next button
          echo "<li class='page-item disabled last-child'><span class='page-link'>Next</span></li>";
        } else {
          // otherwise make button go to next page
-         $next = $page + 1;
+         $next = $tag_page + 1;
          echo "<li class='page-item page-tag-clickable last-child' value='$next'><span class='page-link'>Next</span></li>";
        }
        ?>
