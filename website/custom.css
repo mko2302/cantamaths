@@ -87,7 +87,6 @@ html, body {
 }
 
 .navbar-brand:hover {
-
 	font-weight: 500;
 }
 
@@ -162,42 +161,38 @@ html, body {
   background-color: #DA210D;
 }
 
-.admin-content {
-  background-color: #FFFFFF;
-	height: 100vh;
-}
-
 .admin-container {
   position: absolute;
   margin: 0.5% 5% 0.5% 5%;
   width: 90%;
-	max-height: 90vh;
+	max-height: 90%;
   background-color: #FAFAFC;
   box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   height: 90vh;
   overflow: hidden;
 }
 
+.admin-content {
+  background-color: #FFFFFF;
+	max-height: 100%;
+}
+
 .admin-database {
-  position: absolute;
-  min-height: auto;
+  max-height: 92%;
+	overflow: hidden;
 }
 
 .admin-filter {
-  position: absolute;
-  overflow:hidden;
+	max-height: 50%;
+	overflow: hidden;
 }
 
 .admin-scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 82vh;
 }
 
-.admin-table-col{
-	height: 100vh;
-}
-
-.admin-table {
+.admin-table-col {
   height: auto;
   margin: 0;
 }
@@ -215,6 +210,10 @@ html, body {
 .page-active{
 	background-color: #DA210D !important;
 	border-color: #DA210D !important;
+}
+
+.custom-pageination {
+	position: fixed;
 }
 
 /* add question styles */

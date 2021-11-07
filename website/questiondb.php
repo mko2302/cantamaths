@@ -10,7 +10,7 @@
   }
 ?>
 
-<div class="row">
+<div class="flex-row">
   <div class="col-5">
     <h1>Question Database</h1>
   </div>
@@ -21,10 +21,16 @@
   </div>
 </div>
 
-<div class="row">
+<div class="flex-row admin-database area-fill">
   <!-- div with filters -->
-  <div class="col-2">
-    <?php include("custom-filter-database.php") ?>
+  <div class="col-2 area-fill">
+    <div class="card">
+      <?php
+      //make filters for custom mode
+      $select_page = "custom";
+      //include filters
+      include("filter-checkboxes.php") ?>
+    </div>
   </div>
   <!-- question table -->
   <div class="col-10 admin-table-col">
