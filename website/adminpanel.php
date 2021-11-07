@@ -7,16 +7,20 @@ if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
 }
 
-
+// find which tab is active and set active class
 function active($currect_page){
-  $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
-  $url = end($url_array);
+  // get url of page user is on
+  $url_array =  explode('&', $_SERVER['REQUEST_URI']);
+  // get which admin tab user is on
+  $url = $url_array[1];
+  // if the page is in the url
   if($currect_page == $url){
-      echo 'active'; //class name in css
+    // echo active class
+      echo 'active';
   }
 }
-
 ?>
+
 <div class="container-fluid">
   <div class="row justify-content-center admin-container">
      <!-- navbar -->
@@ -25,19 +29,19 @@ function active($currect_page){
         <h1>Dashboard</h1>
       </div>
       <nav class="nav nav-pills flex-column nav-stacked">
-        <li class="nav-item admin-nav-item <?php active('index.php?page=adminpanel&tab=adminhome')?>">
+        <li class="nav-item admin-nav-item <?php active('tab=adminhome')?>">
           <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=adminhome">Home</a>
         </li>
-        <li class="nav-item admin-nav-item <?php active('index.php?page=adminpanel&tab=addquestion')?>">
+        <li class="nav-item admin-nav-item <?php active('tab=addquestion')?>">
           <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=addquestion">Add Questions</a>
         </li>
-        <li class="nav-item admin-nav-item <?php active('index.php?page=adminpanel&tab=questiondb')?>">
+        <li class="nav-item admin-nav-item <?php active('tab=questiondb')?>">
           <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=questiondb">Question Database</a>
         </li>
-        <li class="nav-item admin-nav-item <?php active('index.php?page=adminpanel&tab=dbsettings')?>">
+        <li class="nav-item admin-nav-item <?php active('tab=dbsettings')?>">
           <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=dbsettings">Database Options</a>
         </li>
-        <li class="nav-item admin-nav-item <?php active('index.php?page=adminpanel&tab=users')?>">
+        <li class="nav-item admin-nav-item <?php active('tab=users')?>">
           <a class="nav-link admin-tab" href="index.php?page=adminpanel&tab=users"=>Users</a>
         </li>
         <li class="nav-item admin-nav-item">
