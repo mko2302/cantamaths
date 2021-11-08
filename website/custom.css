@@ -83,6 +83,7 @@ html, body {
 
 .navbar-brand {
 	font-size: 40px;
+  text-decoration: none;
 }
 
 .navbar-brand:hover {
@@ -92,6 +93,7 @@ html, body {
 .nav-link {
 	color: #FFFFFF;
 	font-size: 20px;
+	border-radius: 0;
 }
 
 .nav-link:hover {
@@ -100,6 +102,146 @@ html, body {
 	font-weight: 500;
 }
 
+
+/* LOG IN STYLES */
+
+.login-container {
+		align-self: center;
+	  margin: 10% 10% 0.5% 10%;
+		padding: 5% 10% 5% 10%;
+		width: 50%;
+	  background-color: #FAFAFC;
+	  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	  height: 60vh;
+	  overflow: hidden;
+}
+
+.login-field {
+	display: block;
+}
+
+
+/* ADMIN STYLES */
+
+.admin-nav {
+  background-color: #E8E8EB;
+  max-height: 100%;
+  padding:0;
+  flex-flow:column;
+}
+
+.admin-nav-item {
+  min-height: 100%;
+}
+
+.admin-nav-item a {
+ text-decoration: none;
+ color: #000000;
+}
+
+.admin-nav-item:hover a {
+  color: #000000;
+}
+
+.admin-nav-item:hover {
+  color: #FFFFFF;
+  background-color: #FAFAFC;
+}
+
+.admin-nav.active {
+  background-color: #DA210D;
+}
+
+.admin-nav-item.active a {
+  color: #FFFFFF;
+  background-color: #DA210D;
+}
+
+.admin-nav-item.active:hover {
+  background-color: #DA210D;
+}
+
+.admin-container {
+  position: absolute;
+  margin: 0.5% 5% 0.5% 5%;
+  width: 90%;
+	max-height: 90%;
+  background-color: #FAFAFC;
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  height: 90vh;
+  overflow: hidden;
+}
+
+.admin-content {
+  background-color: #FFFFFF;
+	max-height: 100%;
+}
+
+.admin-database {
+  max-height: 92%;
+	overflow: hidden;
+	padding: 1%;
+}
+
+.admin-filter {
+	max-height: 50%;
+	overflow: hidden;
+}
+
+.admin-scroll {
+  overflow-y: auto;
+  height: 80vh;
+}
+
+.admin-table{
+	margin: 0;
+}
+
+
+/* pageination styles */
+.db-pagination.hover {
+  color: #FFFFFF;
+}
+
+.page-clickable:hover {
+  color: #000000;
+  background-color: #DA210D !important;
+}
+
+.page-active{
+	background-color: #DA210D !important;
+	border-color: #DA210D !important;
+}
+
+.custom-pageination {
+	position: fixed;
+}
+
+/* add question styles */
+.admin-add-container {
+  margin: 2.5% 10% 2.5% 10%;
+	max-height: 70vh;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+
+
+/* remove rounded corners from pagination */
+.pagination>li:first-child>.page-link, .pagination>li:first-child>span {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.pagination>li:last-child>.page-link, .pagination>li:last-child>span {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+/* admin db options page styles */
+.admin-option {
+  margin: 2.5% 10% 2.5% 10%;
+}
 
 /* Breadcrumbs related CSS */
 .breadcrumb {
@@ -127,9 +269,10 @@ html, body {
   background-color: #FFFFFF !important;
 }
 
+/*  */
 .active {
-  border: 2px solid #EB0A00 !important;
-  color: #EB0A00 !important;
+  /* border: 2px solid #EB0A00; */
+  background-color: #EB0A00;
 }
 
 .inactive {
