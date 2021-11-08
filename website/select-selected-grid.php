@@ -1,5 +1,5 @@
 <div class="col-12 px-clear p-1">
-  <input type="checkbox" style="display:none;">
+  <input type="checkbox" onclick="send_selected(<?php echo "'$QquestionID'"; ?>, 'filler', 'filler'), send_filters('filler', 'refresh')" style="display:none;">
   <label class="area-fill" style="margin: 0px;">
     <div class="card border-sub border-selected">
       <div class="flex-row area-fill">
