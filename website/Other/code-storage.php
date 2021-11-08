@@ -880,3 +880,27 @@ if (mysqli_num_rows($question_qry)==0) {
       $obj_pdf->Output('sample.pdf', 'I');
 
  ?>
+
+
+
+ <table class="table table-bordered">
+   <?php if ($select_page == "custom") {
+     include("print-display-custom-sql.php");
+   } elseif ($select_page == "pastpapers") {
+     include("print-display-past-papers-sql.php");
+   }
+
+
+   $question_qry = mysqli_query($dbconnect, $question_sql);
+   $question_aa = mysqli_fetch_assoc($question_qry);
+
+   do {
+     $filename = $question_aa['filename']; ?>
+
+     <tr>
+       <td style="width: 10%;"></td>
+       <?php echo "<td><img src='questions/$filename' class='img-fluid'></td>" ?>
+     </tr>
+
+   <?php } while ($question_aa = mysqli_fetch_assoc($question_qry)); ?>
+ </table>
