@@ -2,6 +2,7 @@
 <div class="py-1 mb-2 text-center border-header">
   <span class="font-boldish">Filters</span>
 </div>
+<!-- Clear all filters -->
 <button type="button" class="btn btn-danger btn-block p-1 mb-2 font-boldish" onclick="send_filters('beans', 'clear')" id="Clear_Filters">Clear All Filters</button>
 
 
@@ -10,6 +11,7 @@
 <div class="page-fill-scroll">
   <div style="margin-top: -0.5rem;">
     <?php
+    // If page is cutom include tags otherwise skip
     $a = 0;
     if($select_page == "custom") {
       $filter = "tag";

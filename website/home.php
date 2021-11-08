@@ -1,3 +1,4 @@
+<!-- Jumbotron display, houses button to get started and general information -->
 <div class="minitron">
   <div class="m-3 minitron-content">
     <h1>Hello User</h1>
@@ -5,6 +6,8 @@
     <a class="btn btn-danger px-5 btn-get-started" href="index.php?page=option-select" role="button">Get Started</a>
   </div>
 </div>
+<!-- Steps on how to use website -->
+<!-- Using columns and bootstrap cards -->
 <div class="center">
   <div class="my-5 mx-3 how-to-use">
     <h1 class="text-center">How to Use:</h1>
@@ -29,7 +32,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">3: Past Papers</h4>
-            <p class="card-text"></p>
+            <p class="card-text">Choosing Past Papers will allow you to filter through all prevous Cantamath worksheet.</p>
           </div>
         </div>
       </div>
@@ -37,7 +40,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">3.5: Custom</h4>
-            <p class="card-text"></p>
+            <p class="card-text">Choosing Custom will allow you to filter through all prevous Cantamath Questions, allowing you to create your own Worksheet.</p>
           </div>
         </div>
       </div>
@@ -45,7 +48,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">4: Print</h4>
-            <p class="card-text"></p>
+            <p class="card-text">From here you can choose how you wish to print your worksheet, including how many teams for your class and an answer sheet.</p>
           </div>
         </div>
       </div>

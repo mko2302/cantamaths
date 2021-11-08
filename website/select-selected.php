@@ -1,4 +1,4 @@
-<?php session_start();
+<?php 
 if (isset($_GET['select_page'])) {
   $select_page = $_GET['select_page'];
 } ?>
