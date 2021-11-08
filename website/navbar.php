@@ -12,18 +12,24 @@
 <?php
 // if user is an admin add admin panel button
       if (isset($_SESSION['admin'])) {
-        echo"<li class='nav-item'> <a class='home-nav nav-link' href='index.php?page=adminpanel'>Admin Panel</a> </li>";
-      }
-// If user logs in add items to navbar
-      if (isset($_SESSION['user'])) {
+        echo "<li class='nav-item'>
+                <a class='home-nav nav-link' href='index.php?page=adminpanel'>Admin Panel</a>
+              </li>
+              <li class='nav-item'>
+                <a class='nav-link' href='index.php?page=profile'>Profile</a>
+              </li>
+              <li class='nav-item'>
+              <li class='nav-item'>
+                <a class='nav-link' href='index.php?page=logout'>Logout</a>
+              </li>";
+      } elseif (isset($_SESSION['user'])) { // If user logs in add items to navbar
         echo "<li class='nav-item'>
           <a class='nav-link' href='index.php?page=profile'>Profile</a>
         </li>
         <li class='nav-item'>
           <a class='nav-link' href='index.php?page=logout'>Logout</a>
         </li>";
-// Otherwise display login button
-      } else {
+      } else { // Otherwise display login button
         echo "<li class='nav-item'>
           <a class='nav-link' href='index.php?page=login'>Login</a>
         </li>";

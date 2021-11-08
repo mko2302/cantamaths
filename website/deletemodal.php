@@ -87,6 +87,6 @@ if (isset($_POST['questionID'])){
       <div class='modal-footer'>
           <p>Are you sure?</p>
           <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
-          <?php echo "<button type='button' class='btn btn-danger'>Delete Question</button>";?>
+          <?php echo "<a href='index.php?page=adminpanel&tab=deletequestion&questionID=$questionID'><button type='button' class='btn btn-danger'>Delete Question</button></a>";?>
 
       </div>

@@ -59,7 +59,7 @@ function active($currect_page){
        include("$tab.php");
      //  else goes to home page
      } else {
-       header("Location: index.php?page=adminpanel&tab=adminhome");
+        include("questiondb.php");
      }
      ?>
    </div>
