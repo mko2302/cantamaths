@@ -2,6 +2,7 @@
 //connect to database
 include("dbconnect.php");
 
+//
 include("filter-to-in.php");
 
 if (isset($_SESSION['tagID'])) {
@@ -52,6 +53,7 @@ if (!isset($_POST['page'])) {
   $page = $_POST['page'];
 }
 
+// get index of the first result on the page
 $page_first_result = ($page - 1) * $results_per_page;
 
 //sql query to get number of questions depending on what page user is on
