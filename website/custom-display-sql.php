@@ -41,7 +41,7 @@ $question_sql = "$select WHERE question.yearID $yearsql and question.levelID $le
 $question_qry = mysqli_query($dbconnect, $question_sql);
 $question_num_rows = mysqli_num_rows($question_qry);
 if (mysqli_num_rows($question_qry)==0) {
-  echo "<span class='px-1 font-boldish'>No results found</span>";
+  echo "no results";
 } else {
   $question_aa = mysqli_fetch_assoc($question_qry);
 

@@ -5,7 +5,6 @@ $order = "ORDER BY question.yearID DESC, question.levelID ASC";
 $past_papers_sql = "$select WHERE question.yearID $yearsql and question.levelID $levelsql $order";
 $past_papers_qry = mysqli_query($dbconnect, $past_papers_sql);
 if (mysqli_num_rows($past_papers_qry)==0) {
-  echo "<span class='px-1'>No results found</span>";
 } else {
   $past_papers_aa = mysqli_fetch_assoc($past_papers_qry);
 
