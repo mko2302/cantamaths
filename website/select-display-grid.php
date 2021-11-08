@@ -25,7 +25,8 @@
       <div class="flex-row area-fill">
         <div class="col-4 px-clear border-sub-r center text-center">
           <?php echo nl2br("$yearname \n");
-          echo nl2br("Year $levelname \n"); ?>
+          echo nl2br("Year $levelname \n");
+          $tags_loop = count($_SESSION["Tags'".$QquestionID."'"]); ?>
         </div>
         <div class="col-8 px-clear">
           <?php if ($select_page == "custom") {

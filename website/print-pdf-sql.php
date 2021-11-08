@@ -15,7 +15,6 @@ if ($print_type == "worksheet") {
   do {
     $Qnumber++;
     $filename = $question_aa['filename'];
-    $image = '<img src="questions/"$filename"" class="img-fluid">';
 
     $output .= '
       <tr nobr="true">
@@ -30,7 +29,6 @@ if ($print_type == "worksheet") {
     $Qnumber++;
     for ($i=0, $letter="A"; $i < $teams; $i++, ++$letter) {
       $filename = $question_aa['filename'];
-      $image = '<img src="questions/"$filename"" class="img-fluid">';
 
       $output .= '
         <tr nobr="true">
