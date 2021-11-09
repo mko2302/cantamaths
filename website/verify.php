@@ -25,7 +25,7 @@
         //start admin session
         $_SESSION['admin'] = $username;
         // redirect to admin panel
-        // header("Location: index.php?page=adminpanel&tab=questiondb");
+        header("Location: index.php?page=adminpanel&tab=questiondb");
       } elseif ($access == 2 Or 3) {
         //start user session
         $_SESSION['user'] = $username;
