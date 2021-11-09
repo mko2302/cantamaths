@@ -3,28 +3,24 @@
  function fetch_data()
  {
    session_start();
-   $teams = 5;
 
-   $yearID = implode($_SESSION['selected-yearID']);
-   $levelID = implode($_SESSION['selected-levelID']);
+   $Q_ID = implode("','",$_SESSION['Q_ID']);
+   $Q_ID_SQL = "IN ('".$Q_ID."')";
 
       $output = '';
-      $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
-      $selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
+      include("dbconnect.php");
+      $selected_sql = "SELECT filename, answer FROM question WHERE questionID $Q_ID_SQL";
       $selected_qry = mysqli_query($dbconnect, $selected_sql);
-      $selected_aa = mysqli_fetch_assoc($selected_qry);
-      do {
-        for ($i=1, $letter="A"; $i < $teams; $i++, ++$letter) {
+      while($selected_aa = mysqli_fetch_assoc($selected_qry))
+      {
         $filename = $selected_aa['filename'];
         $image = '<img src="questions/"$filename"" class="img-fluid" style="height: 135px;">';
+
         $output .= '
           <tr>
-            <td><p>'.$letter.'</p></td>
             <td><img src="questions/'.$filename.'" class="img-fluid" style="height: 135px;"></td>
-            <td><p>answer</p></td>
           </tr>';
-        }
-      } while ($selected_aa = mysqli_fetch_assoc($selected_qry));
+      }
       return $output;
  }
 
@@ -40,22 +36,22 @@
       $obj_pdf->SetMargins(PDF_MARGIN_LEFT, '5', PDF_MARGIN_RIGHT);
       $obj_pdf->setPrintHeader(false);
       $obj_pdf->setPrintFooter(false);
-      $obj_pdf->SetAutoPageBreak(TRUE, 20);
+      $obj_pdf->SetAutoPageBreak(TRUE, 10);
       $obj_pdf->SetFont('helvetica', '', 12);
       $obj_pdf->AddPage();
       $content = '';
       $content .= '
-
+      <h3 align="center"></h3><br /><br />
       <table border="1" cellspacing="0" cellpadding="5">
            <tr>
-                <th width="12.5%"></th>
-                <th width="28%"></th>
-                <th width="59.5%"></th>
+
+                <th></th>
+
            </tr>
       ';
       $content .= fetch_data();
       $content .= '</table>';
       $obj_pdf->writeHTML($content);
       $obj_pdf->Output('sample.pdf', 'I');
-
+ 
  ?>

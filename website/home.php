@@ -3,6 +3,7 @@
   <div class="m-3 minitron-content">
     <h1>Hello User</h1>
     <p>Thank you for testing our website! There are still a few areas under construction. But other wise, any issues or problems you encounter please let us know.</p>
+    <!-- bootstrap button that links to option select page -->
     <a class="btn btn-danger px-5 btn-get-started" href="index.php?page=option-select" role="button">Get Started</a>
   </div>
 </div>
