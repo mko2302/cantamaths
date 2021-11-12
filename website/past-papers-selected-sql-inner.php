@@ -1,4 +1,3 @@
-<!-- The information to get from SQL query -->
 <?php $select = "SELECT question.questionID, question.filename, question.answer, question.yearID, year.yearname, question.levelID, level.levelname, question.qnumber FROM question
                 INNER JOIN year ON question.yearid = year.yearID
                 INNER JOIN level ON question.levelID = level.levelID";
@@ -12,8 +11,7 @@ $question_aa = mysqli_fetch_assoc($question_qry);
 $yearname = $question_aa['yearname'];
 $levelname = $question_aa['levelname'];
 do {
-// include the code to get data from the loop
   include("display-question-loop.php");
-// Include code to Display the selected questions on the page
+
   include("select-selected-grid.php");
 } while ($question_aa = mysqli_fetch_assoc($question_qry)); ?>

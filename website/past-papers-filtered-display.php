@@ -1,5 +1,5 @@
 <?php session_start();
-include("dbconnect.php");
+$dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
 
 # Recieves information sent through by ajax in the GET array
 $id = $_GET['id'];
@@ -13,9 +13,6 @@ if ($id == 'clear') {
   if(isset($_SESSION['yearID'])) {
     unset($_SESSION['yearID']);
   }
-  if(isset($_SESSION['tagID'])) {
-     unset($_SESSION['tagID']);
-  }
 } elseif ($id == 'all') {
   if(isset($_SESSION[$array])) {
     unset($_SESSION[$array]);
@@ -24,4 +21,4 @@ if ($id == 'clear') {
   include('session.php');
 }
 
-include('custom-question-display.php'); ?>
+include('past-papers-display.php'); ?>

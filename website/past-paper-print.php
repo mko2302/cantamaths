@@ -1,33 +1,30 @@
 <?php
-
  function fetch_data()
  {
    session_start();
-   $teams = 5;
 
    $yearID = implode($_SESSION['selected-yearID']);
    $levelID = implode($_SESSION['selected-levelID']);
 
       $output = '';
-      include("dbconnect.php");
+      $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
       $selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
       $selected_qry = mysqli_query($dbconnect, $selected_sql);
-      $selected_aa = mysqli_fetch_assoc($selected_qry);
-      do {
-        for ($i=1, $letter="A"; $i < $teams; $i++, ++$letter) {
+      while($selected_aa = mysqli_fetch_assoc($selected_qry))
+      {
         $filename = $selected_aa['filename'];
         $image = '<img src="questions/"$filename"" class="img-fluid" style="height: 135px;">';
+
         $output .= '
           <tr>
-            <td><p>'.$letter.'</p></td>
+
             <td><img src="questions/'.$filename.'" class="img-fluid" style="height: 135px;"></td>
-            <td><p>answer</p></td>
           </tr>';
-        }
-      } while ($selected_aa = mysqli_fetch_assoc($selected_qry));
+      }
       return $output;
  }
-
+ if(isset($_POST["create_pdf"]))
+ {
       require_once('TCPDF-main/tcpdf.php');
       $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
       $obj_pdf->SetCreator(PDF_CREATOR);
@@ -40,22 +37,66 @@
       $obj_pdf->SetMargins(PDF_MARGIN_LEFT, '5', PDF_MARGIN_RIGHT);
       $obj_pdf->setPrintHeader(false);
       $obj_pdf->setPrintFooter(false);
-      $obj_pdf->SetAutoPageBreak(TRUE, 20);
+      $obj_pdf->SetAutoPageBreak(TRUE, 10);
       $obj_pdf->SetFont('helvetica', '', 12);
       $obj_pdf->AddPage();
       $content = '';
       $content .= '
-
+      <h3 align="center"></h3><br /><br />
       <table border="1" cellspacing="0" cellpadding="5">
            <tr>
-                <th width="12.5%"></th>
-                <th width="28%"></th>
-                <th width="59.5%"></th>
+
+                <th></th>
+
            </tr>
       ';
       $content .= fetch_data();
       $content .= '</table>';
       $obj_pdf->writeHTML($content);
       $obj_pdf->Output('sample.pdf', 'I');
-
+ }
  ?>
+ <!DOCTYPE html>
+ <html>
+      <head>
+           <title>TESTING</title>
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+      </head>
+      <body>
+           <br /><br />
+           <div class="container" style="width:700px;">
+                <h3 align="center"></h3><br />
+                <div class="table-responsive">
+                     <table class="table table-bordered">
+                          <tr>
+                               <th></th>
+                               <th></th>
+                          </tr>
+                     <?php
+                     echo fetch_data();
+                     ?>
+                     </table>
+                     <br />
+                     <form method="post">
+                          <input type="submit" name="create_pdf" class="btn btn-danger" value="Create PDF" />
+                     </form>
+                </div>
+           </div>
+      </body>
+ </html>
+
+
+
+<script>
+function preview(id, amount, yearID, levelID) {
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("Preview").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "print-ajax.php?yearID=" + yearID + "&levelID=" + levelID, true);
+  xhttp.send();
+}
+</script>

@@ -8,7 +8,7 @@
    $Q_ID_SQL = "IN ('".$Q_ID."')";
 
       $output = '';
-      include("dbconnect.php");
+      $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
       $selected_sql = "SELECT filename, answer FROM question WHERE questionID $Q_ID_SQL";
       $selected_qry = mysqli_query($dbconnect, $selected_sql);
       while($selected_aa = mysqli_fetch_assoc($selected_qry))
