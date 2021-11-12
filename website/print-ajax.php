@@ -3,7 +3,7 @@
   $levelID = $_GET['levelID'];
 
 
-    $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+    include("dbconnect.php");
     $selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
     $selected_qry = mysqli_query($dbconnect, $selected_sql);
     while($selected_aa = mysqli_fetch_assoc($selected_qry)) {

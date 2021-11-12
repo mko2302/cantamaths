@@ -83,11 +83,12 @@
 
       <script>
       $(document).ready(function(){
+        // If All checkbox clicked then uncheck Specific and check all
         $("#<?php echo "$nameID"; ?>_All").click(function(){
           $("#<?php echo "$nameID"; ?>_All").prop("checked", true);
           $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox").prop("checked", false);
         });
-
+// If specific checkbox clicked and the total number of Specific checkboxes is zero check all others uncheck all
         $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox").click(function(){
           var checked = $(".<?php echo "$nameID"; ?>_Specific_Checkbox :checkbox:checked").length;
           if (checked == 0) {
@@ -107,6 +108,7 @@
 
 
     <script>
+    // Unchecking specific and checking All on clear filters click
     $(document).ready(function(){
       $("#Clear_Filters").click(function() {
         $(".All_Checkbox :checkbox").prop("checked", true);
