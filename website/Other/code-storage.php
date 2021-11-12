@@ -284,7 +284,7 @@ $.each(checkboxValues, function(key, value) {
 
 <?php
 function fetch_data() {
-  $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+  include("dbconnect.php");
 
   $yearID = $_GET['yearID'];
   $levelID = $_GET['levelID'];
@@ -382,7 +382,7 @@ if ($a == 2) {
    $levelID = $_GET['levelID'];
 
       $output = '';
-      $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+      include("dbconnect.php");
       $selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
       $selected_qry = mysqli_query($dbconnect, $selected_sql);
       while($selected_aa = mysqli_fetch_assoc($selected_qry))
@@ -478,7 +478,7 @@ if ($a == 2) {
     $Q_ID_SQL = "IN ('".$Q_ID."')";
 
        $output = '';
-       $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+       include("dbconnect.php");
        $selected_sql = "SELECT filename, answer FROM question WHERE questionID $Q_ID_SQL";
        $selected_qry = mysqli_query($dbconnect, $selected_sql);
        while($selected_aa = mysqli_fetch_assoc($selected_qry))
@@ -832,7 +832,7 @@ if (mysqli_num_rows($question_qry)==0) {
    $levelID = $_GET['levelID'];
 
       $output = '';
-      $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+      include("dbconnect.php");
       $selected_sql = "SELECT filename, answer FROM question WHERE yearID = $yearID and levelID = $levelID";
       $selected_qry = mysqli_query($dbconnect, $selected_sql);
       while($selected_aa = mysqli_fetch_assoc($selected_qry))

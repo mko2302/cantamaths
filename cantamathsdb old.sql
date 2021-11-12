@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2021 at 11:40 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- Generation Time: Aug 10, 2021 at 10:48 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -240,6 +240,34 @@ CREATE TABLE `year` (
 --
 
 INSERT INTO `year` (`yearID`, `yearname`) VALUES
+(1, 1972),
+(2, 1973),
+(3, 1974),
+(4, 1975),
+(5, 1976),
+(6, 1977),
+(7, 1978),
+(8, 1979),
+(9, 1980),
+(10, 1981),
+(11, 1982),
+(12, 1983),
+(13, 1984),
+(14, 1985),
+(15, 1986),
+(16, 1987),
+(17, 1988),
+(18, 1989),
+(19, 1990),
+(20, 1991),
+(21, 1992),
+(22, 1993),
+(23, 1994),
+(24, 1995),
+(25, 1996),
+(26, 1997),
+(27, 1998),
+(28, 1999),
 (29, 2000),
 (30, 2001),
 (31, 2002),
@@ -330,7 +358,7 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `questionID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `questiontag`

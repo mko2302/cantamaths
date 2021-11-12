@@ -1,4 +1,4 @@
-<?php $dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+<?php include("dbconnect.php");
 
 $yearID = $_GET['yearID'];
 $levelID = $_GET['levelID'];

@@ -1,5 +1,5 @@
 <?php session_start();
-$dbconnect = mysqli_connect("localhost", "root", "", "cantamathsdb");
+include("dbconnect.php");
 
 $array = 'Q_ID';
 if (isset($_GET['questionID'])) {
