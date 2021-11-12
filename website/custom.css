@@ -269,9 +269,9 @@ html, body {
   background-color: #FFFFFF !important;
 }
 
-/*  */
-.active {
-  /* border: 2px solid #EB0A00; */
+
+.active-bread {
+border: 2px solid #EB0A00;
   background-color: #EB0A00;
 }
 
@@ -285,7 +285,7 @@ html, body {
   text-decoration: none;
 }
 
-.breadcrumb a:hover .active {
+.breadcrumb a:hover .active-bread {
   background-color: #EB0A00 !important;
   color: #FFFFFF !important;
 }
